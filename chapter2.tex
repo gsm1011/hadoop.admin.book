@@ -27,18 +27,23 @@ A Hadoop cluster contains two types of nodes: master node and slave node. By def
 Although special requirements exist for a master node and a slave node, there is no gold standard for choosing optimal hardware for both types of nodes. It is reasonable to say that the hardware configuration is closely related to the properties of Big Data to be processed. In addition, the choice of hardware is an empirical and adaptive process with the changing requirements on a Hadoop cluster. For example, if the requirements for the throughput of a Hadoop cluster are high, we might need to choose high end CPUs and hard drives. If we have a large number of potential Hadoop users, we may need to upgrade the hardware configuration for both the master node and the slave nodes.
 
 Empirically, we recommend the following configurations for a small to medium sized Hadoop cluster:
-\begin{tabular}{lll}
-  \toprule
-  \textbf{Node Type} & \textbf{Node Components} & \textbf{Recommended Specification} \\ \midrule
-  Master Node & CPU	& $\ge$ 2 Quad Core, 2.0GHz \\ 
-	& RAM (Main Memory) & $\ge$ 16GB \\
-	& Hard Drive & $\ge$ 2 x 1TB SATA II 7200 RPM HDD or SSD\footnote{HDD stands for Hard Disk Drive and SSD stands for Solid State Drive} \\
-	& Network Card & $\ge$ 1Gbps Ethernet \\ \midrule
-Slave Node & CPU & $\ge$ 2 Quad Core \\ 
-	& RAM (Main Memory) & $\ge$ 16GB \\
-	& Hard Drive & $\ge$ 4 x 1TB HDD \\
-	& Network Card & $\ge$ 1Gbps Ethernet \\ \bottomrule
-\end{tabular}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Node Type} & \textbf{Node Components} & \textbf{Recommended Specification} \\ \midrule
+    Master Node & CPU	& $\ge$ 2 Quad Core, 2.0GHz \\ 
+    & RAM (Main Memory) & $\ge$ 16GB \\
+    & Hard Drive & $\ge$ 2 x 1TB SATA II 7200 RPM HDD or SSD\footnote{HDD stands for Hard Disk Drive and SSD stands for Solid State Drive} \\
+    & Network Card & $\ge$ 1Gbps Ethernet \\ \midrule
+    Slave Node & CPU & $\ge$ 2 Quad Core \\ 
+    & RAM (Main Memory) & $\ge$ 16GB \\
+    & Hard Drive & $\ge$ 4 x 1TB HDD \\
+    & Network Card & $\ge$ 1Gbps Ethernet \\ \bottomrule
+  \end{tabular}
+  \caption{Hadoop cluster hardware configuration recommendations}\label{tbl:cluster.hardware}
+\end{table}
 \subsection*{How it works}
 On a Hadoop master node, the NameNode keeps the metadata such as permissions of each file in main memory. The amount of memory needed by a master node depends on the number of file system objects (for example, numbers of files and block replicas) to be created and tracked. The memory requirement will be high when the cluster is large. The SecondaryNameNode keeps a backup for the latest filesystem checkpoint mirrored from the NameNode, so its memory requirement is similar as the NameNode.
 
@@ -738,13 +743,10 @@ Test the configuration with command: \\
 \verb|$ ssh hduser@slave1|
 
 If we can login without entering the password, then the configuration is successful!
-
 \subsection*{How it works}
 When we run command ssh-copy-id hdslave.host, we actually append the content of the public key file on local machine into file \verb|~/.ssh/authorized_keys| on the remote machine. Next time when we login, the public key string in file \verb|~/.ssh/authorized_keys| on the remote machine and local private key will be used for the login authentication process.
-
 \subsection*{There's more...}
 Configuration of password-less login failure can be caused by many reasons, for example, the configuration of firewall (or iptables, to be more specific), SELinux and even the SSHD server itself. We will discuss methods to deal with these potential problems.
-
 \subsubsection*{Erroneous SSH settings}
 If the \begin{verbatim}/etc/ssh_config\end{verbatim} file contains the following lines:
 \begin{verbatim}

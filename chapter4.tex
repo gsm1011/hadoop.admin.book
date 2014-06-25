@@ -352,9 +352,10 @@ Usage: java MRAdmin
 
 The meaning of the command options is listed in the following table:
 \begin{table}
+  \centering
   \begin{tabular}{ll}
     \toprule 
-    Option & Description \\ 
+    \textbf{Option} & \textbf{Description} \\  \midrule
     -refreshServiceAcl & Force JobTracker to reload service ACL. \\
     -refreshQueues & Force JobTracker to reload queue configurations. \\
     -refreshUserToGroupsMappings & Force JobTracker to reload user group mappings. \\
@@ -1035,9 +1036,10 @@ This screenshot shows the progress of each map and reduce task. The reduce task 
 The meaning of the job history URL, master:50030/jobhistoryhome.jsp, can be explained as in the following table:
 
 \begin{table}
+  \centering
   \begin{tabular}{ll}
     \toprule 
-    Field & Description \\ 
+    \textbf{Field} & \textbf{Description} \\  \midrule
     master & Hostname of machine that runs the JobTracker daemon. \\
     50030 & The port number of the JobTracker embedded web server. \\
     jobhistoryhome.jsp & The .jsp file name that provides the job history service. \\ \bottomrule
@@ -1056,9 +1058,11 @@ The meaning of the job history URL, master:50030/jobhistoryhome.jsp, can be expl
 
 The following table shows the summary of URLs we can use to check the status of jobs, tasks, and attempts:
 \begin{table}
+  \footnotesize
+  \centering
   \begin{tabular}{ll}
     \toprule 
-    URL & Description \\
+    \textbf{URL} & \textbf{Description} \\ \midrule
     master:50030/jobtracker.jsp & JobTracker.\\
     master:50030/jobhistoryhome.jsp & Job history. \\
     \verb|master:50030/jobtasks.jsp?jobid=<jobID>&type=map&pagenum=1| & List of all map tasks. \\
@@ -1071,9 +1075,10 @@ The following table shows the summary of URLs we can use to check the status of 
 
 The following table lists the naming examples for jobID, taskID, and attemptID:
 \begin{table}
+  \centering
   \begin{tabular}{ll}
     \toprule 
-    ID & Example \\
+    \textbf{ID} & \textbf{Example} \\ \midrule
     jobID & \verb|job_201302281451_0001| \\ 
     taskID & \verb|task_201302281451_0001_m_000000| \\
     attemptID & \verb|attempt_201302281451_0001_m_000000_0| \\ \bottomrule
@@ -1494,8 +1499,10 @@ CapacityScheduler is available as a JAR file under the \verb|$HADOOP_HOME/lib| d
 
 The following table shows the description of queue configuration properties: 
 
-\begin{table}
-  \begin{tabular}{ll}
+\begin{table}[h]
+  \scriptsize
+  \centering
+  \begin{tabular}{p{.5\textwidth}p{.5\textwidth}}
     \toprule 
     \textbf{Property} & \textbf{Description} \\ \midrule
     mapred.capacity-scheduler.queue.hdqueue.capacity & The percentage share of total number of slots for the hdqueue queue. \\
@@ -1509,9 +1516,8 @@ The following table shows the description of queue configuration properties:
   \caption{Queue configuration related properties}\label{tbl:queueconfig}
 \end{table}
 
-
 \subsection*{There's more...}
-Hadoop supports access control on the queue using queue ACLs. Queue ACLs control the authorization of MapReduce job submission to a queue. More information about queue ACLs can be found at \verb|http://hadoop.apache.org/docs/r1.1.2/cluster_setup.html#Configuring+the+Hadoop+Daemons|.
+Hadoop supports access control on the queue using queue ACLs. Queue ACLs control the authorization of MapReduce job submission to a queue. More information about queue ACLs can be found at \url{http://hadoop.apache.org/docs/r1.1.2/cluster_setup.html#Configuring+the+Hadoop+Daemons}.
 
 \subsection*{See also}
 \begin{itemize}
@@ -1519,7 +1525,7 @@ Hadoop supports access control on the queue using queue ACLs. Queue ACLs control
   \item The Checking job history from the web UI recipe
   \item The Configuring Fair Scheduler recipe
   \item The Configuring job authentication with ACL recipe of Chapter 5, Hardening a Hadoop Cluster
-  \item Refer to \verb|http://hadoop.apache.org/docs/r1.1.2/capacity_scheduler.html|
+  \item Refer to \url{http://hadoop.apache.org/docs/r1.1.2/capacity_scheduler.html}
 \end{itemize}
 
 \section{Configuring Fair Scheduler}
@@ -1563,7 +1569,7 @@ Restart the MapReduce cluster with the following commands: \\
 \verb|$ stop-mapred.sh| \\
 \verb|$ start-mapred.sh|
 
-Verify the setting of Fair Scheduler by opening the URL \verb|http://master:50030/scheduler|.
+Verify the setting of Fair Scheduler by opening the URL \url{http://master:50030/scheduler}.
 
 The web page will be similar to the following screenshot:
 
@@ -1577,10 +1583,12 @@ Besides computing slots, the Fair Scheduler can limit the number of concurrently
 
 The following table shows the properties supported by fair scheduler:
 
-\begin{table}
-  \begin{tabular}{lll}
+\begin{table}[h]
+  \centering
+  \scriptsize
+  \begin{tabular}{llp{10cm}}
     \toprule 
-    Property & Value & Description \\  \midrule
+    \textbf{Property} & \textbf{Value} & \textbf{Description} \\ \midrule
     minMaps & Integer & Minimum map slots for a pool. \\
     maxMaps & Integer & Maximum map slots for a pool.\\
     minReduces & Integer & Minimum reduce slots for a pool.\\
@@ -1949,7 +1957,8 @@ Usage: java DFSAdmin
 The following table shows the meanings of the command options:
 
 \begin{table}
-  \begin{tabular}{ll}
+  \centering
+  \begin{tabular}{lp{.8\textwidth}}
     \toprule 
     \textbf{Option} & \textbf{Description} \\ \midrule 
     -report & Reports filesystem information and statistics. \\ 
