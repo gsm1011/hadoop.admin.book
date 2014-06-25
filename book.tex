@@ -1,0 +1,123 @@
+\documentclass[12pt,a4paper,draft]{book}
+
+%% Packages. 
+\usepackage{graphicx}
+\usepackage[breaklinks=true,linktocpage,pagebackref,colorlinks=true,hyperindex=true,hyperfigures]{hyperref}
+\usepackage{color}
+\usepackage[twoside,margin=1in,bindingoffset=0.5in]{geometry}
+\usepackage[grey]{quotchap} %% for chapter heading
+\usepackage{listings}
+\usepackage{booktabs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% New commands. 
+\newcommand{\bashcommand}[1]{
+    %\begin{lstlisting}{language=bash}
+      \$ #1
+    %\end{lstlisting}
+}
+
+\newcommand{\commandoutput}[1] {
+    %\begin{verbatim}
+    #1
+    %\end{verbatim}
+}
+
+\newcommand{\filecontent}[1] {
+    %\begin{verbatim}
+    #1
+    %\end{verbatim}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Renew commands. 
+\let\oldenumerate\enumerate
+\renewcommand{\enumerate}{
+  \oldenumerate
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+%% line spread for verbatim to 1. 
+\makeatletter
+\def\verbatim@font{\linespread{1}\normalfont\ttfamily}
+\makeatother
+
+\overfullrule=1mm
+
+%% for the boxes.
+\usepackage{pifont,mdframed}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=red]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+\newenvironment{info}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=green]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{52}]}
+  {\end{list}\end{mdframed}\par}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% no indentation
+\setlength\parindent{0pt}
+\setlength\parskip{1pt}
+
+% line spacing
+\linespread{1.5}
+
+\begin{document}
+\frontmatter                            % only in book class (roman page #s)
+% title page.
+\title{\color{red}Hadoop Operations and Cluster Management Cookbook}
+\author{\color{blue}Shumin Guo}
+\date{\color{green}\today}
+\maketitle                              % Print title page.
+\tableofcontents                        % Print table of contents
+\listoffigures
+
+\mainmatter
+
+% chapter one.
+\input{chapter1}
+
+
+% chapter two.
+\input{chapter2}
+
+
+% chapter three.
+\input{chapter3}
+
+% chapter four.
+\input{chapter4}
+
+% chapter five.
+\input{chapter5}
+
+% chapter six.
+\input{chapter6}
+
+% chapter seven.
+\input{chapter7}
+
+% chapter seven.
+\input{chapter8}
+
+\appendix
+%% \input{apA} % Appendix A
+\backmatter
+
+\end{document}
