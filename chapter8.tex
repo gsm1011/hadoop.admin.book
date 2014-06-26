@@ -23,9 +23,9 @@ We assume to use a GUI web browser for AWS registration. So, we are assuming you
 \subsection*{How to do it...}
 We can use the following steps to register with AWS:
 
-Use a web browser to open the following link: http://aws.amazon.com/. 
+Use a web browser to open the following link: http://aws.amazon.com/.
 
-Click the 'Sign Up' button on the upper right corner of the window. 
+Click the 'Sign Up' button on the upper right corner of the window.
 
 You will be directed to a webpage as shown in the following screenshot:
 
@@ -69,24 +69,24 @@ Before getting started, we assume that you have successfully registered with AWS
 We also assume that we have a client machine with Linux (such as CentOS) installed. The machine should be able to access the internet and has at least one GUI web browser installed.
 
 Create a directory for storing AWS credentials with command: \\
-\verb|$ mkdir -v ~/.ec2| 
+\verb|$ mkdir -v ~/.ec2|
 \subsection*{How to do it...}
 Use the following recipe to manage AWS security credentials:
 
-Open a web browser and go to URL aws.amazon.com. 
+Open a web browser and go to URL aws.amazon.com.
 
 Click the 'My Account / Console' dropdown button on the upper left of the window as shown in the following screenshot:
 
 
 %% Insert image 5163os_08_07.png
-Click the 'Security Credentials' in the dropdown list as shown in the previous screenshot. 
+Click the 'Security Credentials' in the dropdown list as shown in the previous screenshot.
 
 If you have logged in to AWS previously, you will be able to visit the security credentials management page. Otherwise, a login window will appear. You need to type in the user name and password and login as a 'returning user'.
 
 Currently, Amazon AWS has a few types of credentials as shown in the following screenshot:
 
 %% Insert image 5163os_08_08.png
-Access Credentials include Access Keys, X.509 Certificates and Key pairs as shown in the following screenshots: 
+Access Credentials include Access Keys, X.509 Certificates and Key pairs as shown in the following screenshots:
 
 %% Insert image 5163os_08_09.png
 By clicking the 'Make Inactive' link on the status column of the access keys table, we can make the access keys inactive. Inactive access keys can be made active again and can be deleted from the list.
@@ -105,22 +105,22 @@ Key pairs used for EC2 can be managed from the management console as shown in th
 %% Insert image 5163os_08_14.png
 New key pairs can be created by clicking the 'Create Key Pair' Button on the top of the window. A pop up window will be used to type in the name of the key pair. And the newly created key pair will be downloaded to local machine.
 Use the following command to copy the downloaded key pair to \verb|~/.ec2| folder.
-\verb|$ cp *.pem ~/.ec2/| 
+\verb|$ cp *.pem ~/.ec2/|
 
-\subsection*{How it works} 
+\subsection*{How it works}
 The following table show the usage of each security credential:
 
 \begin{table}[h]
   \footnotesize
   \centering
   \begin{tabular}{lll}
-    \toprule 
-    \textbf{Security Credential} & & \textbf{Used for} \\ \midrule  
-    Access Credentials & Access Keys & Secure REST or Query request access to AWS service APIs. \\ 
-    & X.509 Certificates & Make SOAP protocol requests to AWS service APIs. \\ 
-    & Key Pairs & Launch and securely access EC2 instances. \\ 
-    Sign-In Credentials  & & Login to AWS from the web portal. \\ 
-    Account Identifiers  & & Share resources between accounts. \\ \bottomrule 
+    \toprule
+    \textbf{Security Credential} & & \textbf{Used for} \\ \midrule
+    Access Credentials & Access Keys & Secure REST or Query request access to AWS service APIs. \\
+    & X.509 Certificates & Make SOAP protocol requests to AWS service APIs. \\
+    & Key Pairs & Launch and securely access EC2 instances. \\
+    Sign-In Credentials  & & Login to AWS from the web portal. \\
+    Account Identifiers  & & Share resources between accounts. \\ \bottomrule
   \end{tabular}
   \caption{AWS Security Credentials}\label{tbl:awssecurity}
 \end{table}
@@ -136,20 +136,20 @@ Get the Access Key ID and the secret access key from the security credentials we
 
 %% Insert image 5163os_08_15.png
 Move the key pair to the .ec2 directory with command: \\
-\verb|$ mv <key-pair-name>.pem ~/.ec2/| 
+\verb|$ mv <key-pair-name>.pem ~/.ec2/|
 
 Move the private key file to the .ec2 directory with command: \\
 \verb|$ mv pk-*.pem ~/.ec2/|
 
 Move the certificate file to the .ec2 directory with command: \\
-\verb|$ mv cert-*.pem ~/.ec2/| 
+\verb|$ mv cert-*.pem ~/.ec2/|
 Download EC2 command line tools from URL \verb|http://aws.amazon.com/developertools/351|.
 
 
 Decompress the zip file with command: \\
 \verb|$ unzip ec2-ami-tools.zip|
 
-Add the following content into file ~/.profile:\\ 
+Add the following content into file ~/.profile:
 \begin{verbatim}
 export EC2_HOME=~/ec2/
 export AWS_ACCOUNT_ID=example@mail.com
@@ -161,7 +161,7 @@ export PATH=$PATH:$EC2_HOME/bin
 \end{verbatim}
 
 Add the following content into file ~/.bashrc: \\
-\verb|$ . ~/.profile| 
+\verb|$ . ~/.profile|
 
 Test the configuration with command: \\
 \verb|$ ec2-describe-images|
@@ -176,10 +176,10 @@ Generally, there are types of AMIs, one is EBS (Elastic Block Storage) -backed A
 \subsection*{Getting ready}
 Before getting started, we assume that you have successfully registered with AWS. And we also assume that a client machine has been configured properly to connect to AWS.
 
-Login to the local machine and install the MAKEDEV utility with command: \\ 
-\verb|$ sudo yum install -y MAKEDEV| 
+Login to the local machine and install the MAKEDEV utility with command: \\
+\verb|$ sudo yum install -y MAKEDEV|
 
-Install the Amazon AMI tools with command: \\
+Install the Amazon AMI tools with command:
 \begin{verbatim}
 $sudo rpm -ivh  http://s3.amazonaws.com/ec2-downloads/ec2-ami-tools.noarch.rpm
 Retrieving http://s3.amazonaws.com/ec2-downloads/ec2-ami-tools.noarch.rpm
@@ -193,7 +193,7 @@ Use the following recipe to create an instance store backed AMI:
 Create an image file with command: \\
 \verb|$ dd if=/dev/zero of=centos.img bs=1M count=1024|
 
-This command will emit the following message:\\
+This command will emit the following message:
 \begin{verbatim}
 1024+0 records in
 1024+0 records out
@@ -203,9 +203,9 @@ In this command, if specifies the input of for the data, /dev/zero is a special 
 
 Check the size of the image file with command:\\
 \verb|$ ls -lh centos.img| \\
-\verb|-rw-rw-r--. 1 shumin shumin 1.0G May  3 00:14 centos.img| 
+\verb|-rw-rw-r--. 1 shumin shumin 1.0G May  3 00:14 centos.img|
 
-Create a root file system inside the image file with command: \\
+Create a root file system inside the image file with command: 
 \begin{verbatim}
 $ mke2fs -F -j centos.img
 mke2fs 1.42.3 (14-May-2012)
@@ -232,15 +232,15 @@ Writing superblocks and filesystem accounting information: done
 \end{verbatim}
 
 Create a directory under the /mnt directory with command: \\
-\verb|$ sudo mkdir -v /mnt/centos| 
+\verb|$ sudo mkdir -v /mnt/centos|
 
-Mount the image file to the folder with command: \\ 
-\verb|$ sudo mount -o loop centos.img /mnt/centos| 
+Mount the image file to the folder with command: \\
+\verb|$ sudo mount -o loop centos.img /mnt/centos|
 
 Create the /dev directory under the root directory of the mounted file system with command: \\
-\verb|$ sudo mkdir -v /mnt/centos/dev| 
+\verb|$ sudo mkdir -v /mnt/centos/dev|
 
-Create a minimal set of devices with commands: \\
+Create a minimal set of devices with commands:
 \begin{verbatim}
 $ sudo /sbin/MAKEDEV -d /mnt/centos/dev -x console
 $ sudo /sbin/MAKEDEV -d /mnt/centos/dev -x null
@@ -257,10 +257,10 @@ The reason for these warning messages is because the parent directories already 
 
 
 Create the fstab configuration file with command: \\
-\verb|$ sudo mkdir -pv /etc/fstab| 
+\verb|$ sudo mkdir -pv /etc/fstab|
 
 
-Put the following content into the file: \\
+Put the following content into the file:
 \begin{verbatim}
 /dev/sda1  /         ext3    defaults        1 1
 none       /dev/pts  devpts  gid=5,mode=620  0 0
@@ -271,14 +271,14 @@ none       /sys      sysfs   defaults        0 0
 
 
 Create the proc directory under the root file system of the image file with command: \\
-\verb|$ sudo mkdir -pv /mnt/centos/proc| 
+\verb|$ sudo mkdir -pv /mnt/centos/proc|
 
 
 Mount a proc file system to the /mnt/centos/proc directory with command: \\
-\verb|$ sudo mount -t proc none /mnt/centos/proc| 
+\verb|$ sudo mount -t proc none /mnt/centos/proc|
 
 
-Create the CentOS yum repository file /etc/yum.repos.d/centos.repo with following content: \\
+Create the CentOS yum repository file /etc/yum.repos.d/centos.repo with following content:
 \begin{verbatim}
 [centos]
 name=centos
@@ -292,7 +292,7 @@ protect=1
 
 
 Install the latest CentOS 6.3 operating system with command: \\
-\verb|$ sudo yum --disablerepo=* --enablerepo=centos  --installroot=/mnt/centos -y groupinstall Base| 
+\verb|$ sudo yum --disablerepo=* --enablerepo=centos  --installroot=/mnt/centos -y groupinstall Base|
 
 The \verb|--disablerepo| option means to disable all the available repositories and \verb|--enablerepo| option enables only the CentOS repository specified in the previous step.
 
@@ -300,10 +300,9 @@ This command will start the installation of CentOS 6.3 on the mounted directory,
 
 
 When the installation completes, we can verify the installation with command:\\
-\verb|$ ls -lh /mnt/centos/| 
+\verb|$ ls -lh /mnt/centos/|
 
 The directory structure of the installed operating system should be the same as the directory structure of a regularly installed Linux. For example, the output will be similar to the following:
-
 \begin{verbatim}
 total 108K
 dr-xr-xr-x.  2 root root 4.0K May  3 01:12 bin
@@ -330,7 +329,7 @@ drwxr-xr-x. 19 root root 4.0K May  3 01:12 var
 
 We can configure the system with the following steps:
 
-Create the network adapter configuration file /mnt/centos/etc/sysconfig/network-scripts/ifcfg-eth0 with the following content: \\
+Create the network adapter configuration file /mnt/centos/etc/sysconfig/network-scripts/ifcfg-eth0 with the following content:
 \begin{verbatim}
 DEVICE=eth0
 BOOTPROTO=dhcp
@@ -345,10 +344,9 @@ In this configuration, BOOTPROTO specifies to use DHCP IP address assignment.
 
 
 Enable networking by adding or changing the NETWORKING option in the network configuration file \verb|/mnt/centos/etc/sysconfig/network|:\\
-\verb|NETWORKING=yes| 
+\verb|NETWORKING=yes|
 
-
-Add the following content into file \verb|/mnt/centos/etc/fstab|: \\
+Add the following content into file \verb|/mnt/centos/etc/fstab|:
 \begin{verbatim}
 /dev/sda2  /mnt      ext3    defaults        0 0
 /dev/sda3  swap      swap    defaults        0 0
@@ -356,64 +354,61 @@ Add the following content into file \verb|/mnt/centos/etc/fstab|: \\
 
 These two lines configure the mount points for the swap and root partitions.
 
-
-Configure to start necessary services with commands: \\
+Configure to start necessary services with commands:
 \begin{verbatim}
 $ sudo chroot /mnt/centos /bin/sh
 $ chkconfig --level 345 network on
 $ exit
 \end{verbatim}
 
-
-Umount the image file with command:\\
+Umount the image file with command:
 \begin{verbatim}
 $ sudo umount /mnt/centos/proc
 $ sudo umount -d /mnt/centos
 \end{verbatim}
 
-
 Copy the private key and X.509 certificate file into the instance with command: \\
-\verb|$ scp -i shumin.guo ~/.ec2/pk-*pem ~/.ec2/cert-*pem root@ec2-58-214-29-104.compute-1.amazonaws.com:~/.ec2/| 
+\verb|$ scp -i shumin.guo ~/.ec2/pk-*pem ~/.ec2/cert-*pem root@ec2-58-214-29-104.compute-1.amazonaws.com:~/.ec2/|
 
 
 Login to the instance with command: \\
-\verb|$ ssh -i ~/.ec2/shumin.guo.pem root@ec2-58-214-29-104.compute-1.amazonaws.com| 
+\verb|$ ssh -i ~/.ec2/shumin.guo.pem root@ec2-58-214-29-104.compute-1.amazonaws.com|
 
 In this command, \verb|ec2-58-214-29-104.compute-1.amazonaws.com| is the public domain name of the instance.
 
 
-Configure password-less login with commands: \\
+Configure password-less login with commands:
 \begin{verbatim}
 $ ssh-keygen
 $ mkdir -v /mnt/centos/root/.ssh
 $ sudo cp ~/.ssh/id_* /mnt/centos/root/.ssh
 \end{verbatim}
 
-When you are prompted to enter the paraphrase, leave it empty by pressing the 'Enter' key. 
+When you are prompted to enter the paraphrase, leave it empty by pressing the 'Enter' key.
 
 Copy the public key to the \verb|authorized_keys| file with command: \\
-\verb|$ cat /mnt/centos/root/.ssh/id_rsa.pub >> /mnt/centos/root/.ssh/authorized_keys| 
+\verb|$ cat /mnt/centos/root/.ssh/id_rsa.pub >> /mnt/centos/root/.ssh/authorized_keys|
 
 Copy the local Java installation to the image folder with command: \\
-\verb|$ sudo cp -r /usr/java /mnt/centos/usr| 
+\verb|$ sudo cp -r /usr/java /mnt/centos/usr|
 
 Download the latest Hadoop distribution from official mirror \verb|http://www.apache.org/dyn/closer.cgi/hadoop/common/|.
 
-Use the following command to decompress the Hadoop package and create the symbolic link: \\
+Use the following command to decompress the Hadoop package and create the symbolic link:
 \begin{verbatim}
 $ sudo tar xvf hadoop-*.tar.gz -C /mnt/centos/usr/local/
 $ sudo ln -s /mnt/centos/usr/local/hadoop-* /mnt/centos/usr/local/hadoop
 \end{verbatim}
 
 
-Add the following environment variables to file \emph{.bashrc}: \\
+Add the following environment variables to file \emph{.bashrc}:
 \begin{verbatim}
 export JAVA_HOME=/usr/java/latest
 export HADOOP_HOME=/usr/local/hadoop
 export PATH=$PATH:$HADOOP_HOME/bin
 \end{verbatim}
 
-Add the following content into file \verb|$HADOOP_HOME/conf/core-site.xml|: \\
+Add the following content into file \verb|$HADOOP_HOME/conf/core-site.xml|:
 \begin{verbatim}
 <configuration>
   <property>
@@ -424,7 +419,7 @@ Add the following content into file \verb|$HADOOP_HOME/conf/core-site.xml|: \\
 \end{verbatim}
 
 
-Add the following content into file \verb|$HADOOP_HOME/conf/mapred-site.xml|: \\
+Add the following content into file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
 \begin{verbatim}
 <configuration>
   <property>
@@ -446,7 +441,7 @@ Add the following content into file \verb|$HADOOP_HOME/conf/mapred-site.xml|: \\
 \end{verbatim}
 
 
-Add the following content into file \verb|$HAOOP_HOME/conf/hdfs-site.xml|: \\
+Add the following content into file \verb|$HAOOP_HOME/conf/hdfs-site.xml|:
 \begin{verbatim}
 <configuration>
 
@@ -464,11 +459,11 @@ Add the following content into file \verb|$HAOOP_HOME/conf/hdfs-site.xml|: \\
 \end{verbatim}
 
 
-Download and install the other ecosystem components with recipes in Chapter 3. 
+Download and install the other ecosystem components with recipes in Chapter 3.
 
 We can use the following recipe to bundle, upload and register an AMI: \\
 Bundle the loopback image file with command: \\
-\verb|$ ec2-bundle-image -i centos.img -k .ec2/pk-*.pem -c .ec2/cert-*.pem -u 123412341234| 
+\verb|$ ec2-bundle-image -i centos.img -k .ec2/pk-*.pem -c .ec2/cert-*.pem -u 123412341234|
 
 Option \emph{-i} specifies the image file name, \emph{-k} specifies the private key file, \emph{-c} specifies the certificate file and -u specifies the user Account Number which is a 12 digit numeric string.
 
@@ -477,7 +472,7 @@ We can get the Account number from the web user interface through the following 
 %% Insert image 5163os_08_16.png
 The command will ask for the architecture of the image, then it will bundle the image with user¡¯s security credentials and split the bundled image file into smaller files.
 
-The output message will be similar to the following: \\
+The output message will be similar to the following:
 \begin{verbatim}
 Please specify a value for arch [x86_64]:
 Bundling image file...
@@ -501,7 +496,7 @@ ec2-bundle-image complete.
 \end{verbatim}
 
 
-Create a bucket from the S3 web interface as shown in the following screenshot: 
+Create a bucket from the S3 web interface as shown in the following screenshot:
 
 %% Insert image 5163os_08_17.png
 
@@ -513,11 +508,11 @@ Click the 'Create' button, the bucket will be successfully created as shown in t
 
 %% Insert image 5163os_08_19.png
 Upload the bundled file into S3 with command:\\
-\verb|$ ec2-upload-bundle -b packt-bucket -m /tmp/centos.img.manifest.xml -a AKIAJ7GAQT52MZKJA4WQ -s QDHHZ0/Mj5pDYFWKpqEzXhwjqM1UB+cqjGQQ6l3S| 
+\verb|$ ec2-upload-bundle -b packt-bucket -m /tmp/centos.img.manifest.xml -a AKIAJ7GAQT52MZKJA4WQ -s QDHHZ0/Mj5pDYFWKpqEzXhwjqM1UB+cqjGQQ6l3S|
 
 This command will upload the bundled image parts to the specified bucket (packt-bucket in this case), which is specified with the \emph{-b} option. Option \emph{-m} specifies the location of the manifest file, option \emph{-a} specifies the access key and \emph{-s} specifies the secret key. Note that for security purposes, the manifest file will be encrypted with the public key before being uploaded.
 
-The command will give output similar to the following:\\
+The command will give output similar to the following:
 \begin{verbatim}
 Uploading bundled image parts to the S3 bucket packt-bucket ...
 Uploaded centos.img.part.00
@@ -542,22 +537,22 @@ When the upload completes, we can check the content of the bucket by clicking on
 
 %% Insert image 5163os_08_20.png
 Register the AMI with command:\\
-\verb|$ ec2-register packt-bucket/image.manifest.xml -n packt-centos-6.4-x64 -O AKIAJ7GAQT52MZKJA4WQ -W QDHHZ0/Mj5pDYFWKpqEzXhwjqM1UB+cqjGQQ6l3S| 
+\verb|$ ec2-register packt-bucket/image.manifest.xml -n packt-centos-6.4-x64 -O AKIAJ7GAQT52MZKJA4WQ -W QDHHZ0/Mj5pDYFWKpqEzXhwjqM1UB+cqjGQQ6l3S|
 
 The command will give us an ID for the newly registered AMI similar to the following:
-\verb|IMAGE   ami-9f422ff6| 
+\verb|IMAGE   ami-9f422ff6|
 \begin{warning}
-Warning!\\ 
+Warning!\\
 The AMI registration step is required in order for EC2 to find the AMI and run instances with it. Note that once changes are made on the image part files stored on S3, re-registration is required in order for the changes to take effect.
 \end{warning}
 
-We can check the details of the new AMI with command: \\
+We can check the details of the new AMI with command:
 \begin{verbatim}
 $ ec2-describe-images ami-9f422ff6
 IMAGE   ami-9f422ff6    869345430376/packt-centos-6.4-x64       869345430376    available       private             x86_64  machine                         instance-store  paravirtual     xen
 \end{verbatim}
 
-The meaning of each column is: 
+The meaning of each column is:
 \begin{itemize}
   \item The IMAGE identifier
   \item The ID of the image
@@ -577,11 +572,11 @@ The meaning of each column is:
 \end{itemize}
 
 Once the registration completes, we can start an instance with the new AMI with command: \\
-\verb|$ ec2-run-instances ami-9f422ff6 -n 1 -k shumin.guo| 
+\verb|$ ec2-run-instances ami-9f422ff6 -n 1 -k shumin.guo|
 
 The command specifies to run instance with our new AMI, option \emph{-n} specifies the number of instances to start and option \emph{-k} specifies the key pair to use for logging in to these instances.
 
-The output will be similar to the following:  \\
+The output will be similar to the following: 
 \begin{verbatim}
 RESERVATION     r-ca8919aa      869345430376    default
 INSTANCE        i-0020e06c      ami-9f422ff6    pending shumin.guo      0               m1.small        2013-05-03T08:22:09+0000  us-east-1a                              monitoring-disabled        instance-store     paravirtual     xen             sg-7bb47b12     default false
@@ -631,7 +626,7 @@ The second line shows the instance information, and the meanings of columns are:
 The output message shows that the ID of the instance is \textbf{i-0020e06c}.
 
 
-After waiting for a while, we can check the status of the instance with command: \\
+After waiting for a while, we can check the status of the instance with command:
 \begin{verbatim}
 $ ec2-describe-instances i-0020e06c
 RESERVATION     r-ca8919aa      869345430376    default
@@ -646,7 +641,7 @@ Alternatively, we can check the status of the instance from the web UI. For exam
 
 
 Login to the instance with command:\\
-\verb|$ ssh -i ~/.ec2/shumin.guo.pem root@ec2-54-224-240-54.compute-1.amazonaws.com| 
+\verb|$ ssh -i ~/.ec2/shumin.guo.pem root@ec2-54-224-240-54.compute-1.amazonaws.com|
 
 In this command, \emph{-i} specifies the key pair to use for login and \verb|ec2-54-224-240-54.compute-1.amazonaws.com| is the public domain name of the EC2 instance.
 
@@ -657,40 +652,40 @@ As we mentioned previously, there are other methods to create AMIs. One method i
 This recipe shows steps how to create an instance store backed AMI from an existing AMI. We assume that you have registered with AWS and have successfully configured the security credentials in a local machine. We also assume that you have downloaded the key pair and saved it to the proper location. In this recipe, we assume the private keys, certificates and key pairs all located in the \verb|~/.ec2| folder.
 
 Start an instance from an existing AMI. For example, we can start an instance with the new AMI created in the previous recipe with command: \\
-\verb|$ ec2-run-instances ami-9f422ff6 -n 1 -k shumin.guo| 
+\verb|$ ec2-run-instances ami-9f422ff6 -n 1 -k shumin.guo|
 
 This command will start up one instance from the new AMI. Key pair shumin.guo is used to login to the instance remotely.
 
 
 Copy the private key and X.509 certificate into the instance with command: \\
-\verb|$ scp -i shumin.guo ~/.ec2/pk-*pem ~/.ec2/cert-*pem root@ec2-58-214-29-104.compute-1.amazonaws.com:~/.ec2/| 
+\verb|$ scp -i shumin.guo ~/.ec2/pk-*pem ~/.ec2/cert-*pem root@ec2-58-214-29-104.compute-1.amazonaws.com:~/.ec2/|
 
 
 Login to the instance with command: \\
-\verb|$ ssh -i ~/.ec2/shumin.guo.pem root@ec2-58-214-29-104.compute-1.amazonaws.com| 
+\verb|$ ssh -i ~/.ec2/shumin.guo.pem root@ec2-58-214-29-104.compute-1.amazonaws.com|
 
 
 Configure password-less login with commands: \\
-\verb|$ ssh-keygen| 
+\verb|$ ssh-keygen|
 
 
 You will be prompted to enter the paraphrase, leave it empty by pressing the 'Enter' key. \\
-\verb|$ ssh-copy-id localhost| 
+\verb|$ ssh-copy-id localhost|
 
 Download and install Java with recipe installing Java and other tools of Chapter 2.
 
 
-Download the latest Hadoop distribution from \verb|http://www.apache.org/dyn/closer.cgi/hadoop/common/|. 
+Download the latest Hadoop distribution from \verb|http://www.apache.org/dyn/closer.cgi/hadoop/common/|.
 
 
-Use the following command to decompress the Hadoop package and create the symbolic link:\\ 
+Use the following command to decompress the Hadoop package and create the symbolic link:
 \begin{verbatim}
 $ tar xvf hadoop-*.tar.gz -C /usr/local/
 $ ln -s /usr/local/hadoop-* /usr/local/hadoop
 \end{verbatim}
 
 
-Add the following environment variables to file .bashrc: \\
+Add the following environment variables to file .bashrc: 
 \begin{verbatim}
 $ export JAVA_HOME=/usr/java/latest
 $ export HADOOP_HOME=/usr/local/hadoop
@@ -708,7 +703,7 @@ Add the following content into file \verb|$HADOOP_HOME/conf/core-site.xml|:
 \end{verbatim}
 
 
-Add the following content into file \verb|$HADOOP_HOME/conf/mapred-site.xml|: 
+Add the following content into file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
 \begin{verbatim}
 <configuration>
   <property>
@@ -730,7 +725,7 @@ Add the following content into file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
 \end{verbatim}
 
 
-Add the following content into file \verb|$HAOOP_HOME/conf/hdfs-site.xml|: \\
+Add the following content into file \verb|$HAOOP_HOME/conf/hdfs-site.xml|:
 \begin{verbatim}
 <configuration>
 
@@ -748,14 +743,14 @@ Add the following content into file \verb|$HAOOP_HOME/conf/hdfs-site.xml|: \\
 \end{verbatim}
 
 
-Download and install all other Hadoop ecosystem components by using the recipes in Chapter 3. 
+Download and install all other Hadoop ecosystem components by using the recipes in Chapter 3.
 
 
-Install the AMI tools package with command:\\ 
-\verb|$ rpm -ivh http://s3.amazonaws.com/ec2-downloads/ec2-ami-tools.noarch.rpm| 
+Install the AMI tools package with command:\\
+\verb|$ rpm -ivh http://s3.amazonaws.com/ec2-downloads/ec2-ami-tools.noarch.rpm|
 
 Disable SELinux with command:\\
-\verb|$ setenforce 0| 
+\verb|$ setenforce 0|
 
 
 Disable iptables with command: \\
@@ -763,18 +758,18 @@ Disable iptables with command: \\
 \verb|$ chkconfig iptables off|
 
 Bundle the image with command: \\
-\verb|$ ec2-bundle-vol -e ~/.ec2 -k pk-*pem -c cert-*.pem -u 123412341234| 
+\verb|$ ec2-bundle-vol -e ~/.ec2 -k pk-*pem -c cert-*.pem -u 123412341234|
 
 In this command, \emph{-k} specifies the name of the file that contains the private key, \emph{-c} specifies the file that contains the X.509 certificate, \emph{-u} specifies the 12 to 15 digit count ID without dashes of the current user and \emph{-e} specifies the \textbf{location/directory} that contains the private key file and certificate file.
 
 
 Upload the bundled AMI to S3 with command: \\
-\verb|$ ec2-upload-bundle -b packt-bucket -m /tmp/image.manifest.xml -a AKIAJ7GAQT52MZKJA4WQ -p QDHHZ0/Mj5pDYFWKpqEzXhwjqM1UB+cqjGQQ6l3S| 
+\verb|$ ec2-upload-bundle -b packt-bucket -m /tmp/image.manifest.xml -a AKIAJ7GAQT52MZKJA4WQ -p QDHHZ0/Mj5pDYFWKpqEzXhwjqM1UB+cqjGQQ6l3S|
 
 In this command, \emph{-b} specifies the name of the bucket on S3, \emph{-m} specifies the location of the manifest file, \emph{-a} option specifies the access key string and \emph{-p} option specifies the secret key string.
 
 Register the AMI with command: \\
-\verb|$ ec2-register packt-bucket/image.manifest.xml -n centos-hadoop-1.0 -O AKIAJ7GAQT52MZKJA4WQ -W QDHHZ0/Mj5pDYFWKpqEzXhwjqM1UB+cqjGQQ6l3S| 
+\verb|$ ec2-register packt-bucket/image.manifest.xml -n centos-hadoop-1.0 -O AKIAJ7GAQT52MZKJA4WQ -W QDHHZ0/Mj5pDYFWKpqEzXhwjqM1UB+cqjGQQ6l3S|
 
 In this command, the first parameter specifies the location of the manifest file in the S3 bucket, the \emph{-n} option specifies the name of the AMI, \emph{-O} specifies the access key string and -W specifies the secret key string.
 
@@ -783,16 +778,16 @@ Creating an EBS backed AMI is straightforward from the web management console. T
 
 Use the following recipe to create an EBS backed AMI:
 
-Go to \verb|https://console.aws.amazon.com/ec2/v2/home#Images:|, filter the AMIs with conditions similar to the following screenshot: 
+Go to \verb|https://console.aws.amazon.com/ec2/v2/home#Images:|, filter the AMIs with conditions similar to the following screenshot:
 
 %% Insert image 5163os_08_29.png
-Start an instance by right clicking on one of the AMIs and then click 'Launch' as shown in the following screenshot: 
+Start an instance by right clicking on one of the AMIs and then click 'Launch' as shown in the following screenshot:
 
 %% Insert image 5163os_08_30.png
-When the instance is running, login to the instances, make changes according to your requirements. Then, from the web management console, right click on the running instance and then select 'Create Image (EBS AMI)' as shown in the following screenshot: 
+When the instance is running, login to the instances, make changes according to your requirements. Then, from the web management console, right click on the running instance and then select 'Create Image (EBS AMI)' as shown in the following screenshot:
 
 %% Insert image 5163os_08_31.png
-Go to the AMIs tab of the AWS web console, and select 'Owned By Me', we will see that the EBS AMI is being created as shown in the following screenshot: 
+Go to the AMIs tab of the AWS web console, and select 'Owned By Me', we will see that the EBS AMI is being created as shown in the following screenshot:
 
 %% Insert image 5163os_08_33.png
 EC2 creates a snapshot for the new AMI. Similar to the image part files stored in S3, the snapshot stores the physical image of the EBS backed AMI.
@@ -820,9 +815,9 @@ Before getting started, we assume that you have successfully registered with AWS
 Use the following recipe to configure S3 for data storage:
 
 Stop the Hadoop cluster with commands: \\
-\verb|$ stop-all.sh| 
+\verb|$ stop-all.sh|
 
-Open file \verb|$HADOOP_HOME/conf/core-site.xml| and add the following contents into the file: \\ 
+Open file \verb|$HADOOP_HOME/conf/core-site.xml| and add the following contents into the file:
 \begin{verbatim}
 <property>
   <name>fs.default.name</name>
@@ -845,12 +840,11 @@ The first property configures Hadoop to use S3 as distributed filesystem.
 
 
 Start the cluster with commands: \\
-\verb|$ start-mapred.sh| 
+\verb|$ start-mapred.sh|
 
 As we are using S3 instead of HDFS as the data storage filesystem, there is no need to start the HDFS cluster any more.
 
-
-Check the configuration with S3 with command: \\
+Check the configuration with S3 with command:
 \begin{verbatim}
 hadoop fs -ls /
 Found 49 items
@@ -871,10 +865,10 @@ Use the following recipe to configure a Hadoop cluster with EC2:
 
 Run a number of instances either from the command line or from the web interface.
 
-After the instances are all in running state, run the following command to get the internal hostname of these instances: 
+After the instances are all in running state, run the following command to get the internal hostname of these instances:
 \verb=$ ec2-describe-instances | grep running | egrep -o 'ip.*?internal' | sed -e 's/.ec2.internal//g' > nodes.txt=
 
-File nodes.txt will have contents similar to the following: \\
+File nodes.txt will have contents similar to the following:
 \begin{verbatim}
 ip-10-190-81-210
 ip-10-137-11-196
@@ -888,13 +882,13 @@ We are assuming to use the highlighted node as the master node and the public do
 
 
 Copy file nodes.txt to the master node with command from the local machine: \\
-\verb|$ scp -i ~/.ec2/shumin.guo.pem nodes.txt ec2-user@ec2-174-129-127-90.compute-1.amazonaws.com:~/| 
+\verb|$ scp -i ~/.ec2/shumin.guo.pem nodes.txt ec2-user@ec2-174-129-127-90.compute-1.amazonaws.com:~/|
 
 
 Login to the new instance with command: \\
-\verb|$ ssh -i ~/.ec2/shumin.guo.pem root@ec2-user@ec2-174-129-127-90.compute-1.amazonaws.com| 
+\verb|$ ssh -i ~/.ec2/shumin.guo.pem root@ec2-user@ec2-174-129-127-90.compute-1.amazonaws.com|
 
-Use the following commands to create a hosts file: \\
+Use the following commands to create a hosts file:
 \begin{verbatim}
 cp nodes.txt nodes.ip.txt
 cp nodes.txt slaves
@@ -914,8 +908,7 @@ The hosts file should have the following content:
 10.142.132.17   ip-10-142-132-17
 \end{verbatim}
 
-
-Move the hosts file to /etc/hosts with command: \\
+Move the hosts file to /etc/hosts with command:
 \begin{verbatim}
 for hosts in `cat nodes.txt`; do
   echo 'Configuring /etc/hosts file for host : ' $host
@@ -923,11 +916,10 @@ for hosts in `cat nodes.txt`; do
 done
 \end{verbatim}
 
-
 Configure the slaves file with command: \\
-\verb|$ cp slaves $HADOOP_HOME/conf/slaves| 
+\verb|$ cp slaves $HADOOP_HOME/conf/slaves|
 
-Open file \verb|$HADOOP_HOME/conf/core-site.xml| with a text editor and change the \emph{fs.default.name} similar to the following: \\
+Open file \verb|$HADOOP_HOME/conf/core-site.xml| with a text editor and change the \emph{fs.default.name} similar to the following:
 \begin{verbatim}
 <property>
   <name>fs.default.name</name>
@@ -943,8 +935,7 @@ Open file \verb|$HADOOP_HOME/conf/mapred-site.xml| with a text editor and change
 </property>
 \end{verbatim}
 
-
-Copy the configurations to all the slave nodes with command: \\
+Copy the configurations to all the slave nodes with command: 
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo 'Copying Hadoop conifugration files to host: ' $host
@@ -952,13 +943,11 @@ for host in `cat $HADOOP_HOME/conf/slaves`; do
 done
 \end{verbatim}
 
-
-Start the cluster with command: \\
+Start the cluster with command:
 \begin{verbatim}
 start-dfs.sh
 start-mapred.sh
 \end{verbatim}
-
 
 When the cluster is running, we can start to submit jobs to the cluster from the master node.
 \subsection*{There's more...}
@@ -971,10 +960,10 @@ We can use the following recipe to use EMR for data processing:
 
 Create the input directory (with name input) and Java library directory (with name jars) under the bucket from the S3 web management console.
 
-Upload data into the input folder from the web console as shown in the following screenshot: 
+Upload data into the input folder from the web console as shown in the following screenshot:
 
 %% Insert image 5163os_08_22.png
-Upload required jar file (hadoop-examples-*.jar in this example) into the jars directory. 
+Upload required jar file (hadoop-examples-*.jar in this example) into the jars directory.
 
 If you have configured S3 using the command in the previous recipe, you can also use the following commands to finish the above steps:
 \begin{verbatim}
@@ -982,7 +971,7 @@ $ hadoop fs -mkdir /jars /input
 $ hadoop fs -put $HADOOP_HOME/hadoop-examples-*.jar /jars
 $ hadoop fs -put words.txt /input
 \end{verbatim}
-\emph{words.txt} contains the input data for the wordcount job. 
+\emph{words.txt} contains the input data for the wordcount job.
 
 Open URL: \verb|https://console.aws.amazon.com/elasticmapreduce|.
 
@@ -1003,7 +992,7 @@ Click 'Continue', we need to configure EC2 instances. By default, there will be 
 
 
 %% Insert image 5163os_08_26.png
-Click the 'Continue' button and we will go to the 'Advanced options' window. This window asks for instance boot options such as security key pairs etc. In this step, we can choose the key pair and use all others as default and click 'Continue'. 
+Click the 'Continue' button and we will go to the 'Advanced options' window. This window asks for instance boot options such as security key pairs etc. In this step, we can choose the key pair and use all others as default and click 'Continue'.
 
 We will go to the 'Bootstrap actions' window. We can simply use default in this step and click 'Continue'.
 

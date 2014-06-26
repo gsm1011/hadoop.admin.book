@@ -1,16 +1,22 @@
-\documentclass[12pt,a4paper,draft]{book}
+\documentclass[12pt,a4paper]{book}
 
-%% Packages. 
+%% Packages.
 \usepackage{graphicx}
 \usepackage[breaklinks=true,linktocpage,pagebackref,colorlinks=true,hyperindex=true,hyperfigures]{hyperref}
 \usepackage{color}
 \usepackage[twoside,margin=1in,bindingoffset=0.5in]{geometry}
-\usepackage[nogrey]{quotchap} %% for chapter heading
+\usepackage{quotchap} %% for chapter heading
 \usepackage{listings}
 \usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{times}
+
+%% chapter title colors.
+\colorlet{chaptergrey}{black}
+\renewcommand*\sectfont{\color{blue}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% New commands. 
+%% New commands.
 \newcommand{\bashcommand}[1]{
     %\begin{lstlisting}{language=bash}
       \$ #1
@@ -30,7 +36,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Renew commands. 
+%% Renew commands.
 \let\oldenumerate\enumerate
 \renewcommand{\enumerate}{
   \oldenumerate
@@ -47,12 +53,14 @@
   \setlength{\parsep}{0pt}
 }
 
-%% line spread for verbatim to 1. 
+%% line spread for verbatim to 1.
 \makeatletter
 \def\verbatim@font{\linespread{1}\normalfont\ttfamily}
 \makeatother
 
 \overfullrule=1mm
+\pretolerance=10000
+%%\renewcommand{\familydefault}{\sfdefault}
 
 %% for the boxes.
 \usepackage{pifont,mdframed}
@@ -81,9 +89,9 @@
 \begin{document}
 \frontmatter                            % only in book class (roman page #s)
 % title page.
-\title{\color{red}Hadoop Operations and Cluster Management Cookbook}
-\author{\color{blue}Shumin Guo}
-\date{\color{green}\today}
+\title{\color{black}Hadoop Operations and Cluster Management Cookbook}
+\author{\color{black}Shumin Guo}
+\date{\color{black}\today}
 \maketitle                              % Print title page.
 \tableofcontents                        % Print table of contents
 \listoffigures

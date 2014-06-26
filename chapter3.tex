@@ -24,7 +24,7 @@ In General, the release version number of a Hadoop distribution consists of thre
 %%Insert image 5163os_03_01.png
 Sometimes, the revision number can have a fourth part, for example 0.20.203.0, but this is relatively rare.
 \subsection*{How to do it...}
-The following table shows features of major Hadoop releases: 
+The following table shows features of major Hadoop releases:
 \begin{table}[h]
   \centering
   \begin{tabular}{l|l|l|l|l}
@@ -32,7 +32,7 @@ The following table shows features of major Hadoop releases:
     \textbf{Feature or Version} & \textbf{2.x.y} & \textbf{1.1.x} & \textbf{0.23.x} & \textbf{0.20.x} \\ \midrule
     Stable &  & Yes &  & Yes \\
     MRv1 &  & Yes &  & Yes \\
-    MRv2 & Yes &  & Yes & \\ 
+    MRv2 & Yes &  & Yes & \\
     Kerberos Security & Yes & Yes & Yes & \\
     HDFS federation & Yes &  & Yes & \\
     NameNode HA & Yes &  & Yes &  \\
@@ -54,11 +54,11 @@ Pseudo-distributed mode refers to a Hadoop cluster configuration that contains o
 \subsection*{Getting ready}
 Before configuring Hadoop in pseudo-distributed mode, we assume that we have a machine, for example the master node of the Hadoop cluster, with Linux installed. And all the necessary tools have been installed and properly configured.
 
-The most important dependent software is Java, which is the programming language and library that Hadoop is based on. To check that Java has been properly installed, 
+The most important dependent software is Java, which is the programming language and library that Hadoop is based on. To check that Java has been properly installed,
 we can use the following command:
 \verb|$ java -version|
 
-You should have output similar to the following:\\ 
+You should have output similar to the following:
 \begin{verbatim}
 java version "1.7.0_13"
 Java(TM) SE Runtime Environment (build 1.7.0_13-b20)
@@ -107,7 +107,7 @@ Folder conf contains cluster configuration files, folder bin contains commands a
 Make a soft link for Hadoop root directory. \\
 \verb|$ sudo ln -s hadoop-1.1.2 hadoop|
 
-Use your favorite text editor to open file ~/.bashrc and add the following contents: \\
+Use your favorite text editor to open file ~/.bashrc and add the following contents: 
 \begin{verbatim}
 export JAVA_HOME=/usr/java/latest
 export HADOOP_HOME=/usr/local/hadoop
@@ -141,7 +141,7 @@ Use your favorite text editor to open file \verb|$HADOOP_HOME/conf/core-site.xml
 </configuration>
 \end{verbatim}
 
-Use your favorite text editor to open file \verb|$HADOOP_HOME/conf/hdfs-site.xml| and add the following content to the file: 
+Use your favorite text editor to open file \verb|$HADOOP_HOME/conf/hdfs-site.xml| and add the following content to the file:
 \begin{verbatim}
 <configuration>
   <property>
@@ -177,7 +177,7 @@ Use the following steps to start and stop a Hadoop cluster:
 Format the HDFS filesystem from NameNode with the following command: \\
 \verb|$ hadoop namenode -format|
 
-We will get output similar to the following: \\
+We will get output similar to the following:
 \begin{verbatim}
 13/02/14 01:43:12 INFO namenode.NameNode: STARTUP_MSG:
 /************************************************************
@@ -208,7 +208,7 @@ SHUTDOWN_MSG: Shutting down NameNode at localhost/127.0.0.1
 Start the HDFS daemons with command: \\
 \verb|$ start-dfs.sh|
 
-We will get output similar to the following: \\
+We will get output similar to the following:
 \begin{verbatim}
 starting namenode, logging to /usr/local/hadoop/libexec/../logs/hadoop-hduser-namenode-localhost.out
 localhost: starting datanode, logging to /usr/local/hadoop/Hadoop/libexec/../logs/hadoop-hduser-datanode-localhost.out
@@ -256,16 +256,16 @@ Under Linux, the bash shell has two run configuration files for a user, \verb|.b
 The following table shows configuration files for configuring a Hadoop cluster in pseudo-distributed mode:
 \begin{table}[h]
   \centering
-  \toprule
-  \begin{tabular}{ll}
+\begin{tabular}{ll}  
+    \toprule
     \textbf{File} & \textbf{Description} \\ \midrule
-    hadoop-env.sh & Configures environment variable used by Hadoop. \\ 
+    hadoop-env.sh & Configures environment variable used by Hadoop. \\
     core-site.xml & Configures parameters for the whole Hadoop cluster. \\
     hdfs-site.xml & Configures parameters for HDFS and its clients. \\
     mapred-site.xml & Configures parameters for MapReduce and its clients. \\
     masters & Configures host machines for SecondaryNameNode. \\
     slaves & Configures a list of slave node hosts. \\ \bottomrule
-  \end{tabular} 
+  \end{tabular}
 \end{table}
 
 \begin{itemize}
@@ -280,10 +280,10 @@ The following table shows configuration files for configuring a Hadoop cluster i
 Hadoop provides a number of bash scripts for convenience of starting and stopping a cluster. The following table shows these scripts:
 \begin{description}
     \item{start-dfs.sh} Script to start HDFS daemons including NameNode, SecondaryNameNode and DataNode. A PID file will be created for each daemon process under default folder \${hadoop.tmp.dir}. For example, if user hduser is used to run the script, file /hadoop/tmp/hadoop-hduser-namenode.pid will be created for the NameNode daemon process.
-    \item{stop-dfs.sh} Script to stop HDFS daemons. This command will try to find the PIDs of the HDFS daemons and kill the processes with the PIDs. So, if the PID file is missing, this script will not work. 
-    \item{start-mapred.sh} Script to start MapReduce daemons, including the JobTracker and TaskTrackers. Similar to start-hdfs.sh script, PIDs files will be created for each daemon process. 
-    \item{stop-mapred.sh} Script to stop Hadoop MapReduce daemons. Similar to stop-dfs.sh script, the script will try to find the PID files and then kill those processes. 
-    \item{start-all.sh} Equals to start-dfs.sh plus start-mapred.sh. 
+    \item{stop-dfs.sh} Script to stop HDFS daemons. This command will try to find the PIDs of the HDFS daemons and kill the processes with the PIDs. So, if the PID file is missing, this script will not work.
+    \item{start-mapred.sh} Script to start MapReduce daemons, including the JobTracker and TaskTrackers. Similar to start-hdfs.sh script, PIDs files will be created for each daemon process.
+    \item{stop-mapred.sh} Script to stop Hadoop MapReduce daemons. Similar to stop-dfs.sh script, the script will try to find the PID files and then kill those processes.
+    \item{start-all.sh} Equals to start-dfs.sh plus start-mapred.sh.
     \item{stop-all.sh} Equals to stop-dfs.sh plus stop-mapred.sh.
 \end{description}
 \subsection*{There's more...}
@@ -307,14 +307,14 @@ To configure a Hadoop cluster in fully-distributed mode, we need to configure al
 In this book, we propose to configure a Hadoop cluster with 1 master node and 5 slave nodes. The hostname of the master node is 1 and the hostnames of the slave nodes are: \textbf{slave1, slave2, slave3, slave4}, and \textbf{slave5}.
 
 Before getting started, we assume that Linux has been installed on all the cluster nodes and we should validate password-less login with the following commands on the master node: \\
-\verb|$ ssh hduser@slave1| \\ 
+\verb|$ ssh hduser@slave1| \\
 \verb|$ ssh hduser@slave2| \\
-\verb|...| 
+\verb|...|
 
 Unlike the pseudo-distributed mode, configuring a Hadoop cluster in fully-distributed mode requires the successful configuration of all the nodes in the cluster. Otherwise, the cluster will not work as expected.
 
 We should be cautious about the interconnection of the cluster nodes. Connection problems might be caused by configurations of firewalls, network and so on.
-Assuming file \verb|$HADOOP_HOME/conf/slaves| contains hostnames of the slave nodes, we can use the following command to check the password-less login to all slave nodes from the master node: \\
+Assuming file \verb|$HADOOP_HOME/conf/slaves| contains hostnames of the slave nodes, we can use the following command to check the password-less login to all slave nodes from the master node: 
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo "Testing ssh from master to node" $host
@@ -337,7 +337,7 @@ Decompress the Hadoop archive. \\
 Make proper soft link for Hadoop root directory. \\
 \verb|$ sudo ln -s hadoop-1.1.2 hadoop|
 
-Use your favorite text editor to open file \verb|~/.bashrc| and add the following content: \\
+Use your favorite text editor to open file \verb|~/.bashrc| and add the following content:
 \begin{verbatim}
 export JAVA_HOME=/usr/java/latest
 export HADOOP_HOME=/usr/local/Hadoop
@@ -478,9 +478,9 @@ Check the directory structure of the formatted NameNode with command: \\
 The output will be similar to the following: \\
 \verb|/hadoop/dfs/|
 
-%% TODO insert the folder listing. 
+%% TODO insert the folder listing.
 
-The tree listing shows the directory structure of a formatted HDFS filesystem which contains the filesystem image (in folder /hadoop/dfs/name/image directory) and the current live image (mirrored to folder /hadoop/dfs/name/current) in main memory. 
+The tree listing shows the directory structure of a formatted HDFS filesystem which contains the filesystem image (in folder /hadoop/dfs/name/image directory) and the current live image (mirrored to folder /hadoop/dfs/name/current) in main memory.
 
 Start HDFS cluster daemons with command: \\
 \verb|start-dfs.sh|
@@ -513,12 +513,12 @@ slave5: starting tasktracker, logging to /usr/local/Hadoop/logs/hadoop-hduser-ta
 The output message shows that a JobTracker is started on the master node and a TaskTracker is started on each slave node.
 
 On the master node, check the status of the Hadoop daemons with command:
-\begin{verbatim} 
+\begin{verbatim}
 $ jps
 19512 NameNode
 19930 JobTracker
 19708 SecondaryNameNode
-20276 Jps 
+20276 Jps
 \end{verbatim}
 
 On a slave node, we can check the status of the daemon processes with the same command and the output will be similar to the following:
@@ -594,7 +594,7 @@ slave1: stopping tasktracker
 \end{verbatim}
 
 The output shows that the JobTracker on the master node and TaskTrackers on the slave nodes are being stopped.
-Stop the HDFS daemons with command on the master node: 
+Stop the HDFS daemons with command on the master node:
 \begin{verbatim}
 $ stop-dfs.sh
 stopping namenode
@@ -645,7 +645,7 @@ Configure the Hadoop cluster by modifying the configuration files located in fol
 \subsection*{See also}
 \begin{itemize}
   \item Configuring Hadoop in pseudo-distributed mode in Chapter 3, Configuring a Hadoop cluster
-  \item Validating Hadoop installation in Chapter 3, Configuring a Hadoop cluster 
+  \item Validating Hadoop installation in Chapter 3, Configuring a Hadoop cluster
 \end{itemize}
 
 \section{Validating Hadoop installation}
@@ -704,9 +704,9 @@ Run an example teragen job to generate 10GB data on the HDFS with command:\\
 
 In this command, hadoop-examples-1.1.2.jar is the Java archive file which provides a number of Hadoop examples. The option \verb|$((1024*1024*1024* 10/100))| tells us how many lines of data will be generated with the total data size 10GB.
 
-When the job is running, we can check the status of the job by opening URL \href{http://master:50030/jobdetails.jsp?jobid=job_201302160219_0003&refresh=30}{here}. 
+When the job is running, we can check the status of the job by opening URL \href{http://master:50030/jobdetails.jsp?jobid=job_201302160219_0003&refresh=30}{here}.
 
-In this URL, \verb|job_201302160219_0003| is the job ID and refresh=30 tells how often the webpage should be refreshed. 
+In this URL, \verb|job_201302160219_0003| is the job ID and refresh=30 tells how often the webpage should be refreshed.
 
 The job status webpage will be similar to the following screenshot: \\
 
@@ -717,7 +717,7 @@ This screenshot tells us that the Hadoop cluster has been configured successfull
 After the teragen job finishes, we can check the node storage space usage by opening URL http://master:50070/dfsnodelist.jsp?whatNodes=LIVE. The webpage will be similar to the following screenshot: \\
 %% Insert image 5163os_03_07.png
 
-The webpage shows that a certain percentage of storage space has been used on each slave node. 
+The webpage shows that a certain percentage of storage space has been used on each slave node.
 
 Sometimes, a command line based web browser can be more handy than a GUI browser, for example, we can use command elinks master:50030 to check the status of MapReduce on the master node and use command  elinks master:50070 to check the status and health of HDFS.
 
@@ -821,7 +821,7 @@ $ cat /etc/hosts
 
 If the IP address and hostname mapping does not exist or has been erroneously specified in this file, correcting the error can solve this problem.
 \subsubsection*{MapReduce daemons can't be started}
-The following two reasons can cause this problem: 
+The following two reasons can cause this problem:
 
 The HDFS daemons are not running, which can cause the MapReduce daemons to ping the NameNode daemon at a regular interval, which can be illustrated with the following log output:
 \begin{verbatim}
@@ -868,7 +868,7 @@ Copy the downloaded archive to /usr/local with command: \\
 \verb|$ sudo wget ftp://hadoop.admin/repo/zookeeper-3.4.5.tar.gz -P /usr/local|
 
 De-compress the file with command: \\
-\verb|$ cd /usr/local/| \\ 
+\verb|$ cd /usr/local/| \\
 \verb|$ sudo tar xvf zookeeper-3.4.5.tar.gz|
 
 Create symbolic link with command:\\
@@ -884,13 +884,13 @@ Load the configuration file with: \\
 Create data and log directories for ZooKeeper with command:\\
 \verb|$ sudo mkdir -pv /hadoop/zookeeper/{data,log}|
 
-Create Java configuration file \verb|$ZK_HOME/conf/java.env| with the following content:\\ 
+Create Java configuration file \verb|$ZK_HOME/conf/java.env| with the following content:\\
 \verb|JAVA_HOME=/usr/java/latest| \\
 \verb|export PATH=$JAVA_HOME/bin:$PATH|
 
 The file name \emph{java.env} is mandatory. It will be loaded by zookeeper.
 
-Create file \verb|$ZK_HOME/conf/zookeeper.cfg| and add the following lines: \\
+Create file \verb|$ZK_HOME/conf/zookeeper.cfg| and add the following lines:
 \begin{verbatim}
 tickTime=2000
 clientPort=2181
@@ -908,7 +908,7 @@ dataLogDir=/hadoop/zookeeper/log
 
 The highlighted section makes every node know the other nodes in the ZooKeeper ensemble.
 
-Configure ZooKeeper on all slave nodes with command: \\
+Configure ZooKeeper on all slave nodes with command:
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo "Configuring ZooKeeper on " $host
@@ -923,10 +923,10 @@ Start ZooKeeper on master node with command: \\
 \verb|$ zkServer.sh start|
 
 Verify ZooKeeper configuration with command: \\
-\verb|$ zkCli.sh -server master:2181| 
+\verb|$ zkCli.sh -server master:2181|
 
 Stop ZooKeeper with command: \\
-\verb|$ zkServer.sh stop| 
+\verb|$ zkServer.sh stop|
 
 \subsection*{See also}
 \begin{itemize}
@@ -962,7 +962,7 @@ De-compress the HBase archive with commands: \\
 Create symbolic link with command: \\
 \verb|$ ln -s hbase-0.94.5 hbase|
 
-Use your favorite text editor to open file ~/.bashrc and append the following lines into the file: \\
+Use your favorite text editor to open file ~/.bashrc and append the following lines into the file:
 \begin{verbatim}
 export HBASE_HOME=/usr/local/hbase
 export PATH=$HBASE_HOME/bin:$PATH
@@ -1019,7 +1019,7 @@ Replace the dependent jar files for HBase with command: \\
 \verb|$ rm -i $HBASE_HOME/lib/hadoop-core*.jar $HBASE_HOME/lib/zookeeper-*.jar| \\
 \verb|$ cp -i $HADOOP_HOME/hadoop-core*.jar $HADOOP_HOME/lib/commons-*.jar $ZK_HOME/zookeeper-*.jar $HBASE_HOME/lib/|
 
-Configure all the slave nodes with command: \\
+Configure all the slave nodes with command:
 \begin{verbatim}
 for host in `cat $HBASE_HOME/conf/regionservers`; do
   echo "Configuring HBase on " $host
@@ -1038,7 +1038,7 @@ Start HBase daemons with command: \\
 Connect to the running HBase with command: \\
 \verb|$ hbase shell|
 
-Verify the HBase installation with the following HBase shell commands: \\
+Verify the HBase installation with the following HBase shell commands: 
 \begin{verbatim}
 hbase(main):001:0> create 'test', 'c'
 0 row(s) in 0.2410 seconds
@@ -1059,8 +1059,7 @@ hbase(main):007:0> drop 'test'
 hbase(main):010:0> exit
 \end{verbatim}
 
-To stop HBase, use command: 
-
+To stop HBase, use command:
 \begin{verbatim}
 $ stop-hbase.sh
 stopping hbase...............
@@ -1094,7 +1093,7 @@ Copy the archive to /usr/local with command: \\
 
 De-compress the Hive archive with command:\\
 \verb|$ cd /usr/local| \\
-\verb|$ tar xvf hive-0.9.0.tar.gz| 
+\verb|$ tar xvf hive-0.9.0.tar.gz|
 
 Create symbolic link with command: \\
 \verb|$ ln -s /usr/local/hive-0.9.0 /usr/local/hive|
@@ -1133,7 +1132,7 @@ De-compress the Pig archive file with command:\\
 \verb|$ sudo tar xvf pig-0.10.1.tar.gz|
 
 Create symbolic link to the Pig directory \\
-\verb|$ sudo ln -s /usr/local/pig-0.10.1 /usr/local/pig| 
+\verb|$ sudo ln -s /usr/local/pig-0.10.1 /usr/local/pig|
 
 Open file ~/.bashrc with your favorite text editor and add the following lines into the file: \\
 \verb|export PIG_HOME=/usr/local/pig| \\
@@ -1160,7 +1159,7 @@ Apache Mahout is a machine learning library that scales machine learning algorit
 \subsection*{Getting ready}
 Before we install Mahout, we need to make sure Hadoop has been properly installed.
 
-Download Mahout from the mirror site with the following command on the master node:\\ 
+Download Mahout from the mirror site with the following command on the master node:\\
 \verb|$ wget http://www.eng.lsu.edu/mirrors/apache/mahout/0.7/mahout-distribution-0.7.tar.gz -P ~/repo|
 
 \subsection*{How to do it...}
@@ -1189,7 +1188,7 @@ Install Maven with command: \\
 \verb|$ sudo yum install maven|
 
 Compile and install Mahout core with the following commands:\\
-\verb|$ cd $MAHOUT_HOME| \\ 
+\verb|$ cd $MAHOUT_HOME| \\
 \verb|$ sudo mvn compile| \\
 \verb|$ sudo mvn install|
 

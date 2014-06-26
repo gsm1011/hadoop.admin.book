@@ -33,11 +33,11 @@ Empirically, we recommend the following configurations for a small to medium siz
   \begin{tabular}{lll}
     \toprule
     \textbf{Node Type} & \textbf{Node Components} & \textbf{Recommended Specification} \\ \midrule
-    Master Node & CPU	& $\ge$ 2 Quad Core, 2.0GHz \\ 
+    Master Node & CPU	& $\ge$ 2 Quad Core, 2.0GHz \\
     & RAM (Main Memory) & $\ge$ 16GB \\
     & Hard Drive & $\ge$ 2 x 1TB SATA II 7200 RPM HDD or SSD\footnote{HDD stands for Hard Disk Drive and SSD stands for Solid State Drive} \\
     & Network Card & $\ge$ 1Gbps Ethernet \\ \midrule
-    Slave Node & CPU & $\ge$ 2 Quad Core \\ 
+    Slave Node & CPU & $\ge$ 2 Quad Core \\
     & RAM (Main Memory) & $\ge$ 16GB \\
     & Hard Drive & $\ge$ 4 x 1TB HDD \\
     & Network Card & $\ge$ 1Gbps Ethernet \\ \bottomrule
@@ -63,12 +63,10 @@ In the simple equation, the first 2 stands for the number of CPUs of the slave n
 Network is the backbone of a Hadoop cluster. Its stability is critical for the performance of the cluster. In this recipe, we will outline a few general rules for designing a Hadoop cluster network.
 \subsection*{How to do it}
 The network architecture for a small to medium sized cluster can be as simple as connecting the cluster nodes with one or more switches. Connection redundancy can add reliability to the network.
-
 \begin{warning}
 Warning! \\
 Computing nodes in a Hadoop cluster should be configured within the same network segment (Local Area Network or LAN). Advanced features such as VLANs that can cause overhead are not recommended. And connecting nodes with a router is not recommended.
 \end{warning}
-
 The network architecture for Hadoop clusters with hundreds or thousands of nodes is much more complex. In a large cluster, the physical nodes are usually so small, for example blade server, that they can be mounted on racks. Each rack has a local switch that interconnects nodes on the save rack. These racks are then interconnected with more advanced switches.
 
 Nodes on the same rack can be interconnected with 1Gbps (Gigabit per second) Ethernet switch. Cluster level switches then connect the rack switches with faster links such as 10Gbps optical fiber links and other networks like InfiniBand. The cluster-level switches may also interconnect with other cluster-level switches or even uplink to another higher level of switching infrastructure. With the increasing size of a cluster, the network, at the same time, will become larger and more complex. Connection redundancies for network high availability can also increase its complexity. In this book, we assume to discuss the basic network architecture design method. If you want to learn more advanced network design techniques, please refer to related books and online materials.
@@ -98,7 +96,7 @@ We will use directory ~/mnt as the mount point for ISO images. Directory \verb|~
 
 Install DHCP and FTP servers on the machine with commands: \\
 \verb|$ sudo yum -y install dhcp| \\
-\verb|$ sudo yum -y install vsftpd| 
+\verb|$ sudo yum -y install vsftpd|
 
 We will use the DHCP server to assign IP addresses and bootstrap the operating system in the installation process and use the FTP server to host the installation packages.
 \subsection*{Download the latest ISO image from a mirror}
@@ -120,7 +118,7 @@ Mount the image file with command: \\
 
 Copy all the files to the $~/$repo directory for FTP hosting with command: \\
 \verb|$ cp -r $~/mnt/* ~/$repo|
-    
+
 Un-mount the ISO image with command: \\
 \verb|$ sudo umount $~/$mnt|
 
@@ -131,7 +129,7 @@ Insert the output of the directory listing.
 
 The directory tree of the netinstall image is similar to the following:
 \begin{verbatim}
-output of the directory listings. 
+output of the directory listings.
 \end{verbatim}
 We can see from the directory trees that the minimal installation image file contains packages and boot images for system installation. The netinstall package only contains files for booting, including network booting files in the \verb|images/pxeboot| directory.
 
@@ -215,7 +213,7 @@ The server will start with the following message: \\
 Verify the FTP configuration with command: \\
 ftp hadoop.admin
 
-The configuration is successful if we get the following message: \\
+The configuration is successful if we get the following message:
 \begin{verbatim}
 Trying 10.0.0.1...
 Connected to hadoop.admin (10.0.0.1).
@@ -254,7 +252,7 @@ Use the following steps to create a kickstart file:
 Install kickstart with command: \\
 \verb|$ sudo yum install system-config-kickstart|
 
-Use your favourite text editor to create a file ks.cfg with the following content: \\
+Use your favourite text editor to create a file ks.cfg with the following content:
 \begin{verbatim}
     #!/bin/bash
     # Kickstart for CentOS 6.3 for Hadoop cluster.
@@ -403,7 +401,7 @@ This will make the kickstart file available during the installation process.
 
 Create a USB boot media with the following recipe:
 
-Use a text editor to open file \verb|~/isolinux/grub.conf| and add the following content: \\
+Use a text editor to open file \verb|~/isolinux/grub.conf| and add the following content:
 \begin{verbatim}
     default=0
     splashimage=@SPLASHPATH@
@@ -414,13 +412,13 @@ Use a text editor to open file \verb|~/isolinux/grub.conf| and add the following
     	initrd @INITRDPATH@
 \end{verbatim}
 
-Make an ISO file from the isolinux directory with the following commands: \\
+Make an ISO file from the isolinux directory with the following commands:
 \begin{verbatim}
     mkisofs -o CentOS6.3-x86_64-boot.iso \
         -b ~/repo/isolinux/isolinux.bin \
         -c ~/repo/isolinux/boot.cat \
         -no-emul-boot \
-        -boot-load-size 4 
+        -boot-load-size 4
 \end{verbatim}
 
 Plugin a USB flash drive on the administrator machine and write the bootable ISO image into the USB flash drive with the following command (assuming the USB drive corresponds to \verb|/dev/sdb| device file): \\
@@ -446,7 +444,7 @@ The USB boot media was used to boot a system and start the installation process 
 \end{verbatim}
 This option tells the location of the kickstart file. Once the kickstart file is located and transferred to the local machine, automatic installation will start.
 \subsection*{There's more}
-There are other installation methods other than FTP, for example, we can also use NFS and HTTP. The difference of these methods from FTP lies only in the configuration of the corresponding repository URL. For example, if we want to use HTTP server, we can make the following two changes in our configuration: 
+There are other installation methods other than FTP, for example, we can also use NFS and HTTP. The difference of these methods from FTP lies only in the configuration of the corresponding repository URL. For example, if we want to use HTTP server, we can make the following two changes in our configuration:
 \begin{enumerate}
   \item In the kickstart file, change \verb|url --url ftp://hadoop.admin/repo| to \verb|url --url http://hadoop.admin:80/repo|.
   \item In the grub.conf file, change the kernel option from \verb|ks=ftp://hadoop.admin/ks.cfg| to \verb|ks=http://hadoop.admin:80/ks.cfg|.
@@ -576,12 +574,12 @@ Copy PXE boot files to the boot image directory with command: \\
 
 Start the TFTP server with command: \\
 \verb|$ sudo service tftpd start|
-  
+
 Test the TFTP configuration with command: \\
 \verb|$ tftp hadoop.admin|
 
 If we can login and list files, the TFTP has been configured correctly.
-  
+
 Start installation process by powering on the cluster machines.
 
 \section{Installing Java and other tools}
@@ -611,17 +609,15 @@ After confirming that we are using OpenJDK, we need to remove the package and re
 To remove OpenJDK, we can use the following command: \\
 \verb|$ sudo yum uninstall java-1.x.y-openjdk|
 
-In this command, \emph{1.x.y} is the version of the OpenJDK to be removed, for example: \emph{1.7.0}. 
+In this command, \emph{1.x.y} is the version of the OpenJDK to be removed, for example: \emph{1.7.0}.
 
 \begin{warning}
 Warning! \\
 This command can be destructive, especially, when some dependent software packages have been installed. In such a case, it will prompt you to confirm the removal of OpenJDK together with the depending software packages. If you don't want all the packages to be removed, answer NO to the question.
 \end{warning}
 
-Alternatively, we can use the following rpm command to remove the package: \\
-\begin{verbatim}
-$ sudo rpm -e java-1.x.y-openjdk
-\end{verbatim}
+Alternatively, we can use the following rpm command to remove the package:\\
+\verb|$ sudo rpm -e java-1.x.y-openjdk|
 
 This command will only remove the OpenJDK package, regardless of the dependent software packages.
 
@@ -647,7 +643,7 @@ Install Oracle Java with command (assuming we put the downloaded Java package to
 Verify the installation with command: \\
 \verb|$ java -version|
 
-If Java is correctly installed, the output should be similar to the following: \\
+If Java is correctly installed, the output should be similar to the following:
 \begin{verbatim}
     java version "1.6.0_33"
     Java(TM) SE Runtime Environment (build 1.6.0_33-b04)
@@ -680,7 +676,7 @@ And we can get output similar to the following:
     25/tcp  open  smtp
     111/tcp open  rpcbind
     631/tcp open  ipp
-    
+
     Nmap done: 1 IP address (1 host up) scanned in 0.14 seconds
 \end{verbatim}
 
@@ -721,13 +717,13 @@ We need to type in yes and then provide the password for user hduser to login to
 Use the following recipe to configure password-less login: \\
 Login to the master node from the cluster administrator machine with the following command: \\
 \verb|$ ssh hduser@master|
-    
+
 Use a text editor to modify the SSHD service configuration file \verb|/etc/ssh/ssh_config| by changing the following line: \\
 \verb|#   StrictHostKeyChecking ask|
 
 to: \\
 \verb|StrictHostKeyChecking no|
-    
+
 Restart the SSHD server with command: \\
 \verb|$ sudo service sshd restart|
 
@@ -738,7 +734,7 @@ Press enter three times until this command finishes. A public key file \verb|~/.
 
 Copy the public key file to the remote machine with command: \\
 \verb|$ ssh-copy-id slave1|
-    
+
 Test the configuration with command: \\
 \verb|$ ssh hduser@slave1|
 
@@ -748,7 +744,7 @@ When we run command ssh-copy-id hdslave.host, we actually append the content of 
 \subsection*{There's more...}
 Configuration of password-less login failure can be caused by many reasons, for example, the configuration of firewall (or iptables, to be more specific), SELinux and even the SSHD server itself. We will discuss methods to deal with these potential problems.
 \subsubsection*{Erroneous SSH settings}
-If the \begin{verbatim}/etc/ssh_config\end{verbatim} file contains the following lines:
+If the \verb|/etc/ssh_config| file contains the following lines:
 \begin{verbatim}
     RSAAuthentication no
     PubkeyAuthentication no
@@ -760,16 +756,16 @@ It means that the public key authorization has been disabled. We need to change 
     PubkeyAuthentication yes
 \end{verbatim}
 
-Make sure that the SSHD service has been successfully restarted on the remote machine with command: \\ 
+Make sure that the SSHD service has been successfully restarted on the remote machine with command: \\
 \verb|$ sudo service sshd restart|
 
-Manually check the \verb|~/.ssh/authorized_hosts| file on the remote host and see if the local machine's public key string has been appended. If not, we can manually append the local machine's public key to the \verb|~/.ssh/authorized_hosts| on the remote machine with commands: \\
+Manually check the \verb|~/.ssh/authorized_hosts| file on the remote host and see if the local machine's public key string has been appended. If not, we can manually append the local machine's public key to the \verb|~/.ssh/authorized_hosts| on the remote machine with commands:
 \begin{verbatim}
     $ scp ~/.ssh/id_rsa.pub hduser@hdslave.host:~/
     $ ssh hduser@hdslave.host -C "cat ~/id_rsa.pub >> ~/.ssh/authorized_hosts"
 \end{verbatim}
 
-Log out of the remote machine and login again, if problem persists, go to the next step. 
+Log out of the remote machine and login again, if problem persists, go to the next step.
 \subsubsection*{Erroneous iptables configuration}
 Check the status of iptables with command: \\
 \verb|$ sudo iptables -L|

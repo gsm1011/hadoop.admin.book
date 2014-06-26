@@ -35,7 +35,7 @@ ssh hduser@master
 \subsection*{How to do it...}
 Use the following steps to check the status of a HDFS cluster with hadoop fsck:
 
-Check the status of the root filesystem with the following command: \\
+Check the status of the root filesystem with the following command:
 \begin{verbatim}
 $ hadoop fsck /
 FSCK started by hduser from /10.147.166.55 for path / at Thu Feb 28 17:14:11 EST 2013
@@ -63,8 +63,7 @@ The filesystem under path '/' is HEALTHY
 
 The output shows that some percentage of data blocks is under replicated. But because HDFS can automatically make duplication for those data blocks, the HDFS filesystem and the '/' directory are both HEALTHY.
 
-Check the status of all the files on HDFS with the following command: \\
-
+Check the status of all the files on HDFS with the following command:
 \begin{verbatim}
 $ hadoop fsck / -files
 FSCK started by hduser from /10.147.166.55 for path / at Thu Feb 28 17:40:35 EST 2013
@@ -110,7 +109,7 @@ Move corrupted files to /lost+found with the following command: \\
 
 Use the following steps to check the status of a HDFS cluster with hadoop dfsadmin:
 
-Report the status of each slave node with the following command: \\
+Report the status of each slave node with the following command: 
 \begin{verbatim}
 $ hadoop dfsadmin -report
 Configured Capacity: 422797230080 (393.76 GB)
@@ -190,7 +189,7 @@ Metasave: Number of datanodes: 5
 \subsection*{How it works...}
 The HDFS filesystem will be write-protected when NameNode enters safe mode. When an HDFS cluster is started, it will enter safe mode first. The NameNode will check the replication factor for each data block. If the replica count of a data block is smaller than the configured value, which is 3 by default, the data block will be marked as under replicated. Finally, an under replication factor, which is the percentage of under replicated data blocks, will be calculated. If the percentage number is larger than the threshold value, the NameNode will stay in safe mode until enough new replicas are created for the under replicated data blocks so as to make the under replication factor lower than the threshold.
 
-We can get the usage of the fsck command using:\\
+We can get the usage of the fsck command using:
 \begin{verbatim}
 $ hadoop fsck
 Usage: DFSck <path> [-move | -delete | -openforwrite] [-files [-blocks [-locations | -racks]]]
@@ -205,7 +204,7 @@ Usage: DFSck <path> [-move | -delete | -openforwrite] [-files [-blocks [-locatio
          By default fsck ignores files opened for write, use -openforwrite to report such files. They are usually tagged CORRUPT or HEALTHY depending on their block allocation status.
 \end{verbatim}
 
-We can get the usage of the dfsadmin command using: \\
+We can get the usage of the dfsadmin command using: 
 \begin{verbatim}
 $ hadoop dfsadmin
 Usage: java DFSAdmin
@@ -260,7 +259,7 @@ Perform the following steps to configure SecondaryNameNode: \\
 Stop the cluster using the following command: \\
 \verb|$ stop-all.sh|
 
-Add or change the following into the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|: \\
+Add or change the following into the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|: 
 \begin{verbatim}
 <property>
     <name>fs.checkpoint.dir</name>
@@ -334,8 +333,7 @@ Reload active TaskTrackers using the following command:\\
 \verb|$ hadoop mradmin -refreshNodes|
 
 \subsection*{How it works...}
-Get the help for the mradmin command using the following command: \\
-
+Get the help for the mradmin command using the following command:
 \begin{verbatim}
 $ hadoop mradmin
 The usage information will be similar to the following:
@@ -402,7 +400,7 @@ Perform the following steps to configure the heartbeat interval:
 Stop a MapReduce cluster with the following command:\\
 \verb|$ stop-dfs.sh|
 
-Open the file \verb|$HADOOP_HOME/conf/mapred-site.xml| with your favorite text editor and add the following content into the file: \\
+Open the file \verb|$HADOOP_HOME/conf/mapred-site.xml| with your favorite text editor and add the following content into the file:
 \begin{verbatim} 
 <property>
   <name>mapred.tasktracker.expiry.interval</name>
@@ -412,7 +410,7 @@ Open the file \verb|$HADOOP_HOME/conf/mapred-site.xml| with your favorite text e
 
 The value is in milliseconds.
 
-Copy the configuration into the slave nodes using the following command: \\
+Copy the configuration into the slave nodes using the following command:
 \begin{verbatim} 
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo 'Copying mapred-site.xml to slave node ' $host
@@ -428,7 +426,7 @@ Perform the following steps to configure TaskTracker blacklisting:
 Stop the MapReduce cluster with the following command: \\
 \verb|$ stop-mapred.sh|
 
-Set the number of task failures for a job to blacklist a TaskTracker by adding or changing the following property in the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|: \\
+Set the number of task failures for a job to blacklist a TaskTracker by adding or changing the following property in the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \begin{verbatim} 
 <property>
   <name>mapred.max.tracker.failures</name>
@@ -436,7 +434,7 @@ Set the number of task failures for a job to blacklist a TaskTracker by adding o
 </property>
 \end{verbatim}
 
-Set the maximum number of successful jobs that can blacklist a TaskTracker by adding or changing the following property in the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|: \\
+Set the maximum number of successful jobs that can blacklist a TaskTracker by adding or changing the following property in the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \begin{verbatim} 
 <property>
   <name>mapred.max.tracker.blacklists</name>
@@ -444,7 +442,7 @@ Set the maximum number of successful jobs that can blacklist a TaskTracker by ad
 </property>
 \end{verbatim}
 
-Copy the configuration file to the slave nodes using the following commands: \\
+Copy the configuration file to the slave nodes using the following commands:
 \begin{verbatim} 
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo 'Copying hdfs-site.xml to slave node ' $host
@@ -460,7 +458,7 @@ List blacklisted TaskTrackers using the following command: \\
 
 Perform the following steps to decommission TaskTrackers: 
 
-Set the TaskTracker exclude file by adding the following properties into the file: \\
+Set the TaskTracker exclude file by adding the following properties into the file:
 \begin{verbatim}
 <property>
   <name>mapred.hosts.exclude</name>
@@ -475,7 +473,7 @@ The \verb|$HADOOP_HOME/conf/mapred-exclude.txt| file will contain the excluding 
 Force the JobTracker to reload the TaskTracker list with the following command: \\
 \verb|$ hadoop mradmin -refreshNodes|
 
-List all the active trackers again using the following command: \\
+List all the active trackers again using the following command:
 \begin{verbatim}
 $ hadoop job -list-active-trackers
 tracker_slave5:localhost/127.0.0.1:55590
@@ -514,7 +512,7 @@ Create the file \verb|$HADOOP_HOME/conf/dfs-exclude.txt| with the following cont
 
 The dfs-exclude.txt file contains the DataNode hostnames, one per line, that are to be decommissioned from the cluster.
 
-Add the following property to the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|: \\
+Add the following property to the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \begin{verbatim}
 <property>
   <name>dfs.hosts.exclude</name>
@@ -529,7 +527,7 @@ Get a description report of each active DataNode: \\
 \verb|$ hadoop dfsadmin -report|
 
 \subsection*{How it works...}
-Cluster administrators can use the dfsadmin command to manage the DataNodes. We can get the usage of this command using the following:\\
+Cluster administrators can use the dfsadmin command to manage the DataNodes. We can get the usage of this command using the following:
 \begin{verbatim}
 $ hadoop dfsadmin
 Usage: java DFSAdmin
@@ -574,7 +572,7 @@ $ sudo ssh hduser@slave2 -C "ln -s /usr/local/hadoop-1.1.2 /usr/local/hadoop"
 $ sudo scp ~/.bashrc hduser@slave2:~/
 \end{verbatim}
 
-Log in to slave2 and start the DataNode and TaskTracker using the following commands: \\
+Log in to slave2 and start the DataNode and TaskTracker using the following commands: 
 \begin{verbatim}
 $ ssh hduser@slave2 -C "hadoop DataNode &"
 $ ssh hduser@slave2 -C "Hadoop TaskTracker &" 
@@ -612,7 +610,7 @@ Log in to the master node from the cluster administrator machine with the follow
 \subsection*{How to do it...}
 Perform the following steps to check the status of Hadoop jobs:
 
-List all the running jobs using the following command: \\
+List all the running jobs using the following command: 
 \begin{verbatim}
 $ hadoop job -list
 1 jobs currently running
@@ -622,7 +620,7 @@ job_201302152353_0001   4   1361405786524   hduser  NORMAL  NA
 
 The output message tells us that currently one job with JobId \verb|job_201302152353_0001| is running on the cluster.
 
-List all the submitted jobs since the start of the cluster with the following command: \\ 
+List all the submitted jobs since the start of the cluster with the following command: 
 \begin{verbatim}
 hadoop job -list all
 2 jobs submitted
@@ -635,7 +633,7 @@ job_201302152353_0002   4   1361405860611   hduser  NORMAL  NA
 
 The State column of the output message shows the status of jobs. For example, in the preceding output, two jobs have been submitted, the first job with JobId \verb|job_201302152353_0001| is in the succeeded state and the second job with JobId \verb|job_201302152353_0002| is in the preparation state. Both jobs have normal priority and don't have scheduling information.
 
-We can check the status of the default queue with the following command:\\
+We can check the status of the default queue with the following command:
 \begin{verbatim}
 $ hadoop queue -list
 Queue Name : default
@@ -645,7 +643,7 @@ Scheduling Info : N/A
 
 Hadoop manages jobs using queues. By default, there is only one default queue. The output of the command shows the cluster has only one default queue, which in the running state with no scheduling information.
 
-Check the status of a queue ACL with the following command: \\
+Check the status of a queue ACL with the following command: 
 \begin{verbatim}
 $ hadoop queue -showacls
 Queue acls for user :  hduser
@@ -657,7 +655,7 @@ default  submit-job,administer-jobs
 
 The output shows that the user hduser can submit and administer jobs in the default queue.
 
-Show all the jobs in the default queue using the following command: \\
+Show all the jobs in the default queue using the following command:
 \begin{verbatim}
 $ hadoop queue -info default -showJobs
 Queue Name : default
@@ -668,8 +666,7 @@ JobId   State   StartTime   UserName   Priority   SchedulingInfo
 job_201302152353_0001   2   1361405786524   hduser  NORMAL  NA
 \end{verbatim}
 
-Check the status of a job with the following command: \\
-
+Check the status of a job with the following command:
 \begin{verbatim}
 $ hadoop job -status job_201302152353_0001
 Job: job_201302152353_0001
@@ -724,7 +721,7 @@ Set the job \verb|job_201302152353_0001| to be on high priority using the follow
 
 Available priorities, in descending order, include: \verb|VERY_HIGH, HIGH, NORMAL, LOW|, and \verb|VERY_LOW|.
 
-The priority of the job will be \emph{HIGH} as shown in the following output: \\
+The priority of the job will be \emph{HIGH} as shown in the following output:
 \begin{verbatim}
 4 jobs submitted
 States are:
@@ -738,7 +735,7 @@ job_201302152353_0003   1   1361408177470   hduser  HIGH    NA
 Kill the job \verb|job_201302152353_0004| using the following command: \\
 \verb|$ hadoop job -kill job_201302152353_0004|
 
-With the job status command, we will get the following output:\\ 
+With the job status command, we will get the following output:
 \begin{verbatim}
 3 jobs submitted
 States are:
@@ -756,7 +753,7 @@ The Killed : 5 information is not in the original output, I put it there accordi
 
 Perform the following steps to submit a MapReduce job:
 
-Create the job configuration file, job.xml, with the following content: \\
+Create the job configuration file, job.xml, with the following content:
 \begin{verbatim}
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
@@ -804,7 +801,7 @@ Create the job configuration file, job.xml, with the following content: \\
 \end{verbatim}
 The \emph{job.xml} file is an XML file that specifies the configuration of a job. In this job configuration file, we specified the job name, the mapper class, the reducer class, the combiner class, the input format, and output format for the job. We have used wordcount as an example, so we also need to make sure \verb|$HADOOP_HOME/hadoop-examples*.jar| is available in CLASSPATH.
 
-Submit the job with the following command: \\
+Submit the job with the following command:
 \begin{verbatim}
 $ hadoop job -submit job.xml
 13/03/01 11:55:53 WARN mapred.JobClient: Use GenericOptionsParser for parsing the arguments. Applications should implement Tool for the same.
@@ -816,7 +813,7 @@ Created job job_201302281451_0012
 \subsection*{How it works...}
 The queue command is a wrapper command for the JobQueueClient class, and the job command is a wrapper command for the JobClient class.
 
-We can get the usage of the queue command with the following:\\
+We can get the usage of the queue command with the following:
 \begin{verbatim}
 $ hadoop queue
 Usage: JobQueueClient <command> <args>
@@ -825,7 +822,7 @@ Usage: JobQueueClient <command> <args>
         [-showacls]
 \end{verbatim}
 
-Similarly, we can get the usage of the job command with the following: \\
+Similarly, we can get the usage of the job command with the following:
 \begin{verbatim}
 $ hadoop job
 Usage: JobClient <command> <args>
@@ -864,8 +861,7 @@ We will get output similar to the following:
 
 %% Insert image 5163OS_04_13.png
 
-Get the job history including job details, failed and killed jobs, and so on with the following command: \\
-
+Get the job history including job details, failed and killed jobs, and so on with the following command: 
 \begin{verbatim}
 $hadoop job -history
 Hadoop job: 0012_1362156954465_hduser
@@ -955,8 +951,7 @@ List task attempts with the following command: \\
 \verb|$ hadoop job -list-attempt-ids <job-id> <task-type> <task-state>|
 
 In this command, available task types are \emph{map, reduce, setup}, and \emph{clean}; available task states are running and completed.
-For example, to list all the completed map attempts for the job \verb|job_201302281451_0014|, the following command can be used: \\
-
+For example, to list all the completed map attempts for the job \verb|job_201302281451_0014|, the following command can be used: 
 \begin{verbatim}
 $ hadoop job -list-attempt-ids job_201302281451_0014 map completed
 attempt_201302281451_0014_m_000000_0
@@ -1048,7 +1043,6 @@ The meaning of the job history URL, master:50030/jobhistoryhome.jsp, can be expl
 \end{table}
 
     The web UI can be automatically updated every five seconds; this interval can be modified by changing the mapreduce.client.completion.pollinterval property in the \verb|$HADOOP_HOME/conf/mapred-site.xml| file similar to the following:
-
 \begin{verbatim}
 <property>
    <name>mapreduce.client.completion.pollinterval</name>
@@ -1139,7 +1133,7 @@ Although distributed copy can be faster than the simple data importing commands,
 \verb|$ hadoop distcp hdfs:///user/hduser/file hdfs:///user/hduser/file-copy|
 
 \subsection*{How it works...}
-We can get the usage of the fs command with the following:\\
+We can get the usage of the fs command with the following:
 \begin{verbatim}
 $ hadoop fs
 Usage: java FsShell
@@ -1193,7 +1187,7 @@ We assume that our Hadoop cluster has been properly configured and all the daemo
 \subsection*{How to do it...}
 Perform the following steps to check the status of files and directory on HDFS:
 
-List files of the user's home directory on HDFS using the following command: \\
+List files of the user's home directory on HDFS using the following command:
 \begin{verbatim}
 $ hadoop fs -ls .
 Found 7 items
@@ -1205,8 +1199,7 @@ drwx------ - hduser supergroup   0 2013-02-21 22:17 /user/hduser/.staging
 
 To recursively list files in the home directory, we can use the command \verb|hadoop fs -lsr ...|
 
-Check the space usage of files and folders in the home directory with the following command: \\
-
+Check the space usage of files and folders in the home directory with the following command:
 \begin{verbatim}
 $ hadoop fs -du .
 Found 7 items
@@ -1228,7 +1221,7 @@ This command is handy to check the content of small files. But when the file is 
 
 Alternatively, we can use the command hadoop fs -text file1 to show the content of file1 in text format.
 
-Use the following commands to test if file1 exists, is empty, or is a directory: \\
+Use the following commands to test if file1 exists, is empty, or is a directory:
 \begin{verbatim}
 hadoop fs -test -e file1
 hadoop fs -test -z file1
@@ -1283,7 +1276,7 @@ Create an empty file using the following command: \\
 \verb|$ hadoop fs -touchz 0file|
 
 \subsection*{How it works...}
-We can get the usage of the fs command with the following command: \\
+We can get the usage of the fs command with the following command:
 \begin{verbatim}
 $ hadoop fs
 Usage: java FsShell
@@ -1318,8 +1311,7 @@ Usage: java FsShell
            [-help [cmd]]
 \end{verbatim}
 
-To get help for each individual command, we can use the -help option. For example, we can get the help of the list command with the following: \\
-
+To get help for each individual command, we can use the -help option. For example, we can get the help of the list command with the following:
 \begin{verbatim}
 $ hadoop fs -help ls
 -ls <path>:     List the contents that match the specified file pattern. If
@@ -1354,7 +1346,7 @@ Set space quota of the current user's home directory to be 100000000 with the fo
 If the space usage under the directory /user/hduser exceeds the specified quota, we will get an error message similar to the following: \\
 \verb|put: org.apache.hadoop.hdfs.protocol.DSQuotaExceededException: The DiskSpace quota of /user/hduser is exceeded: quota=100000000 diskspace consumed=204.5g| 
 
-Check the quota status with the following command: \\
+Check the quota status with the following command:
 \begin{verbatim}
 $ hadoop fs -count -q /user/hduser
 \end{verbatim}
@@ -1374,7 +1366,7 @@ Clear the space quota with the following command: \\
 \verb|$ hadoop dfsadmin -clrSpaceQuota /user/hduser|
 
 \subsection*{How it works...}
-We can get the usage of the hadoop fs command with the following command: \\
+We can get the usage of the hadoop fs command with the following command:
 \begin{verbatim}
 hadoop dfsadmin
 Usage: java DFSAdmin
@@ -1412,7 +1404,7 @@ Log in to the master node from the cluster administrator machine using the follo
 \subsection*{How to do it...}
 Configure CapacityScheduler with the following steps: 
 
-Configure Hadoop to use CapacityScheduler by adding the following lines into the file \verb|$HADOOP_HOME/conf/mapred-site.xml|: \\
+Configure Hadoop to use CapacityScheduler by adding the following lines into the file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
 \begin{verbatim}
 <property>
     <name>mapred.jobtracker.taskScheduler</name>
@@ -1420,7 +1412,7 @@ Configure Hadoop to use CapacityScheduler by adding the following lines into the
 </property>
 \end{verbatim}
 
-Define a new queue, hdqueue, by adding the following lines into the file \verb|$HADOOP_HOME/conf/mapred-site.xml|: \\
+Define a new queue, hdqueue, by adding the following lines into the file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
 \begin{verbatim}
 <property>
     <name>mapred.queue.names</name>
@@ -1430,8 +1422,7 @@ Define a new queue, hdqueue, by adding the following lines into the file \verb|$
 
 By default, a Hadoop cluster has only one default queue.
 
-Configure CapacityScheduler queues by adding the following lines into the file \verb|$HADOOP_HOME/conf/capacity-scheduler.xml|: \\
-
+Configure CapacityScheduler queues by adding the following lines into the file \verb|$HADOOP_HOME/conf/capacity-scheduler.xml|:
 \begin{verbatim}
 <property>
   <name>mapred.capacity-scheduler.queue.hdqueue.capacity</name>
@@ -1488,8 +1479,7 @@ This screenshot shows the status of each queue in the cluster including the numb
 Test the queue configuration by submitting an example wordcount job to the queue hdqueue using the following command: \\ 
 \verb|$ hadoop jar $HADOOP_HOME/hadoop-examples-1.1.2.jar wordcount -Dmapred.job.queue.name=hdqueue randtext wordcount.out | 
 
-From the job information web UI, we can get the job scheduling information similar to the following: \\
-
+From the job information web UI, we can get the job scheduling information similar to the following: 
 \begin{verbatim}
 Job Scheduling information: 8 running map tasks using 8 map slots. 0 additional slots reserved. 1 running reduce tasks using 1 reduce slots. 0 additional slots reserved.
 \end{verbatim}
@@ -1539,7 +1529,7 @@ Log in to the master node from the Hadoop administrator machine using the follow
 \subsection*{How to do it...}
 Perform the following steps to configure Hadoop Fair Scheduler: 
 
-Enable fair scheduling by changing the following property in the file \verb|$HADOOP_HOME/conf/mapred-site.xml|: \\
+Enable fair scheduling by changing the following property in the file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
 \begin{verbatim}
   <property>
     <name>mapred.jobtracker.taskScheduler</name>
@@ -1547,7 +1537,7 @@ Enable fair scheduling by changing the following property in the file \verb|$HAD
   </property>
 \end{verbatim}
 
-Create the Fair Scheduler configuration file, \verb|$HADOOP_HOME/conf/fair-scheduler.xml|, with content similar to the following: \\ 
+Create the Fair Scheduler configuration file, \verb|$HADOOP_HOME/conf/fair-scheduler.xml|, with content similar to the following: 
 \begin{verbatim}
 <?xml version="1.0"?> 
 <allocations>
@@ -1624,7 +1614,7 @@ Perform the following steps to configure Hadoop logging:
 Log in to the master node with the following command from the Hadoop administrator machine: \\ 
 \verb|$ ssh hduser@master|
 
-Check the current logging level of JobTracker with the following command: \\
+Check the current logging level of JobTracker with the following command:
 \begin{verbatim}
 hadoop daemonlog -getlevel master:50030 org.apache.hadoop.mapred.JobTracker
 Connecting to http://master:50030/logLevel?log=org.apache.hadoop.mapred.JobTracker
@@ -1633,7 +1623,7 @@ Log Class: org.apache.commons.logging.impl.Log4JLogger
 Effective level: INFO
 \end{verbatim}
 
-Tell Hadoop to only log error events for JobTracker using the following command: \\
+Tell Hadoop to only log error events for JobTracker using the following command:
 \begin{verbatim}
 hadoop daemonlog -setlevel master:50030 org.apache.hadoop.mapred.JobTracker ERROR
 Connecting to http://master:50030/logLevel?log=org.apache.hadoop.mapred.JobTracker&level=ERROR
@@ -1643,7 +1633,7 @@ Submitted Level: ERROR
 Setting Level to ERROR ...
 Effective level: ERROR
 \end{verbatim}
-Now, the logging status of the JobTracker daemon will be similar to the following:\\
+Now, the logging status of the JobTracker daemon will be similar to the following:
 \begin{verbatim}
 Connecting to http://master:50030/logLevel?log=org.apache.hadoop.mapred.JobTracker
 Submitted Log Name: org.apache.hadoop.mapred.JobTracker
@@ -1651,7 +1641,7 @@ Log Class: org.apache.commons.logging.impl.Log4JLogger
 Effective level: ERROR
 \end{verbatim}
 
-Get the log levels for TaskTracker, NameNode, and DataNode with the following commands: \\
+Get the log levels for TaskTracker, NameNode, and DataNode with the following commands:
 \begin{verbatim}
 hadoop daemonlog -getlevel master:50030 org.apache.hadoop.mapred.TaskTracker hadoop daemonlog -getlevel master:50070 org.apache.hadoop.dfs.NameNode
 hadoop daemonlog -getlevel master:50070 org.apache.hadoop.dfs.DataNode
@@ -1695,7 +1685,7 @@ The following table shows all the logging levels provided by Log4j: \\
   \caption{Log4j logging levels}\label{tbl:log4j}
 \end{table}
 
-We can get the usage of daemonlog with the following command: \\
+We can get the usage of daemonlog with the following command:
 \begin{verbatim}
 $ hadoop daemonlog
 USAGES:
@@ -1788,14 +1778,14 @@ to the following: \\
 Try making a directory on HDFS with the following command: \\
 \verb|$ hadoop fs -mkdir audittest|
 
-Check the audit log messages in the NameNode log file with the following command: \\
+Check the audit log messages in the NameNode log file with the following command:
 \begin{verbatim}
 $ grep org.apache.hadoop.hdfs.server.namenode.FSNamesystem.audit $HADOOP_HOME/logs/hadoop-hduser-namenode-master.log
 2013-02-28 13:38:04,235 INFO org.apache.hadoop.hdfs.server.namenode.FSNamesystem.audit: ugi=hduser    ip=/10.0.0.1  cmd=mkdirs   src=/user/hduser/audittest  dst=null        perm=hduser:supergroup:rwxr-xr-x
 \end{verbatim}
 The Hadoop NameNode is responsible for managing audit logging messages, which are forwarded to the NameNode logging facility. So what we have seen so far is that the audit logging message has been mixed with the normal logging message.
 
-We can separate the audit logging messages from the NameNode logging messages by configuring the file \verb|$HADOOP_HOME/conf/log4j.properties| with the following content: \\
+We can separate the audit logging messages from the NameNode logging messages by configuring the file \verb|$HADOOP_HOME/conf/log4j.properties| with the following content: 
 \begin{verbatim}
 # Log at INFO level, SYSLOG appenders
 log4j.logger.org.apache.hadoop.hdfs.server.namenode.FSNamesystem.audit=INFO
@@ -1860,7 +1850,7 @@ Copy the checkpoint files to a backup directory with the following commands: \\
 \verb|$ sudo cp dfs.name.dir/edits /backup| \\ 
 \verb|$ sudo cp dfs.name.dir/image/fsimage /backup| 
 
-Verify that no DataNode daemon is running with the following command: \\
+Verify that no DataNode daemon is running with the following command:
 \begin{verbatim}
 for node in `cat $HADOOP_HOME/conf/slaves`
   do
@@ -1887,7 +1877,7 @@ Update the Hadoop symbolic link to the Hadoop version with the following command
 \verb|$ sudo rm -rf /usr/local/hadoop | \\ 
 \verb|$ sudo ln -s /usr/local/hadoop-1.2.0 /usr/local/hadoop | 
 
-Upgrade in the slave nodes with the following commands: \\
+Upgrade in the slave nodes with the following commands:
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`
   do
@@ -1931,7 +1921,6 @@ Now, we can check the status of the cluster either by running a sample MapReduce
 
 \subsection*{How it works...}
 We can use the following command to get the usage of HDFS upgrade commands:
-
 \begin{verbatim}
 hadoop dfsadmin
 

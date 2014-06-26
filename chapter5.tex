@@ -55,7 +55,7 @@ Allow only specific users and groups to talk to HDFS by opening file \verb|$HADO
 
 This configuration only allows users hduser and hdadmin and group hadoop to access HDFS.
 
-Allows only specific DataNodes to communicate with the NameNode by changing the security.datanode.protocol.acl property in file \verb|$HADOOP_HOME/conf/hadoop-policy.xml| similar to the following: \\
+Allows only specific DataNodes to communicate with the NameNode by changing the security.datanode.protocol.acl property in file \verb|$HADOOP_HOME/conf/hadoop-policy.xml| similar to the following:
 \begin{verbatim}
 <property>
   <name>security.datanode.protocol.acl</name>
@@ -81,16 +81,16 @@ The value of properties such as security.namenode.protocol.acl is a comma separa
 Besides the three properties we mentioned in this recipe, a number of other ACL properties are available in Hadoop. The following table shows the meaning of these properties: \\
 \begin{table}
   \begin{tabular}{ll}
-    \toprule 
+    \toprule
     Property & Service Description \\ \midrule
-    security.client.protocol.acl & Clients access HDFS \\ 
-    security.client.datanode.protocol.acl & Client to DataNode for block recovery \\ 
+    security.client.protocol.acl & Clients access HDFS \\
+    security.client.datanode.protocol.acl & Client to DataNode for block recovery \\
     security.inter.datanode.protocol.acl & DataNode to DataNode updating timestamps \\
-    security.inter.tracker.protocol.acl & TaskTracker to JobTracker \\ 
-    security.job.submission.protocol.acl & Client to JobTracker for job submission, querying and so on. \\ 
+    security.inter.tracker.protocol.acl & TaskTracker to JobTracker \\
+    security.job.submission.protocol.acl & Client to JobTracker for job submission, querying and so on. \\
     security.task.umbilical.protocol.acl & For map and reduce tasks talk to TaskTracker. \\
     security.refresh.policy.protocol.acl & dfsadmin and mradmin to refresh ACL policies. \\ \bottomrule
-  \end{tabular} 
+  \end{tabular}
   \caption{ACL properties}\label{tbl:acl}
 \end{table}
 
@@ -111,7 +111,7 @@ Login to the master node from the administrator machine with command: \\
 \subsection*{How to do it...}
 Use the following steps to configure job authorization with ACLs:
 
-Enable job ACL authorization by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-site.xml|: \\
+Enable job ACL authorization by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
 \begin{verbatim}
 <property>
   <name>mapred.acls.enabled</name>
@@ -120,7 +120,7 @@ Enable job ACL authorization by adding the following property to file \verb|$HAD
 \end{verbatim}
 This property will enable both the queue ACL and the job ACL.
 
-Configure to only allow specific users and groups to submit jobs by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-queue-acls.xml|: \\
+Configure to only allow specific users and groups to submit jobs by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-queue-acls.xml|:
 \begin{verbatim}
 <property>
   <name>mapred.queue.hdqueue.acl-submit-job</name>
@@ -130,7 +130,7 @@ Configure to only allow specific users and groups to submit jobs by adding the f
 
 This configuration will only allow user hduser and group hadoop to submit jobs to queue hdqueue.
 
-Configure to allow specific users and groups to manage jobs in a named queue by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-queue-acls.xml|: \\
+Configure to allow specific users and groups to manage jobs in a named queue by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-queue-acls.xml|:
 \begin{verbatim}
 <property>
   <name>mapred.queue.hdqueue.acl-administer-job</name>
@@ -140,7 +140,7 @@ Configure to allow specific users and groups to manage jobs in a named queue by 
 
 This configuration will only allow user hduser and group hadoop to administrate jobs to queue hdqueue.
 
-Check the status of queue ACLs with command: \\
+Check the status of queue ACLs with command:
 \begin{verbatim}
 $ hadoop queue -showacls
 Queue acls for user :  hduser
@@ -151,7 +151,7 @@ default  submit-job,administer-jobs
 hdqueue  submit-job,administer-jobs
 \end{verbatim}
 
-Configure to allow only specific users and groups to view the status of a job by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-queue-acls.xml|: \\
+Configure to allow only specific users and groups to view the status of a job by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-queue-acls.xml|:
 \begin{verbatim}
 <property>
   <name>mapreduce.job.acl-view-job</name>
@@ -161,7 +161,7 @@ Configure to allow only specific users and groups to view the status of a job by
 
 Different to queue level ACL, job level ACLs specifies access control for any submitted jobs, regardless of the queue a job has been submitted to.
 
-Configure to allow only specific users and groups to modify a job by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-queue-acls.xml|:\\
+Configure to allow only specific users and groups to modify a job by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-queue-acls.xml|:
 \begin{verbatim}
 <property>
   <name>mapreduce.job.acl-modify-job</name>
@@ -171,13 +171,13 @@ Configure to allow only specific users and groups to modify a job by adding the 
 
 Force the NameNode and the JobTracker to reload the ACL configurations with commands: \\
 \verb|$ hadoop dfsadmin -refreshServiceAcl| \\
-\verb|$ hadoop mradmin -refreshServiceAcl| 
+\verb|$ hadoop mradmin -refreshServiceAcl|
 
 \subsection*{How it works...}
 Similar to the SLA properties in the previous recipe, the value of properties such as mapred.queue.hdqueue.acl-submit-job is a comma separated list of users and a comma separated list of groups. The users list and the groups list are separated by space. For example,  the generic format of the value should be similar to the following: \\
 \verb|<value>user1,user2,user3 group1,group2</value>|
 
-\begin{info} 
+\begin{info}
 Note! \\
 The job owner, the super user and the cluster administrators that the job was submitted to will always have right to view and modify a job.
 \end{info}
@@ -229,7 +229,7 @@ Create the HTTP principal for SPNEGO with command in the kadmin shell: \\
 Create the keytab file that contains the hduser¡¯s and HTTP principal with: \\
 \verb|$ xst -norandkey -k hduser.keytab hduser/master.hdcluster.com HTTP/master.hdcluster.com|
 
-Show available keytab file entries with: \\
+Show available keytab file entries with:
 \begin{verbatim}
 $ klist -e -k -t hduser.keytab
 Keytab name: WRFILE:hduser.keytab
@@ -245,14 +245,14 @@ Move the keytab files to the Hadoop configuration directory with: \\
 \verb|$ cp *.keytab $HADOOP_HOME/conf|
 
 Change the owner of the hduser keytab file with:\\
-\verb|$ sudo chown hduser:hadoop $HADOOP_HOME/conf/hduser.keytab| 
+\verb|$ sudo chown hduser:hadoop $HADOOP_HOME/conf/hduser.keytab|
 
 Change the permission of the keytab files with: \\
-\verb|$ sudo chmod 400 $HADOOP_HOME/conf/*.keytab| 
+\verb|$ sudo chmod 400 $HADOOP_HOME/conf/*.keytab|
 
 Only the owner is allowed to read the keytab files.
 
-Copy all the kaytab files to the slave nodes with: \\
+Copy all the kaytab files to the slave nodes with:
 \begin{verbatim}
 for node in `cat $HADOOP_HOME/conf/slaves`; do
   echo ¡®Copying keytab files to ¡¯ $host
@@ -263,7 +263,7 @@ done
 Stop the cluster with command: \\
 \verb|$ stop-all.sh|
 
-Open the \verb|$HADOOP_HOME/conf/core-site.xml| file with your favorite text editor and add the following lines to the file: \\
+Open the \verb|$HADOOP_HOME/conf/core-site.xml| file with your favorite text editor and add the following lines to the file:
 \begin{verbatim}
 <property>
   <name>hadoop.security.authorization</name>
@@ -351,7 +351,7 @@ Open the \verb|$HADOOP_HOME/conf/core-site.xml| file with your favorite text edi
 </property>
 \end{verbatim}
 
-Enable webHDFS by adding the following property to file \verb|$HADOOP_HOME/conf/hdfs-site.xml|: \\
+Enable webHDFS by adding the following property to file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \begin{verbatim}
 <property>
   <name>dfs.webhdfs.enabled</name>
@@ -372,7 +372,7 @@ Configure Kerberos web authentication by adding the following two properties to 
 </property>
 \end{verbatim}
 
-Start the cluster with: \\
+Start the cluster with:
 \begin{verbatim}
 $ start-all.sh
 13/02/25 10:19:02 INFO security.UserGroupInformation:
@@ -386,12 +386,12 @@ Login successful for user hduser/master.hdcluster.com@HDREALM using keytab file 
 \end{verbatim}
 
 Test the Kerberos configuration by copying a simple text file into HDFS with command: \\
-\verb|$ hadoop fs -put $HADOOP_HOME/conf/slaves .| 
+\verb|$ hadoop fs -put $HADOOP_HOME/conf/slaves .|
 
 Set sticky bit on HDFS directory to prevent the directories or files from being deleted by unauthorized users with command: \\
-\verb|$ sudo -u hdfs hadoop fs -chmod 1777 /tmp| 
+\verb|$ sudo -u hdfs hadoop fs -chmod 1777 /tmp|
 
-Verify sticky bit setting with command: \\
+Verify sticky bit setting with command:
 \begin{verbatim}
 $ hadoop fs -ls /
 Found 2 items
@@ -400,7 +400,7 @@ drwxr-xr-x - hduser supergroup 0 2013-03-10 14:01 /user
 \end{verbatim}
 
 
-Configure MapReduce Kerberos authentication by adding the following lines into file \verb|$HADOOP_HOME/conf/mapred-site.xml|: \\
+Configure MapReduce Kerberos authentication by adding the following lines into file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
 \begin{verbatim}
 <property>
   <name>mapreduce.jobtracker.kerberos.principal</name>
@@ -433,7 +433,7 @@ Configure MapReduce Kerberos authentication by adding the following lines into f
 </property>
 \end{verbatim}
 
-Create a file \verb|$HADOOP_HOME/conf/taskcontrol.cfg| with the following content: \\
+Create a file \verb|$HADOOP_HOME/conf/taskcontrol.cfg| with the following content:
 \begin{verbatim}
 mapred.local.dir=${hadoop.tmp.dir}/mapred/local
 hadoop.log.dir=$HADOOP_HOME/logs
@@ -444,12 +444,12 @@ min.user.id=2000
 
 Change the ownership and permission of file \verb|$HADOOP_HOME/conf/taskcontroller.cfg|:
 \verb|$ sudo chown root:mapred $HADOOP_HOME/conf/task-controller.cfg| \\
-\verb|$ sudo chmod 4754 $HADOOP_HOME/conf/task-controller.cfg| 
+\verb|$ sudo chmod 4754 $HADOOP_HOME/conf/task-controller.cfg|
 
 The modified permission should be similar to the following:\\
 \verb|-rwsr-xr-- 1 hduser superuser 91886 2013-03-10 13:44 task-controller.cfg|
 
-Start the MapReduce cluster with command: \\
+Start the MapReduce cluster with command:
 \begin{verbatim}
 $ start-mapred.sh
 13/02/26 12:25:02 INFO security.UserGroupInformation:
@@ -478,7 +478,7 @@ Use the following recipe to configure web UI authentication:
 Stop the cluster with command: \\
 \verb|$ stop-all.sh|
 
-Add or change the following property: \\
+Add or change the following property:
 \begin{verbatim}
 <property>
   <name>hadoop.http.filter.initializers</name>
@@ -487,7 +487,6 @@ Add or change the following property: \\
 \end{verbatim}
 
 And change the http authentication type by adding the following:
-
 \begin{verbatim}
 <property>
   <name>hadoop.http.authentication.type</name>
@@ -497,7 +496,7 @@ And change the http authentication type by adding the following:
 
 Other http authentication types include simple and user customized by specifying the \verb|AUTHENTICATION_HANDLER_CLASSNAME|. Note that the default authentication type is simple.
 
-Configure the authentication token valid time length by changing the hadoop.http.authentication.token.validity property to the following: \\
+Configure the authentication token valid time length by changing the hadoop.http.authentication.token.validity property to the following:
 \begin{verbatim}
 <property>
   <name>hadoop.http.authentication.token.validity</name>
@@ -507,7 +506,7 @@ Configure the authentication token valid time length by changing the hadoop.http
 
 The unit of the value is in seconds.  The default value for this property is 36000.
 
-Configure the location of the signature secret file, which will be used to sign the authentication tokens, by changing the  hadoop.http.authentication.signature.secret.file property similar to the following: \\
+Configure the location of the signature secret file, which will be used to sign the authentication tokens, by changing the  hadoop.http.authentication.signature.secret.file property similar to the following:
 \begin{verbatim}
 <property>
   <name>hadoop.http.authentication.signature.secret.file</name>
@@ -517,19 +516,19 @@ Configure the location of the signature secret file, which will be used to sign 
 
 If this property is not set, a random secret will be generated at startup time. The default file used to keep the secret will be \verb|${user.name}/hadoop-auth-signature-secret|.
 
-Configure the domain name for HTTP cookies, which stores authentication tokens, by changing the hadoop.http.authentication.cookie.domain property similar to the following: \\
+Configure the domain name for HTTP cookies, which stores authentication tokens, by changing the hadoop.http.authentication.cookie.domain property similar to the following:
 \begin{verbatim}
 <property>
   <name>hadoop.http.authentication.cookie.domain</name>
   <value>hdcluster.com</value>
 </property>
 \end{verbatim}
-\begin{warning} 
+\begin{warning}
 Warning! \\
-This property is required for HTTP authentication to work properly. 
+This property is required for HTTP authentication to work properly.
 \end{warning}
 
-Configure Kerberos principal for HTTP endpoint by changing the hadoop.http.authentication.kerberos.principal property similar to the following: \\
+Configure Kerberos principal for HTTP endpoint by changing the hadoop.http.authentication.kerberos.principal property similar to the following:
 \begin{verbatim}
 <property>
   <name>hadoop.http.authentication.kerberos.principal</name>
@@ -537,7 +536,7 @@ Configure Kerberos principal for HTTP endpoint by changing the hadoop.http.authe
 </property>
 \end{verbatim}
 
-Configure the location of the keytab file for the Kerberos principal for HTTP endpoints by changing the hadoop.http.authentication.kerberos.keytab property similar to the following: \\
+Configure the location of the keytab file for the Kerberos principal for HTTP endpoints by changing the hadoop.http.authentication.kerberos.keytab property similar to the following:
 \begin{verbatim}
 <property>
   <name>hadoop.http.authentication.kerberos.keytab</name>
@@ -545,7 +544,7 @@ Configure the location of the keytab file for the Kerberos principal for HTTP en
 </property>
 \end{verbatim}
 
-Sync the configurations to the slave nodes with command: \\
+Sync the configurations to the slave nodes with command:
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo ¡°Copying Hadoop configration files to host: ¡® $host
@@ -554,9 +553,9 @@ done
 \end{verbatim}
 
 Start the Hadoop cluster with: \\
-\verb|$ start-all.sh| 
+\verb|$ start-all.sh|
 
-Validate the configuration by opening URL master:50030/jobtracker.jsp. 
+Validate the configuration by opening URL master:50030/jobtracker.jsp.
 
 Alternatively, we can test our configuration with the curl command: \\
 \verb|$ curl -v -u hduser --negotiate http://master:50030/jobtracker.jsp |
@@ -571,7 +570,7 @@ For more information about SPNEGO, please refer to its wiki page at: http://en.w
 \subsection*{There's more...}
 Other authentication methods include the simple authentication. If this authentication method is used, we must specify the user name in the first browser interaction using the user.name parameter in the URL. For example, we need to open JobTracker URL: http://master:50030/jobtracker.jsp?user.name=hduser.
 
-If simple authentication is used as the authentication type, anonymous user web UI request can be configured by changing the following property: \\
+If simple authentication is used as the authentication type, anonymous user web UI request can be configured by changing the following property:
 \begin{verbatim}
 <property>
   <name>hadoop.http.authentication.simple.anonymous.allowed</name>
@@ -597,9 +596,9 @@ Please be prepared that a NameNode failure can cause the cluster to halt. It mig
 The first method we want to introduce is to configure the NameNode to write edit logs and filesystem image into two locations, one is on the local directory for the NameNode machine and the other is on the SecondaryNameNode machine, these directories are specified with the HDFS property dfs.name.dir. We can use the following steps to configure this:
 
 Log into master1 with command: \\
-\verb|$ ssh hduser@master1| 
+\verb|$ ssh hduser@master1|
 
-Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|: \\
+Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \begin{verbatim}
 <property>
     <name>dfs.name.dir</name>
@@ -621,9 +620,9 @@ Configure the following property in file \verb|$HADOOP_HOME/conf/core-site.xml|:
 
 Copy the configuration to master2 with command: \\
 \verb|$ scp $HADOOP_HOME/conf/hdfs-site.xml master2:$HADOOP_HOME/conf/| \\
-\verb|$ scp $HADOOP_HOME/conf/slaves master2:$HADOOP_HOME/conf/| 
+\verb|$ scp $HADOOP_HOME/conf/slaves master2:$HADOOP_HOME/conf/|
 
-Copy the configuration file to all the slave nodes in the cluster with command: \\
+Copy the configuration file to all the slave nodes in the cluster with command:
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo "Sync configuration files to " $host
@@ -632,7 +631,7 @@ done
 \end{verbatim}
 
 Start the Hadoop cluster in master1 with command: \\
-\verb|$ start-all.sh| 
+\verb|$ start-all.sh|
 
 In this configuration, we actually are not starting any daemons on the SecondaryNameNode machine master2. We just use this machine to store the metadata files for the NameNode on master1. Once the NameNode fails, we can quickly start the NameNode on master2 will little effort.
 
@@ -644,7 +643,7 @@ Login to master2 with command: \\
 Stop the cluster with command: \\
 \verb|$ ssh master1 -C "stop-all.sh"|
 
-Configure to use master2 as the NameNode by adding the following property into file \verb|$HADOOP_HOME/conf/core-site.xml|: \\
+Configure to use master2 as the NameNode by adding the following property into file \verb|$HADOOP_HOME/conf/core-site.xml|:
 \begin{verbatim}
 <property>
     <name>fs.default.name </name>
@@ -652,7 +651,7 @@ Configure to use master2 as the NameNode by adding the following property into f
 </property>
 \end{verbatim}
 
-Copy the configurations to all the slave nodes in the cluster with command: \\
+Copy the configurations to all the slave nodes in the cluster with command:
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo "Sync configuration files to " $host
@@ -677,7 +676,7 @@ Install, format and mount the hard drive on to the machine, suppose the mount po
 Create the Hadoop directory with command: \\
 \verb|$ mkdir /hadoop1/dfs/name|
 
-Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|: \\
+Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \begin{verbatim}
 <property>
     <name>dfs.name.dir</name>
@@ -690,9 +689,9 @@ In this configuration, we added two directories. The first is the major director
 We can use the following steps to recover from the NameNode failure:
 
 Stop the Hadoop cluster with command: \\
-\verb|$ stop-all.sh| 
+\verb|$ stop-all.sh|
 
-Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|: \\
+Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \begin{verbatim}
 <property>
     <name>dfs.name.dir</name>
@@ -701,7 +700,7 @@ Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \end{verbatim}
 
 Start the cluster with command: \\
-\verb|$ start-all.sh| 
+\verb|$ start-all.sh|
 
 \subsubsection*{Recovering NameNode from the checkpoint of a SecondaryNameNode}
 We can use the following steps to configure SecondaryNameNode and recover from the NameNode failure:
@@ -709,11 +708,11 @@ We can use the following steps to configure SecondaryNameNode and recover from t
 Login to master1 with command:\\
 \verb|$ ssh hduser@master1|
 Add the following line into file \verb|$HADOOP_HOME/conf/masters|:\\
-\verb|master2| 
+\verb|master2|
 
 By doing this, we configure to run SecondaryNameNode on master2.
 
-Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|: \\
+Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \begin{verbatim}
 <property>
     <name>dfs.name.dir</name>
@@ -721,7 +720,7 @@ Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 </property>
 \end{verbatim}
 
-Sync the configuration files to the slave nodes in the cluster with command:\\
+Sync the configuration files to the slave nodes in the cluster with command:
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo "Sync configuration files to " $host
@@ -735,9 +734,9 @@ Start the cluster with command: \\
 In case the NameNode fails, we can use the following steps to recover:
 
 Stop the cluster with command: \\
-\verb|$ stop-all.sh| 
+\verb|$ stop-all.sh|
 
-Prepare a new machine for running the NameNode. 
+Prepare a new machine for running the NameNode.
 
 The preparation should include properly configuring Hadoop. It is recommended that the new NameNode machine have the same configuration as the failed NameNode.
 
@@ -750,7 +749,7 @@ Configure the NameNode version number with command: \\
 Copy the checkpoint image from SecondaryNameNode with command: \\
 \verb|$ scp master2:/hadoop/dfs/namesecondary/image/fsimage /hadoop/dfs/name/fsimage|
 
-Copy the current edit logs from SecondaryNameNode with command: \\ 
+Copy the current edit logs from SecondaryNameNode with command: \\
 \verb|$ scp master2:/hadoop/dfs/namesecondary/current/* /hadoop/dfs/name/current|
 
 Convert the checkpoint to the new version format with command: \\
@@ -780,9 +779,9 @@ We are assuming that we have two master nodes, with hostnames master1 and master
 Use the following recipe to configure Hadoop NameNode HA:
 
 Login to one of the NameNode machines with command: \\
-\verb|$ ssh hduser@master1| 
+\verb|$ ssh hduser@master1|
 
-Configure a logical name service by adding the following property into the file \verb|$HADOOP_CONF_DIR/hdfs-site.xml|: \\
+Configure a logical name service by adding the following property into the file \verb|$HADOOP_CONF_DIR/hdfs-site.xml|:
 \begin{verbatim}
 <property>
   <name>dfs.nameservices</name>
@@ -792,7 +791,7 @@ Configure a logical name service by adding the following property into the file 
 
 We are assume all the subsequent configurations are making changes on file \verb|$HADOOP_CONF_DIR/hdfs-site.xml|.
 
-Specify the NameNode IDs for the configured name service by adding the following property in the file: \\
+Specify the NameNode IDs for the configured name service by adding the following property in the file:
 \begin{verbatim}
 <property>
   <name>dfs.ha.namenodes.hdcluster</name>
@@ -804,7 +803,7 @@ This property specifies the NameNode IDs with property dfs.ha.namenodes.<nameser
 
 Note that, current HA implementation only supports two NameNodes in maximum.
 
-Configure the RPC address for namenode1 on host master1 by adding the following property: \\
+Configure the RPC address for namenode1 on host master1 by adding the following property:
 \begin{verbatim}
 <property>
   <name>dfs.namenode.rpc-address.hdcluster.namenode1</name>
@@ -814,7 +813,7 @@ Configure the RPC address for namenode1 on host master1 by adding the following 
 
 The MRv1 RPC address specification for the NameNode is similar to the specification in MRv2, they both use the format host:port.
 
-Configure the RPC address for namenode2 on host master2 by adding the following property: \\
+Configure the RPC address for namenode2 on host master2 by adding the following property:
 \begin{verbatim}
 <property>
   <name>dfs.namenode.rpc-address.hdcluster.namenode2</name>
@@ -822,7 +821,7 @@ Configure the RPC address for namenode2 on host master2 by adding the following 
 </property>
 \end{verbatim}
 
-Configure the HTTP web UI address of the two NameNodes by adding the following lines to the file: \\
+Configure the HTTP web UI address of the two NameNodes by adding the following lines to the file:
 \begin{verbatim}
 <property>
   <name>dfs.namenode.http-address.hdcluster.namenode1</name>
@@ -835,7 +834,7 @@ Configure the HTTP web UI address of the two NameNodes by adding the following l
 </property>
 \end{verbatim}
 
-Configure the NameNode shared edits directory by adding the following property into the file: \\
+Configure the NameNode shared edits directory by adding the following property into the file:
 \begin{verbatim}
 <property>
   <name>dfs.namenode.shared.edits.dir</name> <value>qjournal://master1:8485;master1:8486;master2:8485/hdcluster</value>
@@ -844,7 +843,7 @@ Configure the NameNode shared edits directory by adding the following property i
 
 This property configures three Journal Node addresses for Quorum to provide the shared edits storage. The shared edits logs will be written by the active NameNode and read by the standby NameNode.
 
-Configure Quorum Journal Node directory for storing edit logs in local filesystem by adding the following property into the file: \\
+Configure Quorum Journal Node directory for storing edit logs in local filesystem by adding the following property into the file:
 \begin{verbatim}
 <property>
   <name>dfs.journalnode.edits.dir</name>
@@ -854,7 +853,7 @@ Configure Quorum Journal Node directory for storing edit logs in local filesyste
 
 This property should be configured on each NameNode machine.
 
-Configure the proxy provider for the NameNode HA by adding the following lines into the file: \\
+Configure the proxy provider for the NameNode HA by adding the following lines into the file:
 \begin{verbatim}
 <property>
   <name>dfs.client.failover.proxy.provider.hdcluster</name>
@@ -862,7 +861,7 @@ Configure the proxy provider for the NameNode HA by adding the following lines i
 </property>
 \end{verbatim}
 
-Configure the fencing method by adding the following property into the file: \\
+Configure the fencing method by adding the following property into the file:
 \begin{verbatim}
 <property>
   <name>dfs.ha.fencing.methods</name>
@@ -872,7 +871,7 @@ Configure the fencing method by adding the following property into the file: \\
 
 Currently, NameNode HA supports two fencing methods, one is sshfence and the other one is shell. sshfence uses SSH to login to the active NameNode and kill the process and shell fencing uses regular shell commands to fence the active NameNode. In this recipe, we are assuming to use the sshfence method.
 
-Configure the private key file for the sshfence method by adding the following property into the file: \\
+Configure the private key file for the sshfence method by adding the following property into the file:
 \begin{verbatim}
 <property>
   <name>dfs.ha.fencing.ssh.private-key-files</name>
@@ -884,7 +883,7 @@ The value of this property should be a comma separated list of private key files
 
 In order for sshfence to work, we are configuring the private key files so that it can login to the target node without providing a paraphrase.
 
-Configure the SSH connection timeout, in milliseconds, by adding the following property into the file: \\
+Configure the SSH connection timeout, in milliseconds, by adding the following property into the file:
 \begin{verbatim}
 <property>
   <name>dfs.ha.fencing.ssh.connect-timeout</name>
@@ -892,7 +891,7 @@ Configure the SSH connection timeout, in milliseconds, by adding the following p
 </property>
 \end{verbatim}
 
-Enable automatic failover by adding the following property into the file: \\
+Enable automatic failover by adding the following property into the file:
 \begin{verbatim}
 <property>
   <name>dfs.ha.automatic-failover.enabled</name>
@@ -909,8 +908,7 @@ dcluster, we can configure the following property:
 </property>
 \end{verbatim}
 
-
-Configure the ZooKeeper services by adding the following property into file \verb|$HADOOP_CONF_DIR/core-site.xml|: \\
+Configure the ZooKeeper services by adding the following property into file \verb|$HADOOP_CONF_DIR/core-site.xml|:
 \begin{verbatim}
 <property>
    <name>ha.zookeeper.quorum</name>
@@ -918,7 +916,7 @@ Configure the ZooKeeper services by adding the following property into file \ver
 </property>
 \end{verbatim}
 
-Sync the configurations to all the nodes in the cluster with command: \\
+Sync the configurations to all the nodes in the cluster with command:
 \begin{verbatim}
 for host in `cat $HADOOP_CONF_DIR/slaves`; do
   echo "Sync configuration files to " $host
@@ -941,13 +939,13 @@ Alternatively, we can manually start the ZKFC daemon on each NameNode machine wi
 
 We can use the following steps to test the NameNode HA configuration:
 
-Check the status of the NameNode by visiting the NameNode web UI with the following URLs: \\
+Check the status of the NameNode by visiting the NameNode web UI with the following URLs:
 \begin{verbatim}
 master1:50070
 master2:50070
 \end{verbatim}
 
-Assuming master1 has the active NameNode, we can get the NameNode process ID on master1 with command: \\
+Assuming master1 has the active NameNode, we can get the NameNode process ID on master1 with command:
 \begin{verbatim}
 jps
 ...
@@ -965,7 +963,7 @@ Hadoop NameNode HA was introduced since versions 0.23.x or the 2.0.x branch (MRv
 \subsection*{There's more...}
 In the NameNode HA implementation, ZooKeeper is playing an important role. The security of ZooKeeper can be a necessary concern. We can use the following steps to configure a secured ZooKeeper:
 
-Login to master1 machine with the ssh command. 
+Login to master1 machine with the ssh command.
 
 Add the following property to file \verb|$HADOOP_CONF_DIR/core-site.xml|:
 \begin{verbatim}
@@ -978,7 +976,7 @@ Add the following property to file \verb|$HADOOP_CONF_DIR/core-site.xml|:
 This property configures the file used for ZooKeeper authentication. The special symbol @ specifies that the configuration is pointing to a file rather than inline. The content of this file should be similar to the following: digest:zkuser:password, where zkuser is a user for ZooKeeper and password is the password for zkuser.
 
 
-Add the following property into file \verb|$HADOOP_CONF_DIR/core-site.xml| for ZooKeeper access control: \\
+Add the following property into file \verb|$HADOOP_CONF_DIR/core-site.xml| for ZooKeeper access control:
 \begin{verbatim}
 <property>
   <name>ha.zookeeper.acl</name>
@@ -989,7 +987,7 @@ Add the following property into file \verb|$HADOOP_CONF_DIR/core-site.xml| for Z
 Similar to the ha.zookeeper.auth property, the ¡®@¡¯ character in the value specifies that the configuration is a file on disk.
 
 Generate ZooKeeper ACL corresponding to the authentication with command: \\
-\verb|$ java -cp $ZK_HOME/lib/*:$ZK_HOME/zookeeper-*.jar org.apache.zookeeper.server.auth.DigestAuthenticationProvider zkuser:password| 
+\verb|$ java -cp $ZK_HOME/lib/*:$ZK_HOME/zookeeper-*.jar org.apache.zookeeper.server.auth.DigestAuthenticationProvider zkuser:password|
 
 We will get output similar to the following:
 
@@ -1000,13 +998,13 @@ Add the encrypted password to file \verb|$HADOOP_CONF_DIR/zkacl.txt|: \\
 
 Sync the configuration to master2 with commands:\\
 \verb|$ scp $HADOOP_CONF_DIR/zkacl.txt master2:$HADOOP_CONF_DIR/| \\
-\verb|$ scp $HADOOP_CONF_DIR/zkauth.txt master2:$HADOOP_CONF_DIR/| 
+\verb|$ scp $HADOOP_CONF_DIR/zkauth.txt master2:$HADOOP_CONF_DIR/|
 
 Format the ZooKeeper with command: \\
 \verb|$ hdfs zkfc -formatZK|
 
 Test the configuration with command: \\
-\verb|$ zkCli.sh| 
+\verb|$ zkCli.sh|
 
 We will have output similar to the following:
 
@@ -1014,7 +1012,7 @@ We will have output similar to the following:
 \verb|: cdrwa|
 
 Restart the cluster with command: \\
-\verb|$ start-dfs.sh| 
+\verb|$ start-dfs.sh|
 
 \subsection*{See also}
 \begin{itemize}
@@ -1031,9 +1029,9 @@ We are assuming that all the configurations are making changes to file \verb|$HA
  Use the following recipe to configure HDFS federation:
 
 Login to master1 with command: \\
-\verb|$ ssh hduser@master1| 
+\verb|$ ssh hduser@master1|
 
-Specify a list of NameNode service IDs by adding the following lines into the file: \\
+Specify a list of NameNode service IDs by adding the following lines into the file:
 \begin{verbatim}
 <property>
   <name>dfs.nameservices</name>
@@ -1043,7 +1041,7 @@ Specify a list of NameNode service IDs by adding the following lines into the fi
 
 The value of this property is a comma separated list of NameNode service IDs. For example, in this step, the value specifies two NameNode services: namenode1 and namenode2.
 
-Configure the NameNode RPC and http URI for namenode1 by adding the following into the file: \\
+Configure the NameNode RPC and http URI for namenode1 by adding the following into the file:
 \begin{verbatim}
 <property>
     <name>dfs.namenode.rpc-address.namenode1</name>
@@ -1063,7 +1061,7 @@ Configure the NameNode RPC and http URI for namenode1 by adding the following in
 
 The above configurations assume that the NameNode daemons and NameNode HTTP and secondary HTTP daemons locate on the host master1.
 
-Specify the NameNode RPC and http URI for namenode2 by adding the following into the file: \\
+Specify the NameNode RPC and http URI for namenode2 by adding the following into the file:
 \begin{verbatim}
 <property>
   <name>dfs.namenode.rpc-address.namenode2</name>
@@ -1079,7 +1077,7 @@ Specify the NameNode RPC and http URI for namenode2 by adding the following into
 </property>
 \end{verbatim}
 
-Sync the configuration to all the nodes in the cluster with command: \\
+Sync the configuration to all the nodes in the cluster with command:
 \begin{verbatim}
 for host in `cat $HADOOP_CONF_DIR/slaves`; do
   echo ¡®Sync configuration files to ¡¯ $host
@@ -1088,20 +1086,20 @@ done
 \end{verbatim}
 
 Format namenode1 on master1 with command: \\
-\verb|$ hdfs namenode -format -clusterId hdcluster| 
+\verb|$ hdfs namenode -format -clusterId hdcluster|
 
 In this command, the -clusterId option should be a unique cluster ID in the environment. A unique cluster ID will be automatically generated if not specified.
 
 Similarly, format namenode2 on master2 with command: \\
-\verb|$ hdfs namenode -format -clusterId hdcluster| 
-\begin{warning} 
+\verb|$ hdfs namenode -format -clusterId hdcluster|
+\begin{warning}
 Warning! \\
-The cluster Id for this NameNode should be the same as the cluster Id specified for namdnoe1 in order for both NameNodes to be in the same cluster. 
-\end{warning} 
+The cluster Id for this NameNode should be the same as the cluster Id specified for namdnoe1 in order for both NameNodes to be in the same cluster.
+\end{warning}
 
 Now, we can start or stop the HDFS cluster with the following commands on either of the NameNode host:\\
 \verb|$ start-dfs.sh| \\
-\verb|$ stop-dfs.sh| 
+\verb|$ stop-dfs.sh|
 
 \subsection*{How it works...}
 On a non-federated HDFS cluster, all the DataNodes register with and send heartbeats to the single NameNode. On a federated HDFS cluster, all the DataNodes will register with all the NameNodes in the cluster. And heartbeats and block reports will be sent to these NameNodes.
@@ -1113,21 +1111,21 @@ The following table shows the properties for configuring NameNode federation:
 \begin{table}[h]
   \centering
   \begin{tabular}{llp{4cm}}
-    \toprule 
-    Daemon & Property & Description \\ \midrule 
-    NameNode  & dfs.namenode.rpc-address & For NameNode RPC communication with clients. \\ 
-    & dfs.namenode.servicerpc-address & For NameNode RPC communication with HDFS services. \\ 
-    & dfs.namenode.http-address & NameNode HTTP web UI address.\\ 
-    & dfs.namenode.https-address & NameNode Secured HTTP web UI address. \\ 
-    & dfs.namenode.name.dir & NameNode local directory. \\ 
+    \toprule
+    Daemon & Property & Description \\ \midrule
+    NameNode  & dfs.namenode.rpc-address & For NameNode RPC communication with clients. \\
+    & dfs.namenode.servicerpc-address & For NameNode RPC communication with HDFS services. \\
+    & dfs.namenode.http-address & NameNode HTTP web UI address.\\
+    & dfs.namenode.https-address & NameNode Secured HTTP web UI address. \\
+    & dfs.namenode.name.dir & NameNode local directory. \\
     & dfs.namenode.edits.dir & Local directory for NameNode edits logs. \\
     & dfs.namenode.checkpoint.dir & SecondaryNameNode local directory. \\
-    & dfs.namenode.checkpoint.edits.dir & Directory for SecondaryNameNode edits logs. \\ 
-    SecondaryNameNode  & dfs.secondary.namenode.keytab.file & The SecondaryNameNode keytab file. \\ 
-    & dfs.namenode.backup.address & The address for the backup node. \\ 
+    & dfs.namenode.checkpoint.edits.dir & Directory for SecondaryNameNode edits logs. \\
+    SecondaryNameNode  & dfs.secondary.namenode.keytab.file & The SecondaryNameNode keytab file. \\
+    & dfs.namenode.backup.address & The address for the backup node. \\
     BackupNode & dfs.secondary.namenode.keytab.file & Backup node keytab file. \\ \bottomrule
-  \end{tabular} 
-  \caption{\textbf{mradmin} option description}\label{tbl:mradmin}
+  \end{tabular}
+  \caption{NameNode Federation configuration parameters}\label{tbl:nnfederation}
 \end{table}
 
 \subsection*{There's more...}
@@ -1137,17 +1135,17 @@ Add the NameNode ID into file \verb|$HADOOP_CONF_DIR/namenode_exclude.txt|, for 
 \verb|namenode1|
 
 Distribute the exclude file to all the NameNodes with command: \\
-\verb|$ distributed-exclude.sh $HADOOP_CONF_DIR/namenode_exlude.txt| 
+\verb|$ distributed-exclude.sh $HADOOP_CONF_DIR/namenode_exlude.txt|
 
 Refresh the NameNode list with command: \\
-\verb|$ refresh-namenodes.sh| 
+\verb|$ refresh-namenodes.sh|
 
 We can use the following URL to access the web UI for the HDFS cluster.
-\verb|http://namenode2:50070/dfsclusterhealth.jsp| 
+\verb|http://namenode2:50070/dfsclusterhealth.jsp|
 
 \subsubsection*{Running Balancer}
 Similar to the old Hadoop version, balancer is used to balance the data blocks over the cluster. On a HDFS federated Hadoop cluster, we can run a balancer with the following command: \\
-\verb|$ hadoop-daemon.sh --config $HADOOP_HOME/conf --script hdfs start balancer -policy node| 
+\verb|$ hadoop-daemon.sh --config $HADOOP_HOME/conf --script hdfs start balancer -policy node|
 
 This command will balance the data blocks on the node level. Another balancing policy is blockpool, which balances the storage at the block pool level as well as the data node level.
 
@@ -1209,13 +1207,13 @@ Add the following lines into file \verb|$HADOOP_CONF_DIR/hdfs-site.xml|:
 \end{verbatim}
 
 Format namenode3 with command: \\
-\verb|$ hdfs namenode -format -cluserId hdcluster| 
+\verb|$ hdfs namenode -format -cluserId hdcluster|
 
 Sync the configuration into all the other NameNodes with commands: \\
 \verb|$ scp $HADOOP_CONF_DIR/hdfs-site.xml master1:$HADOOP_CONF_DIR/| \\
-\verb|$ scp $HADOOP_CONF_DIR/hdfs-site.xml master2:$HADOOP_CONF_DIR/| 
+\verb|$ scp $HADOOP_CONF_DIR/hdfs-site.xml master2:$HADOOP_CONF_DIR/|
 
-Sync the configuration into all the slave nodes in the cluster with command: \\
+Sync the configuration into all the slave nodes in the cluster with command:
 \begin{verbatim}
 for host in `cat $HADOOP_CONF_DIR/slaves`; do
   echo ¡®Sync configuration files to ¡¯ $host
@@ -1224,9 +1222,9 @@ done
 \end{verbatim}
 
 Start the HDFS cluster with command: \\
-\verb|$ start-dfs.sh| 
+\verb|$ start-dfs.sh|
 
-Tell the DataNodes the change of the NameNodes with command: \\
+Tell the DataNodes the change of the NameNodes with command:
 \begin{verbatim}
 for slavehost in `$HADOOP_CONF_DIR/slaves`;  do
   echo ¡°Processing on host ¡± $slavehost
