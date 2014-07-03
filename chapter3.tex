@@ -476,9 +476,24 @@ Check the directory structure of the formatted NameNode with command: \\
 \verb|$ tree /hadoop/dfs/|
 
 The output will be similar to the following: \\
-\verb|/hadoop/dfs/|
+\begin{verbatim}
+/hadoop/dfs/
+|-- current
+|   |-- VERSION
+|   |-- edits
+|   |-- fsimage
+|   `-- fstime
+|-- image
+|   `-- fsimage
+|-- in_use.lock
+`-- previous.checkpoint
+    |-- VERSION
+    |-- edits
+    |-- fsimage
+    `-- fstime
 
-%% TODO insert the folder listing.
+3 directories, 10 files
+\end{verbatim}
 
 The tree listing shows the directory structure of a formatted HDFS filesystem which contains the filesystem image (in folder /hadoop/dfs/name/image directory) and the current live image (mirrored to folder /hadoop/dfs/name/current) in main memory.
 

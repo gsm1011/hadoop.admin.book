@@ -273,10 +273,26 @@ Start the cluster using the following command: \\
 \verb|$ start-all.sh|
 
 The tree structure of NameNode data directory will be similar to the following:\\
-%% TODO, insert directory tree. 
+\begin{verbatim}
+.
+|-- current
+|   |-- VERSION
+|   |-- edits
+|   |-- fsimage
+|   `-- fstime
+|-- image
+|   `-- fsimage
+|-- in_use.lock
+`-- previous.checkpoint
+    |-- VERSION
+    |-- edits
+    |-- fsimage
+    `-- fstime
 
-And the tree structure of the SecondaryNameNode data directory will be similar to the following:\\ 
-%% TODO, insert directory tree. 
+3 directories, 10 files
+\end{verbatim}
+
+The tree structure of the SecondaryNameNode will be similar to that of the NameNode.
 
 \subsection*{There's more...}
 To increase redundancy, we can configure NameNode to write filesystem metadata on multiple locations. For example, we can add an NFS shared directory for backup by changing the following property in the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
@@ -1737,13 +1753,7 @@ grep security $HADOOP_HOME/logs/hadoop-hduser-namenode-master.log
 The error message tells that the NameNode is in safe mode, so the file /user/hduser/test cannot be created. Similar information can give us a very useful hint to figure out operation errors.
 
 \subsubsection*{Hadoop logging file naming conventions}
-Hadoop logs files are kept under the directory \verb|$HADOOP_HOME/logs|. The tree structure of this directory on the master node will be similar to the following:
-
-%% TODO Insert directory tree. 
-
-On a slave node, the \verb|$HADOOP_HOME/logs| folder will have contents similar to the following:
-
-%% TODO insert directory tree. 
+Hadoop logs files are kept under the directory \verb|$HADOOP_HOME/logs|. 
 
 The folder contains one .log file and one .out file for each Hadoop daemon, for example, NameNode, SecondaryNameNode, and JobTracker on the master node and TaskTracker and DataNode on a slave node. The .out file is used when a daemon is being started. Its content will be emptied after the daemon has started successfully. The .log files contain all the log messages for a daemon, including startup logging messages.
 
