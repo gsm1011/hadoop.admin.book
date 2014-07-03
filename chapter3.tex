@@ -14,12 +14,18 @@ In this chapter, we will cover:
 \end{itemize}
 
 \section{Choosing a Hadoop version}
-As an open source project, Hadoop has been under active development over the past a few years. New versions are being released regularly. These new releases either fix bugs contributed by the community, leading to a more stable Hadoop software stack or add new features for the purpose of more full-fledged, enterprise level distribution.
+As an open source project, Hadoop has been under active development over the past a few years. New versions are being released regularly. These new releases either fix bugs contributed by the community, leading to a more stable Hadoop software stack or add new features for the purpose of more full-fledged, enterprise class distribution.
 
-In this section, we are going to review the release history of Hadoop, pointing out features of these releases. More importantly, we will give tips on choosing a proper Hadoop distribution.
+In this section, we are going to review the release\index{release} history of Hadoop, pointing out features of these releases. More importantly, we will give tips on choosing a proper Hadoop distribution.
 
 \subsection*{Getting ready}
-In General, the release version number of a Hadoop distribution consists of three parts: the version number, the major revision number and the minor revision number. A Hadoop release name can be described with the following figure:
+In General, the release version number of a Hadoop distribution consists of three parts: the version number\index{version number}, the major revision number\index{major revision number} and the minor revision number\index{minor revision number}. A Hadoop release version can be described with the following figure:
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.7\textwidth]{figs/5163OS_03_01.png}
+  \caption{Structure of a Hadoop release version}\label{fig:hadoop.release}
+\end{figure} 
 
 %%Insert image 5163os_03_01.png
 Sometimes, the revision number can have a fourth part, for example 0.20.203.0, but this is relatively rare.
@@ -40,9 +46,9 @@ The following table shows features of major Hadoop releases:
     HDFS symbolic Links & Yes & Yes & Yes & \\ \bottomrule
   \end{tabular}
 \end{table}
-The table tells us that Hadoop is evolving rapidly, with new features such as security, HDFS federation and NameNode HA being added over time. Another lesson we can learn from the table is that the most recent stable release version 1.1.x does not contain all the features. And although release version 2.0.x is the most feature rich Hadoop release, it is still in alpha state requiring further improvements.
+The table tells us that Hadoop is evolving rapidly, with new features such as security, HDFS federation\index{HDFS federation} and NameNode HA\index{NameNode HA} being added over time. Another lesson we can learn from the table is that the most recent stable release version 1.1.x does not contain all the features. And although release version 2.0.x is the most feature rich Hadoop release, it is still in alpha state requiring further improvements.
 
-So, which version should I choose for my deployment? Generally, we need to consider the following two properties: stability and features. For a production deployment, we definitely want to deploy a stable release and we want to use the release that contains all the required features. Clearly, our current optimal and only choice is version 1.1.x, or specifically version 1.1.2 as of this book writing.
+So, which version should I choose for my deployment? Generally, we need to consider the following two properties: stability and features. For a production deployment, we definitely want to deploy a stable release and we also want to use the release that contains all the required features. Clearly, our current optimal and only choice is version 1.1.x, or specifically version 1.1.2 as of this book writing.
 
 \subsection*{See also}
 \begin{itemize}
@@ -50,7 +56,7 @@ So, which version should I choose for my deployment? Generally, we need to consi
 \end{itemize}
 
 \section{Configuring Hadoop in pseudo-distributed mode}
-Pseudo-distributed mode refers to a Hadoop cluster configuration that contains only one node. This mode can be helpful for debugging and validation purposes. In this recipe, we will outline steps to configure Hadoop in pseudo-distributed mode.
+Pseudo-distributed mode\index{Pseudo-distributed mode} refers to a Hadoop cluster configuration that contains only one node. This mode can be helpful for debugging and validation purposes. In this recipe, we will outline steps to configure Hadoop in pseudo-distributed mode.
 \subsection*{Getting ready}
 Before configuring Hadoop in pseudo-distributed mode, we assume that we have a machine, for example the master node of the Hadoop cluster, with Linux installed. And all the necessary tools have been installed and properly configured.
 
@@ -302,7 +308,7 @@ Then we can use the following command to configure a Hadoop cluster in single no
 \end{itemize}
 
 \section{Configuring Hadoop in fully-distributed mode}
-To configure a Hadoop cluster in fully-distributed mode, we need to configure all the master and slave machines. Although different from the pseudo-distributed mode, the configuration experience will be similar.  In this recipe, we will outline steps to configure Hadoop in fully-distributed mode.
+To configure a Hadoop cluster in fully-distributed mode\index{fully-distributed mode}, we need to configure all the master and slave machines. Although different from the pseudo-distributed mode, the configuration experience will be similar.  In this recipe, we will outline steps to configure Hadoop in fully-distributed mode.
 \subsection*{Getting ready}
 In this book, we propose to configure a Hadoop cluster with 1 master node and 5 slave nodes. The hostname of the master node is 1 and the hostnames of the slave nodes are: \textbf{slave1, slave2, slave3, slave4}, and \textbf{slave5}.
 
@@ -664,13 +670,13 @@ Configure the Hadoop cluster by modifying the configuration files located in fol
 \end{itemize}
 
 \section{Validating Hadoop installation}
-The configuration of a Hadoop cluster is not done before the validation step. Validation plays an important role in the configuration of a Hadoop cluster, for example, can help us figure out configuration problems.
+The configuration of a Hadoop cluster is not done before the validation\index{validation} step. Validation plays an important role in the configuration of a Hadoop cluster, for example, it can help us figure out configuration problems.
 
 The most straightforward way to validate a Hadoop cluster configuration is to run a MapReduce job from the master node. Alternatively, there are two methods to validate the cluster configuration. One is from web interface and the other is from the command line. In this recipe, we will list steps to validate the configuration a Hadoop cluster.
 \subsection*{Getting ready}
 To validate the configuration from the web interface, a web browser such as Firefox, Google Chrome etc. is needed. Sometimes if a GUI web browser is not available, we can use a command line based web browser such as elinks and lynx etc. In this book, we assume to use elinks for illustration purpose.
 
-We assume that elinks has been installed with command: \\
+We assume that elinks\index{elinks} has been installed with command: \\
 \verb|$ sudo yum install elinks|
 
 Start all the Hadoop daemons with commands: \\
@@ -678,14 +684,15 @@ Start all the Hadoop daemons with commands: \\
 \verb|start-mapred.sh|
 
 \subsection*{How to do it...}
-Use the following steps to run a MapReduce job: \\
+Use the following steps to run a MapReduce job:
+
 Login to the master node with command: \\
-ssh hduser@master
+\verb|$ ssh hduser@master|
 
 Run a sample MapReduce job with command: \\
 \verb|hadoop jar $HADOOP_HOME/hadoop-examples*.jar pi 20 100000|
 
-In this command, hadoop-examples*jar is a jar file that contains a few sample MapReduce jobs such as pi. Option 20 is the number of tasks to run and 100000 specifies the size of the sample for each task.
+In this command, \verb|hadoop-examples*jar| is a jar file that contains a few sample MapReduce jobs such as $\pi$. Option 20 is the number of tasks to run and 100000 specifies the size of the sample for each task.
 
 If this job finishes without any problem, we can say that the Hadoop cluster is working. But this is not enough, because we also need to make sure all the slave nodes are available for running tasks.
 
@@ -694,22 +701,45 @@ Use the following recipe to validate Hadoop cluster configuration through web us
 Open URL \verb|master:50030/jobtracker.jsp| with a web browser.
 The webpage will be similar to the following screenshot:
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{figs/5163OS_03_02.png}
+  \caption{Hadoop Jobtracker Web UI}\label{fig:jobtracker.webui}
+\end{figure} 
+
 %%Insert image 5163os_03_02.png
 
 The webpage shows that the Hadoop cluster contains 5 active slave nodes.
 
 Check the status each slave node by clicking the link, which lead us to a webpage similar to the following screenshot:
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_03_03.png}
+  \caption{List of active TaskTrackers}\label{fig:active.trackers}
+\end{figure} 
+
 %%Insert image 5163os_03_03.png
 
 From this screenshot, we can easily check the status of the active TaskTrackers on the slave nodes. For example, we can see the count of failed tasks, the number of MapReduce slots and the heart beat seconds etc.
 
 Check the status of slave DataNodes by opening URL master:50070. The webpage will be similar to the following screenshot: \\
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{figs/5163OS_03_04.png}
+  \caption{Hadoop HDFS NameNode Web UI}\label{fig:namenode.webui}
+\end{figure} 
 
 %%Insert image 5163os_03_04.png
 The webpage shows that the cluster is configured with 5 active nodes.
 
 By clicking the ``Live Nodes'' link we can see the details of each node as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_03_05.png}
+  \caption{List of HDFS live DataNodes}\label{fig:hdfs.datanodes}
+\end{figure} 
+
 %%Insert image 5163os_03_05.png
 
 This webpage shows the status of each slave node including node capacity, percentage of usage and how many blocks are hosted in the node etc.
@@ -724,17 +754,29 @@ When the job is running, we can check the status of the job by opening URL \href
 In this URL, \verb|job_201302160219_0003| is the job ID and refresh=30 tells how often the webpage should be refreshed.
 
 The job status webpage will be similar to the following screenshot: \\
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{figs/5163OS_03_06.png}
+  \caption{Information about a MapReduce job from the Web UI}\label{fig:mapreduce.job}
+\end{figure} 
 
 %%Insert image 5163os_03_06.png
 
 This screenshot tells us that the Hadoop cluster has been configured successfully!
 
-After the teragen job finishes, we can check the node storage space usage by opening URL http://master:50070/dfsnodelist.jsp?whatNodes=LIVE. The webpage will be similar to the following screenshot: \\
+After the teragen job finishes, we can check the node storage space usage by opening URL \url{http://master:50070/dfsnodelist.jsp?whatNodes=LIVE}. The webpage will be similar to the following screenshot: \\
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_03_07.png}
+  \caption{Storage information of DataNodes from the Web UI}\label{fig:hdfs.storage}
+\end{figure} 
+
 %% Insert image 5163os_03_07.png
 
 The webpage shows that a certain percentage of storage space has been used on each slave node.
 
-Sometimes, a command line based web browser can be more handy than a GUI browser, for example, we can use command elinks master:50030 to check the status of MapReduce on the master node and use command  elinks master:50070 to check the status and health of HDFS.
+Sometimes, a command line based web browser can be more handy than a GUI browser, for example, we can use command \verb|elinks master:50030| to check the status of MapReduce on the master node and use command \verb|elinks master:50070| to check the status and health of HDFS.
 
 Use the following recipe to validate the configuration a Hadoop cluster from command line:
 
@@ -776,12 +818,12 @@ FSCK ended at Sat Feb 16 03:03:44 EST 2013 in 12 milliseconds
 The filesystem under path '/' is HEALTHY
 \end{verbatim}
 
-The output gives us the same information as from the web interface. And the last line tells us that the root filesystem is HEALTHY.
+The output gives us the same information as from the web interface. And the last line tells us that the root filesystem is \emph{HEALTHY}.
 \subsection*{How it works}
-Hadoop provides commands and web interfaces for system administrators to check the status of the cluster. When we start Hadoop daemons, a build-in web server will be started and a number of pre-written jsp script files are used to respond to user's requests from a web browser. The jsp files can be found under the \verb|$HADOOP_HOME/webapps| directory. If you have programming experience, you can take advantage of the jsp files to develop personalized Hadoop cluster management tools.
+Hadoop provides commands and web interfaces for system administrators to check the status of the cluster. When we start Hadoop daemons, a build-in web server will be started and a number of pre-written \emph{jsp} script files are used to respond to user's requests from a web browser. The jsp files can be found under the \verb|$HADOOP_HOME/webapps| directory. If you have programming experience, you can take advantage of the jsp files to develop personalized Hadoop cluster management tools.
 
 \subsection*{There's more...}
-In this part, we list a few typical Hadoop configuration problems and give suggestions on dealing with these problems.
+In this part, we list a few typical Hadoop configuration problems\index{Hadoop configuration problems} and give suggestions on dealing with these problems.
 
 \subsubsection*{Can't start HDFS daemons}
 There are many possible reasons that can cause this problem. For example, the NameNode on the master node has not been formatted, in which case, we can format the HDFS before starting the cluster with command: \\
@@ -791,11 +833,12 @@ Warning! \\
 Be cautious when formatting the filesystem with this command. It will erase all the data on the file system. Always try other methods before using this one.
 \end{warning}
 
-More generically, to troubleshoot this problem, we need to check that HDFS has been properly configured and daemons are running. This can be done with the following command: \\
+More generically, to troubleshoot this problem, we need to check if HDFS has been properly configured and daemons are running. This can be done with the following command: \\
 \verb|$ jps|
-If the output of this command does not contain the NameNode and SecondaryNameNode daemons, we need to check the configuration of HDFS.
 
-To troubleshoot the HDFS startup problem, we can open a new terminal and monitor the NameNode log file on the master node with the following command:
+If the output of this command \emph{does not} contain the NameNode and SecondaryNameNode daemons, we need to check the configuration of HDFS.
+
+To troubleshoot\index{troubleshoot} the HDFS startup problem, we can open a new terminal and monitor the NameNode log file on the master node with the following command:\\
 \verb|$ tail -f $HADOOP_HOME/logs/hadoop-hduser-namenode-master.log|
 
 This command will show the content of the log file in a dynamic way when new log is appended to the file. If error happens, we can get error messages similar to the following:
@@ -823,7 +866,7 @@ Alternatively, the following command will give the same error: \\
 The message above shows that the hostname of the NameNode is wrong. It should be master instead of master1.
 
 \subsubsection*{Cluster is missing slave nodes}
-Most probably, this problem is caused by hostname resolution. To confirm, we can check the content of file /etc/hosts with:
+Most probably, this problem is caused by hostname resolution. To confirm, we can check the content of file \verb|/etc/hosts| with:
 \begin{verbatim}
 $ cat /etc/hosts
 10.0.0.1	master
@@ -851,7 +894,7 @@ To troubleshoot this problem, we can refer to tips for \textbf{can't start HDFS 
 
 \emph{Configuration problems of MapReduce}. Recall that we have configurations for the number of map slots and reduce slots as well as memory amount in the \verb|$HADOOP_HOME/conf/mapred-site.xml| file. Before starting a cluster, we need to make sure that the total amount of configured memory should be smaller than the total amount of system memory.
 
-For example, suppose a slave host has 4GB of memory, and we have configured 6 map slots and 6 reduce slots with memory 512MB for each slot. So we can compute the total configured task memory with the following formula:  $6 * 512  + 6 * 512 = 6GB$.
+For example, suppose a slave host has 4GB of memory, and we have configured 6 map slots and 6 reduce slots with memory 512MB for each slot. So we can compute the total configured task memory with the following formula:  $6 \time 512 + 6 \times 512 = 6GB$.
 
 As 6GB is larger than the system memory 4GB, the system will not start. To clear this problem, we can decrease the number of map slots and reduce slot from 6 to 3. This configuration gives us a total configured memory of 3GB, which is smaller than the system total memory 4GB, thus the MapReduce daemons should be able to start successfully.
 
@@ -956,6 +999,11 @@ HBase is the database based on Hadoop. It is a distributed, scalable Big Data st
 To install HBase, we assume Hadoop has been configured without any issues.
 
 Download HBase from a mirror site. Similar to downloading Hadoop, HBase is hosted on mirrors all over the world. Visit link \url{http://www.apache.org/dyn/closer.cgi/hbase/} and select the nearest mirror (the suggested mirror on the top is the optimal choice).  After selecting the mirror, follow the link to select the HBase version, we suggest the stable version, for example, follow the link \url{http://mirror.quintex.com/apache/hbase/stable/} and can see the downloadable files as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{figs/5163OS_03_08.png}
+  \caption{Download a stable HBase release from a mirror site}\label{fig:hbase.download}
+\end{figure} 
 
 %%Insert image 5163os_03_08.png
 Click the file link hbase-0.94.5.tar.gz to download the file to the administrator machine. Then, copy the file to the FTP repository with command: \\

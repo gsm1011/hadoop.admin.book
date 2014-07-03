@@ -208,6 +208,11 @@ If you are also using CentOS or other Red Had compatible operating systems, we n
 \url{http://www.oracle.com/technetwork/java/javase/downloads/index.html}
 
 At the bottom of the web page, you should see options similar to the following:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figs/5163OS_05_01.png}
+  \caption{Architecture of Hadoop based big data system}\label{fig:hadoop.architecture}
+\end{figure} 
 
 %% Insert image 5163os_05_01.png
 
@@ -547,7 +552,7 @@ Configure the location of the keytab file for the Kerberos principal for HTTP en
 Sync the configurations to the slave nodes with command:
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`; do
-  echo ¡°Copying Hadoop configration files to host: ¡® $host
+  echo 'Copying Hadoop configration files to host: ¡® $host
   scp $HADOOP_HOME/conf/core-site.xml $host:$HADOOP_HOME/conf
 done
 \end{verbatim}
@@ -1110,7 +1115,8 @@ The following table shows the properties for configuring NameNode federation:
 
 \begin{table}[h]
   \centering
-  \begin{tabular}{llp{4cm}}
+  \scriptsize
+  \begin{tabular}{p{.2\textwidth}p{.25\textwidth}p{.55\textwidth}}
     \toprule
     Daemon & Property & Description \\ \midrule
     NameNode  & dfs.namenode.rpc-address & For NameNode RPC communication with clients. \\
@@ -1227,8 +1233,8 @@ Start the HDFS cluster with command: \\
 Tell the DataNodes the change of the NameNodes with command:
 \begin{verbatim}
 for slavehost in `$HADOOP_CONF_DIR/slaves`;  do
-  echo ¡°Processing on host ¡± $slavehost
-  ssh $slavehost -C ¡°hdfs dfsadmin -refreshNameNode master3:54310¡±
+  echo 'Processing on host ' $slavehost
+  ssh $slavehost -C 'hdfs dfsadmin -refreshNameNode master3:54310'
 done
 \end{verbatim}
 

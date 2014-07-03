@@ -28,6 +28,11 @@ Use a web browser to open the following link: \url{http://aws.amazon.com/}.
 Click the 'Sign Up' button on the upper right corner of the window.
 
 You will be directed to a webpage as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_01.png}
+  \caption{Sign in or Create and AWS Account}\label{fig:aws.signin}
+\end{figure} 
 
 %% Insert image 5163os_08_01.png
 Fill in the email address in the text field with label 'My e-mail address is:' as shown in the screenshot and select the 'I am a new user' radio button as shown in the screenshot.
@@ -36,21 +41,41 @@ Click the 'Sign in using our secure server' button at the bottom as shown in the
 
 Fill the login credentials form, which includes name, email and password as shown in the following screenshot:
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_02.png}
+  \caption{The Login Credentials Form}\label{fig:login.credentials}
+\end{figure} 
 
 %% Insert image 5163os_08_02.png
 Click the 'Continue' button at the bottom as shown in the screenshot.
 
 Fill in the 'Contact Information', 'Security Check' and 'AWS Customer Agreement' form as shown in the following screenshot:
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_03.png}
+  \caption{AWS Signin Personal Information Page}\label{fig:aws.personal.info}
+\end{figure} 
 
 %% Insert image 5163os_08_03.png
 Click the 'Create Account and Continue' button at the bottom as shown in the screenshot.
 
 So far, an AWS account has been created. Now we can login to AWS with the newly created account by using the 'returning user' option as shown in the following screenshot:
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_04.png}
+  \caption{AWS signin with Returning User}\label{fig:aws.signin.return}
+\end{figure} 
 
 %% Insert image 5163os_08_04.png
 By clicking the 'Sign in using our secure server' button on the bottom of the window, we will be able to login to the AWS management console page with EC2 and S3 service available as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{figs/5163OS_08_05.png}
+  \caption{The AWS Management Console}\label{fig:aws.management.console}
+\end{figure} 
 
 %% Insert image 5163os_08_05.png
 Till here, we finished the registration step successfully.
@@ -76,7 +101,11 @@ Use the following recipe to manage AWS security credentials:
 Open a web browser and go to URL aws.amazon.com.
 
 Click the 'My Account / Console' dropdown button on the upper left of the window as shown in the following screenshot:
-
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.45\textwidth]{figs/5163OS_08_07.png}
+  \caption{Choose the Security Credentials button}\label{fig:secu.select}
+\end{figure} 
 
 %% Insert image 5163os_08_07.png
 Click the 'Security Credentials' in the dropdown list as shown in the previous screenshot.
@@ -84,23 +113,48 @@ Click the 'Security Credentials' in the dropdown list as shown in the previous s
 If you have logged in to AWS previously, you will be able to visit the security credentials management page. Otherwise, a login window will appear. You need to type in the user name and password and login as a 'returning user'.
 
 Currently, Amazon AWS has a few types of credentials as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.50\textwidth]{figs/5163OS_08_08.png}
+  \caption{AWS Types of Security Credentials}\label{fig:aws.credentials.types}
+\end{figure} 
 
 %% Insert image 5163os_08_08.png
 Access Credentials include Access Keys, X.509 Certificates and Key pairs as shown in the following screenshots:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_09.png}
+  \caption{AWS Access Credentials}\label{fig:aws.access.credentials}
+\end{figure} 
 
 %% Insert image 5163os_08_09.png
 By clicking the 'Make Inactive' link on the status column of the access keys table, we can make the access keys inactive. Inactive access keys can be made active again and can be deleted from the list.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_11.png}
+  \caption{X.509 Certificates}\label{fig:aws.x509certificates}
+\end{figure} 
 
 %% Insert image 5163os_08_11.png
 Similarly, we can make a X.509 certificate inactive. Inactive certificates can be made active again or deleted from the list.
 
 By clicking the 'Create a new Certificate' link we will be able to create a new certificate as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_10.png}
+  \caption{Create X.509 Certificates}\label{fig:aws.create.x509}
+\end{figure} 
 
 %% Insert image 5163os_08_10.png
 We need to download the private key file as well as the X.509 certificate by clicking on the buttons as shown in the screenshot. These files should be kept security and never shared with any other people.
 
 Key pairs used for EC2 can be managed from the management console as shown in the following screenshot:
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_14.png}
+  \caption{AWS Managing Key Pairs}\label{fig:aws.keypair.management}
+\end{figure} 
 
 %% Insert image 5163os_08_14.png
 New key pairs can be created by clicking the 'Create Key Pair' Button on the top of the window. A pop up window will be used to type in the name of the key pair. And the newly created key pair will be downloaded to local machine.
@@ -133,6 +187,11 @@ Before getting started, we assume that we have registered with AWS and security 
 Use the following recipe to configure a local machine for EC2 remote access:
 
 Get the Access Key ID and the secret access key from the security credentials web page as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_15.png}
+  \caption{AWS Access Keys}\label{fig:aws.access.keys}
+\end{figure} 
 
 %% Insert image 5163os_08_15.png
 Move the key pair to the .ec2 directory with command: \\
@@ -468,6 +527,11 @@ Bundle the loopback image file with command: \\
 Option \emph{-i} specifies the image file name, \emph{-k} specifies the private key file, \emph{-c} specifies the certificate file and -u specifies the user Account Number which is a 12 digit numeric string.
 
 We can get the Account number from the web user interface through the following URL: \url{https://portal.aws.amazon.com/gp/aws/manageYourAccount}? The account number is on the upper left of the window as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.56\textwidth]{figs/5163OS_08_16.png}
+  \caption{AWS Account Number}\label{fig:aws.account.number}
+\end{figure} 
 
 %% Insert image 5163os_08_16.png
 The command will ask for the architecture of the image, then it will bundle the image with user¡¯s security credentials and split the bundled image file into smaller files.
@@ -497,14 +561,29 @@ ec2-bundle-image complete.
 
 
 Create a bucket from the S3 web interface as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_17.png}
+  \caption{AWS Creating S3 Bucket}\label{fig:aws.s3.bucket.create}
+\end{figure} 
 
 %% Insert image 5163os_08_17.png
 
 Type in the bucket name and select the region based on your location as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_18.png}
+  \caption{Choose Region for the Bucket}\label{fig:aws.s3.bucket.region}
+\end{figure} 
 
 %% Insert image 5163os_08_18.png
 Click the 'Create' button, the bucket will be successfully created as shown in the following screenshot:
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.50\textwidth]{figs/5163OS_08_19.png}
+  \caption{AWS S3 Buckets}\label{fig:aws.s3.buckets}
+\end{figure} 
 
 %% Insert image 5163os_08_19.png
 Upload the bundled file into S3 with command:\\
@@ -534,6 +613,11 @@ Bundle upload completed.
 
 
 When the upload completes, we can check the content of the bucket by clicking on the bucket name. The bucket should now contain all the image parts as well as the manifest file as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_20.png}
+  \caption{Files of a S3 Bucket}\label{fig:aws.bucket.content}
+\end{figure} 
 
 %% Insert image 5163os_08_20.png
 Register the AMI with command:\\
@@ -636,6 +720,11 @@ INSTANCE        i-0020e06c      ami-9f422ff6    ec2-54-224-240-54.compute-1.amaz
 The instance status tells us that it is in running state.
 
 Alternatively, we can check the status of the instance from the web UI. For example, we can get the status of the instance similar to the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figs/5163OS_08_21.png}
+  \caption{AWS EC2 Instances}\label{fig:aws.ec2.instances}
+\end{figure} 
 
 %% Insert image 5163os_08_21.png
 
@@ -779,15 +868,35 @@ Creating an EBS backed AMI is straightforward from the web management console. T
 Use the following recipe to create an EBS backed AMI:
 
 Go to \url{https://console.aws.amazon.com/ec2/v2/home#Images:}, filter the AMIs with conditions similar to the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_29.png}
+  \caption{Filtering EC2 AMIs}\label{fig:aws.ec2.ami.filter}
+\end{figure} 
 
 %% Insert image 5163os_08_29.png
 Start an instance by right clicking on one of the AMIs and then click 'Launch' as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_30.png}
+  \caption{Launching EC2 Instance}\label{fig:aws.launch.instance}
+\end{figure} 
 
 %% Insert image 5163os_08_30.png
 When the instance is running, login to the instances, make changes according to your requirements. Then, from the web management console, right click on the running instance and then select 'Create Image (EBS AMI)' as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_31.png}
+  \caption{Create EBS AMI from Running Instance}\label{fig:aws.create.ebsami}
+\end{figure} 
 
 %% Insert image 5163os_08_31.png
 Go to the AMIs tab of the AWS web console, and select 'Owned By Me', we will see that the EBS AMI is being created as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_33.png}
+  \caption{Owned AMI}\label{fig:aws.owned.ami}
+\end{figure} 
 
 %% Insert image 5163os_08_33.png
 EC2 creates a snapshot for the new AMI. Similar to the image part files stored in S3, the snapshot stores the physical image of the EBS backed AMI.
@@ -960,6 +1069,11 @@ We can use the following recipe to use EMR for data processing:
 Create the input directory (with name input) and Java library directory (with name jars) under the bucket from the S3 web management console.
 
 Upload data into the input folder from the web console as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{figs/5163OS_08_22.png}
+  \caption{Uploading data into S3}\label{fig:aws.s3.upload}
+\end{figure} 
 
 %% Insert image 5163os_08_22.png
 Upload required jar file (hadoop-examples-*.jar in this example) into the jars directory.
@@ -975,19 +1089,40 @@ $ hadoop fs -put words.txt /input
 Open URL: \url{https://console.aws.amazon.com/elasticmapreduce}.
 
 Click the '\emph{Create New Job Flow}' button as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_23.png}
+  \caption{Create New Elastic MapReduce Job Flow}\label{fig:aws.elasticmapred.createflow}
+\end{figure} 
 
 %% Insert image 5163os_08_23.png
 Next, enter the 'Job Flow Name', select the 'Hadoop Version' and select the job flow type as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_24.png}
+  \caption{Configure Elastic MapReduce Job Flow}\label{fig:aws.elasticmapred.config}
+\end{figure} 
 
 %% Insert image 5163os_08_24.png
 To test a simple job flow, you can choose 'Run a sample application' instead.
 
 Click 'Continue' button at the bottom, the next window asks for the location of the jar file and the parameters for running the Hadoop MapReduce job as shown in the following screenshot:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_01.png}
+  \caption{Specify Job Flow Parameters}\label{fig:aws.elasticmapred.specify.param}
+\end{figure} 
 
 %% Insert image 5163os_08_25.png
 In this step, we need to specify the location of the jar file and the arguments to run a job. The specifications should be similar to option specifications from the command line with the only difference that all the files should be specified using the S3 scheme.
 
 Click 'Continue', we need to configure EC2 instances. By default, there will be one m1.small instance as the master node and two m1.small instances as the slave nodes. You can configure the instance type and the number of instances based on the job properties (for example, big or small input data size, data intensive or computation intensive etc.). This step is shown in the following screenshot:
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{figs/5163OS_08_26.png}
+  \caption{Configure EC2 Instances}\label{fig:aws.elasticmapred.config.instance}
+\end{figure} 
 
 %% Insert image 5163os_08_26.png
 Click the 'Continue' button and we will go to the 'Advanced options' window. This window asks for instance boot options such as security key pairs etc. In this step, we can choose the key pair and use all others as default and click 'Continue'.
@@ -996,8 +1131,20 @@ We will go to the 'Bootstrap actions' window. We can simply use default in this 
 
 The 'Review' window shows the options we have configured, if there is no problem, we can click the 'Create Job Flow' button to create an EMR job flow. This step is shown in the following screenshot:
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figs/5163OS_08_27.png}
+  \caption{Review Job Flow Configuration}\label{fig:aws.elasticmapred.flow.review}
+\end{figure} 
+
 %% Insert image 5163os_08_27.png
 The job flow will be started and we can check the output when it completes. We can get its status from the web console as shown in the following screenshot:
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figs/5163OS_08_28.png}
+  \caption{Status of an Elastic MapReduce Job Flow}\label{fig:aws.elasticmapred.flow.status}
+\end{figure} 
 
 %% Insert image 5163os_08_28.png
 \subsection*{See also}
