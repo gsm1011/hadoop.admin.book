@@ -10,7 +10,10 @@
 \usepackage{booktabs}
 \usepackage{xcolor}
 \usepackage{times}
+\usepackage{makeidx} %% For creating indices
 
+\makeindex
+%%\indexintoc
 %% chapter title colors.
 \colorlet{chaptergrey}{black}
 \renewcommand*\sectfont{\color{blue}}
@@ -95,6 +98,7 @@
 \maketitle                              % Print title page.
 \tableofcontents                        % Print table of contents
 \listoffigures
+\listoftables
 
 \mainmatter
 
@@ -126,6 +130,10 @@
 
 \appendix
 %% \input{apA} % Appendix A
+
+\printindex
+
 \backmatter
+
 
 \end{document}

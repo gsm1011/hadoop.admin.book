@@ -208,6 +208,11 @@ If you are also using CentOS or other Red Had compatible operating systems, we n
 \verb|http://www.oracle.com/technetwork/java/javase/downloads/index.html|
 
 At the bottom of the web page, you should see options similar to the following:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figs/5163OS_05_01.png}
+  \caption{Architecture of Hadoop based big data system}\label{fig:hadoop.architecture}
+\end{figure} 
 
 %% Insert image 5163os_05_01.png
 
@@ -1110,7 +1115,8 @@ The following table shows the properties for configuring NameNode federation:
 
 \begin{table}[h]
   \centering
-  \begin{tabular}{llp{4cm}}
+  \scriptsize
+  \begin{tabular}{p{.2\textwidth}p{.25\textwidth}p{.55\textwidth}}
     \toprule
     Daemon & Property & Description \\ \midrule
     NameNode  & dfs.namenode.rpc-address & For NameNode RPC communication with clients. \\

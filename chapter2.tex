@@ -22,7 +22,7 @@ Hadoop runs on Linux (although Windows operating systems are supported, it is st
 
 Some operating system configuration is needed after installing the Linux operating system. For example, we need to configure users and groups, system security such as firewalls and SELinux. We also need to install the required Hadoop dependency software, Java and some optional tools that can improve cluster management efficiency.
 \section{Choosing hardware for cluster nodes}
-A Hadoop cluster contains two types of nodes: master node and slave node. By default, the NameNode, SecondaryNameNode and JobTracker daemons reside on a master node; DataNode and TaskTracker daemons reside on slave nodes. Properly selecting hardware for these computing and storage nodes can maximize the efficiency of a Hadoop cluster. In this recipe, we will list suggestions on hardware selection for a computing node.
+A Hadoop cluster contains two types of nodes: master node\index{master node} and slave node\index{slave node}. By default, the NameNode, SecondaryNameNode and JobTracker daemons reside on a master node; DataNode and TaskTracker daemons reside on slave nodes. Properly selecting hardware for these computing and storage nodes can maximize the efficiency of a Hadoop cluster. In this recipe, we will list suggestions on hardware selection for a computing node.
 \subsection*{How to do it}
 Although special requirements exist for a master node and a slave node, there is no gold standard for choosing optimal hardware for both types of nodes. It is reasonable to say that the hardware configuration is closely related to the properties of Big Data to be processed. In addition, the choice of hardware is an empirical and adaptive process with the changing requirements on a Hadoop cluster. For example, if the requirements for the throughput of a Hadoop cluster are high, we might need to choose high end CPUs and hard drives. If we have a large number of potential Hadoop users, we may need to upgrade the hardware configuration for both the master node and the slave nodes.
 
@@ -49,9 +49,9 @@ On a Hadoop master node, the NameNode keeps the metadata such as permissions of 
 
 In default configuration, the master node is a single failure point. Higher end computing hardware and secondary power supplies are suggested.
 
-In Hadoop, each slave node simultaneously executes a number of map or reduce tasks. The maximum number of parallel map/reduce tasks are known as map/reduce slots, which are configurable by a Hadoop administrator. Each slot is a computing unit consisting of CPU, memory and disk I/O resources. When a slave node was assigned a task by the JobTracker, its TaskTracker will fork a JVM for that task, allocating a preconfigured amount of computing resources. In addition, each forked JVM also will incur a certain amount of memory requirements. Empirically, a Hadoop job can consume 1-2 GB memory for each CPU core. Higher data throughput requirement can incur higher I/O operations for the majority of Hadoop jobs. That's why higher end and parallel hard drives can help boost the cluster performance. To maximize parallelism, it is advisable to assign two slots for each CPU core. For example, if our slave node has two quad-core CPUs, we can assign $2 * 4 * 2 = 16$ (map only, reduce only or both) slots in total for this node.
+In Hadoop, each slave node simultaneously executes a number of map or reduce tasks. The maximum number of parallel map/reduce tasks are known as map/reduce slots\index{slots}, which are configurable by a Hadoop administrator\index{Hadoop administrator}. Each slot is a computing unit consisting of CPU\index{CPU}, memory\index{memory} and disk I/O\index{disk I/O} resources. When a slave node was assigned a task by the JobTracker\index{JobTracker}, its TaskTracker\index{TaskTracker} will fork a JVM for that task, allocating a preconfigured amount of computing resources. In addition, each forked JVM also will incur a certain amount of memory requirements. Empirically, a Hadoop job can consume 1-2 GB memory for each CPU core. Higher data throughput requirement can incur higher I/O operations for the majority of Hadoop jobs. That's why higher end and parallel hard drives can help boost the cluster performance. To maximize parallelism, it is advisable to assign two slots for each CPU core. For example, if our slave node has two quad-core CPUs, we can assign $2 \times 4 \times 2 = 16$ (map only, reduce only or both) slots in total for this node.
 
-In the simple equation, the first 2 stands for the number of CPUs of the slave node, the number 4 represents the number of cores per CPU and the second 2 means the number of slots per CPU core.
+In the simple equation, the first 2 stands for the number of CPUs of the slave node, the number 4 represents the number of cores per CPU and the second 2 means the number of slots per CPU core\index{CPU core}.
 \subsection*{See also}
 \begin{itemize}
   \item Designing the cluster network in Chapter 2, Preparing for Hadoop Installation.
@@ -60,31 +60,37 @@ In the simple equation, the first 2 stands for the number of CPUs of the slave n
 \end{itemize}
 
 \section{Designing the cluster network}
-Network is the backbone of a Hadoop cluster. Its stability is critical for the performance of the cluster. In this recipe, we will outline a few general rules for designing a Hadoop cluster network.
+Network\index{Network} is the backbone of a Hadoop cluster. Its stability is critical for the performance of the cluster. In this recipe, we will outline a few general rules for designing a Hadoop cluster network.
 \subsection*{How to do it}
 The network architecture for a small to medium sized cluster can be as simple as connecting the cluster nodes with one or more switches. Connection redundancy can add reliability to the network.
 \begin{warning}
 Warning! \\
 Computing nodes in a Hadoop cluster should be configured within the same network segment (Local Area Network or LAN). Advanced features such as VLANs that can cause overhead are not recommended. And connecting nodes with a router is not recommended.
 \end{warning}
-The network architecture for Hadoop clusters with hundreds or thousands of nodes is much more complex. In a large cluster, the physical nodes are usually so small, for example blade server, that they can be mounted on racks. Each rack has a local switch that interconnects nodes on the save rack. These racks are then interconnected with more advanced switches.
+The network architecture\index{network architecture} for Hadoop clusters with hundreds or thousands of nodes is much more complex. In a large cluster, the physical nodes are usually so small, for example blade server, that they can be mounted on racks. Each rack has a local switch that interconnects nodes on the save rack. These racks are then interconnected with more advanced switches.
 
 Nodes on the same rack can be interconnected with 1Gbps (Gigabit per second) Ethernet switch. Cluster level switches then connect the rack switches with faster links such as 10Gbps optical fiber links and other networks like InfiniBand. The cluster-level switches may also interconnect with other cluster-level switches or even uplink to another higher level of switching infrastructure. With the increasing size of a cluster, the network, at the same time, will become larger and more complex. Connection redundancies for network high availability can also increase its complexity. In this book, we assume to discuss the basic network architecture design method. If you want to learn more advanced network design techniques, please refer to related books and online materials.
 
 In general, the network architecture of medium sized cluster can be described with the following figure:
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{figs/5163OS_02_01.png}
+  \caption{Network Architecture of Hadoop Cluster}\label{fig:network.architecture}
+\end{figure} 
+
 %%Insert image 5163os_02_01.png
-In this figure, we assume there is a Hadoop cluster administrator machine and the clients connect to the cluster through a gateway, through which Hadoop jobs can be submitted.
+In this figure, we assume there is a Hadoop cluster administrator machine and the clients connect to the cluster through a gateway\index{gateway}, through which Hadoop jobs can be submitted.
 \subsection*{How it works}
 The increasing bandwidth of network devices makes it possible for Hadoop to load and replicate large data sets across interconnected nodes. Resilient and scalable network architecture can secure the high data throughput and performance requirements for a Hadoop cluster.
 
 \section{Configuring the cluster administrator machine}
-As we have mentioned previously, the most efficient way to install Linux on a large number of machines is to install over the network. In this book, we assume to use the administrator machine as the installation server. We will learn steps to configure this server, including the configuration of the following two services: DHCP and FTP.
+As we have mentioned previously, the most efficient way to install Linux on a large number of machines is to install over the network. In this book, we assume to use the administrator machine as the installation server. We will learn steps to configure this server, including the configuration of the following two services: DHCP\index{DHCP} and FTP\index{FTP}.
 
 \subsection*{Getting ready}
 Before getting started, we assume that the cluster administrator machine has a 64bit Red Hat compatible Linux operating system installed. The hostname of the machine is hadoop.admin and an administrative user hdadmin has been created. This user should have \emph{sudo} privileges to install software packages, configure system services and so on. We also assume administrative tools such as a command line text editor has been installed on this machine. We will use these tools and commands directly in the upcoming recipes.
 
-In this book, we assume to use CentOS 6.3 (which corresponds to Red Hat Enterprise Linux (RHEL) 6.3) as the Linux distribution. We will follow the Red Hat syntax for all the administrative commands, if you are using a Linux distribution other than CentOS, such as Debian, please refer to corresponding documentation.
+In this book, we assume to use CentOS\index{CentOS} 6.3 (which corresponds to Red Hat Enterprise Linux (RHEL) 6.3) as the Linux distribution. We will follow the Red Hat syntax for all the administrative commands, if you are using a Linux distribution other than CentOS, such as Debian, please refer to corresponding documentation.
 
 Login to the administrator machine as hdadmin and change the hostname of the machine with command: \\
 \verb|$ sudo sed -i 's/\^HOSTNAME.*\$/HOSTNAME=hadoop.admin/' /etc/sysconfig/network|
@@ -102,7 +108,13 @@ We will use the DHCP server to assign IP addresses and bootstrap the operating s
 \subsection*{Download the latest ISO image from a mirror}
 The CentOS official site provides a worldwide mirrors list, including North America, European Countries, South America, Asia, Oceania, Middle East, Africa and other regions.
 
-After selecting the nearest mirror, we can use either HTTP or FTP to download the image. Let's choose FTP as the download method by clicking the link in the corresponding line of the selected mirror. Then choose \verb|6.3/, isos/, x86_64/| consecutively. In this directory as shown in the following screenshot, we choose to download two ISO image files. Image file \verb|CentOS-6.3-x86_64-minimal.iso| contains all the necessary installation packages. And image file \verb|CentOS-6.3-x86_64-netinstall.iso| contains PXE network booting files used for booting over the network.
+After selecting the nearest mirror, we can use either HTTP or FTP to download the image. Let's choose FTP as the download method by clicking the link in the corresponding line of the selected mirror. Then choose \verb|6.3/, isos/, x86_64/| consecutively. In this directory as shown in the following screenshot, we choose to download two ISO image\index{ISO image} files. Image file \verb|CentOS-6.3-x86_64-minimal.iso| contains all the necessary installation packages. And image file \verb|CentOS-6.3-x86_64-netinstall.iso| contains PXE network booting\index{PXE network booting} files used for booting over the network.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{figs/5163OS_02_02.png}
+  \caption{Directory Listing of CentOS mirror site}\label{fig:centos.mirror}
+\end{figure} 
 
 %%Insert image 5163os_02_02.png
 If you are not sure about the architecture of the cluster machines, please refer to the product hardware menu.
@@ -223,7 +235,7 @@ Name (knoesis157:hdadmin):
 
 \subsection*{See also}
 \begin{itemize}
-  \item Creating kickstart file and boot media in Chapter 2, Preparing for Hadoop Installation.
+  \item Creating kickstart file\index{kickstart file} and boot media in Chapter 2, Preparing for Hadoop Installation.
   \item Installing the Linux operating system in Chapter 2, Preparing for Hadoop installation.
 \end{itemize}
 
@@ -240,7 +252,7 @@ Prepare a USB flash drive with storage capacity larger than 512MB. The drive sho
 We should see message similar to: \\
 \verb|/dev/sdb1 SEC_TYPE="msdos" LABEL="LIVE" UUID="07D9-051C" TYPE="vfat"|
 
-If the TYPE attribute is other than 'vfat', use the following command to clear the first few blocks of the drive: \\
+If the TYPE attribute is other than 'vfat\index{vfat}', use the following command to clear the first few blocks of the drive: \\
 \verb|$ dd if=/dev/zero of=/dev/sdb1 bs=1M count=100|
 
 Login to the administrative machine with command: \\
@@ -252,7 +264,7 @@ Use the following steps to create a kickstart file:
 Install kickstart with command: \\
 \verb|$ sudo yum install system-config-kickstart|
 
-Use your favourite text editor to create a file ks.cfg with the following content:
+Use your favourite text editor to create a file \verb|ks.cfg| with the following content:
 \begin{verbatim}
     #!/bin/bash
     # Kickstart for CentOS 6.3 for Hadoop cluster.
@@ -412,7 +424,7 @@ Use a text editor to open file \verb|~/isolinux/grub.conf| and add the following
     	initrd @INITRDPATH@
 \end{verbatim}
 
-Make an ISO file from the isolinux directory with the following commands:
+Make an ISO file from the isolinux\index{isolinux} directory with the following commands:
 \begin{verbatim}
     mkisofs -o CentOS6.3-x86_64-boot.iso \
         -b ~/repo/isolinux/isolinux.bin \
@@ -421,7 +433,7 @@ Make an ISO file from the isolinux directory with the following commands:
         -boot-load-size 4
 \end{verbatim}
 
-Plugin a USB flash drive on the administrator machine and write the bootable ISO image into the USB flash drive with the following command (assuming the USB drive corresponds to \verb|/dev/sdb| device file): \\
+Plugin a USB flash drive on the administrator machine and write the bootable ISO image\index{bootable ISO image} into the USB flash drive with the following command (assuming the USB drive corresponds to \verb|/dev/sdb| device file): \\
 \verb|$ dd if=~/CentOS6.3-x86_64-boot.iso of=/dev/sdb|
 
 \begin{warning}
@@ -430,7 +442,7 @@ Make sure you have a backup of the data on the USB flash drive, all the informat
 \end{warning}
 
 \subsection*{How it works}
-A kickstart file specifies a number of installation options such as installation media, networking configuration, firewall configuration etc. Lines that start with '\#' are treated as comments.
+A kickstart file\index{kickstart file} specifies a number of installation options such as installation media, networking configuration, firewall configuration etc. Lines that start with '\#' are treated as comments.
 
 The file contains a \%packages section, which specifies the packages to be installed. In this section, both specific packages and package groups can be specified to install. For example, in our kickstart file, we configure to install the Linux base package with @Base. In addition, if a package is not intended to be installed, we can add a dash symbol before the package. For example, we don't want to install OpenJDK, we can specify this with \emph{-java}.
 
@@ -454,7 +466,7 @@ There are other installation methods other than FTP, for example, we can also us
   \item Installing the Linux operating system in Chapter 2, Preparing for Hadoop installation
 \end{itemize}
 \section{Installing the Linux operating system}
-Although there are many ways to install Linux on a machine, installing over the network with the help of a kickstart file is the most efficient option. The installation process can be automated requiring minimal human intervention. A kickstart file can be kept on a server and read by individual machines during the installation process. In the recipe, we will outline steps to install Linux on a number of Hadoop nodes over the network.
+Although there are many ways to install Linux\index{Linux} on a machine, installing over the network with the help of a kickstart file is the most efficient option. The installation process can be automated requiring minimal human intervention. A kickstart file can be kept on a server and read by individual machines during the installation process. In the recipe, we will outline steps to install Linux on a number of Hadoop nodes over the network.
 \subsection*{Getting ready}
 Before getting started, we need to verify that the DHCP server and FTP server are running correctly on the administrative machine.
 
@@ -474,8 +486,8 @@ In addition, we assume that the cluster nodes have been physically configured. F
 \subsection*{How to do it}
 Use the following recipe to install Linux on a machine:
 \begin{enumerate}
-  \item Plug in the USB flash drive boot media and power on the computer.
-  \item Press F9 to select the boot device. \begin{warning} Different BIOS versions may have different shortcut keys. If F9 does not work, please refer to related product manual. \end{warning}
+  \item Plug in the USB flash drive boot media\index{boot media} and power on the computer.
+  \item Press F9 to select the boot device. \begin{warning} Different BIOS\index{BIOS} versions may have different shortcut keys. If F9 does not work, please refer to related product manual. \end{warning}
   \item From the list of boot devices, choose USB or 'Removable Devices'.
   \item When the installation starts, you can remove the boot media and start the installation on the next machine.
 \end{enumerate}
@@ -500,7 +512,7 @@ With the help of a kickstart file, we can automate the installation of Linux on 
 In this part, we will introduce the steps to automate the installation process with the help of DHCP and TFTP servers. A DHCP server is configured as a booting server, which serves similarly as a USB drive boot media and TFTP is configured to host the actual operating system packages.
 
 \section{Configuring DHCP for network booting}
-We have mentioned the basic configuration of a DHCP server in the previous section. To enable network booting for DHCP, we will use the Pre-boot Execution Environment (PXE) method of TFTP.
+We have mentioned the basic configuration of a DHCP server in the previous section. To enable network booting for DHCP, we will use the Pre-boot Execution Environment (PXE) method of TFTP\index{TFTP}.
 
 Create the configuration file \verb|/etc/dhcpd.conf| for DHCP with the following content:
 \begin{verbatim}
@@ -586,7 +598,7 @@ Start installation process by powering on the cluster machines.
 Hadoop was build using Java, so Java is required before installing Hadoop.
 
 \subsection*{Getting ready}
-Under Linux, OpenJDK provides an open source Java implementation. But if we use OpenJDK for Hadoop, it will cause low level and hard to tackle problems. So OpenJDK is not recommended for the Hadoop installation. Instead, Java from Oracle is recommended.
+Under Linux, OpenJDK\index{OpenJDK} provides an open source Java implementation. But if we use OpenJDK for Hadoop, it will cause low level and hard to tackle problems. So OpenJDK is not recommended for the Hadoop installation. Instead, Java from Oracle is recommended.
 
 Check if OpenJDK has been installed in the system with command: \\
 \verb+$ rpm -qa | grep openjdk+
@@ -625,13 +637,19 @@ Note that this command can break software package dependencies, causing dependen
 
 As another alternative method, we can tweak the PATH environment variable to let both Java versions coexist on the system while let the system to prefer the Java from Oracle.
 
-Suppose we have both OpenJDK and Oracle Java installed in \verb|/usr/openjdk| and \verb|/usr/jdk| respectively. We can set the PATH environment variable to be the following: \\
+Suppose we have both OpenJDK and Oracle Java\index{Oracle Java} installed in \verb|/usr/openjdk| and \verb|/usr/jdk| respectively. We can set the PATH environment variable to be the following: \\
 \verb|PATH=/usr/jdk/bin:/usr/openjdk/bin:\$PATH|
 
 Or, if we would like to only use the Oracle Java, we can set PATH to be: \\
 \verb|PATH=/usr/jdk/bin:\$PATH|
 
 To download Java from Oracle, go to the \href{http://www.oracle.com/technetwork/java/javase/downloads/index.html}{official site}. Select 'Java SE Development Kit 7 Downloads', which is Java 1.7.x (Hadoop can work with Java with version $\ge$ 1.6.0). Next, click the ``Accept License Agreement'' radio button and choose jdk-7u11-linux-x64.rpm for a 64bit Linux machine. The operations are shown in the following screenshot:
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{figs/5163OS_02_04.png}
+  \caption{Downloading Oracle JDK}\label{fig:oracle.jdk}
+\end{figure} 
 
 %%Insert image 5163os_02_04.png
 \subsection*{How to do it}
@@ -656,11 +674,11 @@ Use the following command to install necessary tools: \\
 If these packages have been specified in the installation kickstart file, this step will be optional.
 
 \subsection*{How it works}
-\emph{wget} is a software tool for transferring files using HTTP, HTTPS and FTP protocols. It is none interactive and can be used from command line and scripts for file download. For more information please visit \href{http://www.gnu.org/software/wget/}{http://www.gnu.org/software/wget/}.
+wget\emph{\index{wget}} is a software tool for transferring files using HTTP, HTTPS and FTP protocols. It is none interactive and can be used from command line and scripts for file download. For more information please visit \href{http://www.gnu.org/software/wget/}{http://www.gnu.org/software/wget/}.
 
-\emph{rsync} is an open source tool that provides fast and incremental file transfers. It is widely used for file copying and synchronization under Linux. For more information about rsync, please visit \href{http://rsync.samba.org/}{http://rsync.samba.org/}.
+rsync\emph{\index{rsync}} is an open source tool that provides fast and incremental file transfers. It is widely used for file copying and synchronization under Linux. For more information about rsync, please visit \href{http://rsync.samba.org/}{http://rsync.samba.org/}.
 
-\emph{nmap} stands for Network Mapper. It is a famous tool for network exploration and security auditing. We can use nmap to scan large networks and identify security problems. For example, to scan the service on local machine, we can use the following command:\\
+nmap\emph{\index{nmap}} stands for Network Mapper. It is a famous tool for network exploration and security auditing. We can use nmap to scan large networks and identify security problems. For example, to scan the service on local machine, we can use the following command:\\
 \verb|$ nmap localhost|
 
 And we can get output similar to the following:
@@ -693,10 +711,10 @@ Under Linux, we can use the man command to get the usage of a command. For examp
 If more detailed information about a command is desired, we can use the info command. For example, command info wget gives more details about command wget.
 
 \section{Configuring SSH}
-SSH is the de facto standard protocol for secure data connection and remote command execution. Proper configuration of SSH is required for Hadoop installation. In this section, we are going to learn how to configure SSH on the cluster nodes. Specifically, we are discussing how to configure SSH for password-less login to a remote machine.
+SSH\index{SSH} is the de facto standard protocol for secure data connection and remote command execution. Proper configuration of SSH is required for Hadoop installation. In this section, we are going to learn how to configure SSH on the cluster nodes. Specifically, we are discussing how to configure SSH for password-less login to a remote machine.
 
 \subsection*{Getting ready}
-Start up the SSHD service on all the cluster nodes (both slave nodes and the master node) with command: \\
+Start up the SSHD service\index{SSHD service} on all the cluster nodes (both slave nodes and the master node) with command: \\
 \verb|$ sudo service sshd start|
 
 Make the service survive system reboot with command: \\
@@ -714,7 +732,7 @@ If it is the first time to login to the host, we will get message similar to the
 
 We need to type in yes and then provide the password for user hduser to login to the host.
 \subsection*{How to do it...}
-Use the following recipe to configure password-less login: \\
+Use the following recipe to configure password-less login\index{password-less login}: \\
 Login to the master node from the cluster administrator machine with the following command: \\
 \verb|$ ssh hduser@master|
 
@@ -732,7 +750,7 @@ Generate private and public keys with command: \\
 
 Press enter three times until this command finishes. A public key file \verb|~/.ssh/id_rsa.pub| and a private key file: \verb|~/.ssh/id_rsa| will be generated.
 
-Copy the public key file to the remote machine with command: \\
+Copy the public key\index{public key} file to the remote machine with command: \\
 \verb|$ ssh-copy-id slave1|
 
 Test the configuration with command: \\
@@ -740,9 +758,9 @@ Test the configuration with command: \\
 
 If we can login without entering the password, then the configuration is successful!
 \subsection*{How it works}
-When we run command ssh-copy-id hdslave.host, we actually append the content of the public key file on local machine into file \verb|~/.ssh/authorized_keys| on the remote machine. Next time when we login, the public key string in file \verb|~/.ssh/authorized_keys| on the remote machine and local private key will be used for the login authentication process.
+When we run command \verb|ssh-copy-id hdslave.host|, we actually append the content of the public key file on local machine into file \verb|~/.ssh/authorized_keys| on the remote machine. Next time when we login, the public key string in file \verb|~/.ssh/authorized_keys| on the remote machine and local private key will be used for the login authentication process.
 \subsection*{There's more...}
-Configuration of password-less login failure can be caused by many reasons, for example, the configuration of firewall (or iptables, to be more specific), SELinux and even the SSHD server itself. We will discuss methods to deal with these potential problems.
+Configuration of password-less login failure can be caused by many reasons, for example, the configuration of firewall\index{firewall} (or iptables, to be more specific), SELinux and even the SSHD server itself. We will discuss methods to deal with these potential problems.
 \subsubsection*{Erroneous SSH settings}
 If the \verb|/etc/ssh_config| file contains the following lines:
 \begin{verbatim}
@@ -750,7 +768,7 @@ If the \verb|/etc/ssh_config| file contains the following lines:
     PubkeyAuthentication no
 \end{verbatim}
 
-It means that the public key authorization has been disabled. We need to change these two lines to the following:
+It means that the public key authorization\index{authorization} has been disabled. We need to change these two lines to the following:
 \begin{verbatim}
     RSAAuthentication yes
     PubkeyAuthentication yes
@@ -770,12 +788,12 @@ Log out of the remote machine and login again, if problem persists, go to the ne
 Check the status of iptables with command: \\
 \verb|$ sudo iptables -L|
 
-If no rules are printed, go to the next step, otherwise, disable iptables by flushing all the existing rules with command: \\
+If no rules are printed, go to the next step, otherwise, disable iptables\index{iptables} by flushing all the existing rules with command: \\
 \verb|$ sudo iptables -F|
 
 If problem persists, go to the next step.
 \subsubsection*{Erroneous SELinux configuration}
-Security Enhanced Linux (SELinux) is a Linux feature that provides the mechanism for supporting access control security policies. SELinux that is in enforcing mode can block the password-less login operation. We can check the current SELinux status with the following command: \\
+Security Enhanced Linux (SELinux\index{SELinux}) is a Linux feature that provides the mechanism for supporting access control security policies. SELinux that is in enforcing mode can block the password-less login operation. We can check the current SELinux status with the following command: \\
 \verb|$ getenforce|
 
 If we get output similar to the following: \\
