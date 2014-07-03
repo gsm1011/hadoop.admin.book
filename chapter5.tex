@@ -97,7 +97,7 @@ Besides the three properties we mentioned in this recipe, a number of other ACL 
 The default value of these properties is *, which means all entities can access the service or, in other words, SLA is disabled.
 \subsection*{See also}
 \begin{itemize}
-  \item Configuring job authorization with ACLs in Chapter 5, Hardening a Hadoop cluster
+  \item Configuring job authorization with ACLs
   \item \url{http://hadoop.apache.org/docs/r1.1.2/service_level_auth.html#Enable+Service+Level+Authorization}
 \end{itemize}
 
@@ -187,7 +187,7 @@ Job view ACLs control the access of job status information including counters, d
 Job modification ACLs can overlap with queue level ACLs. When this happens, a user¡¯s operation will be granted if the user has been listed in either of these ACLs.
 \subsection*{See also}
 \begin{itemize}
-  \item Configuring service level authentication in Chapter 5, Hardening a Hadoop cluster
+  \item Configuring service level authentication
   \item \url{http://hadoop.apache.org/docs/r1.1.2/mapred_tutorial.html#Job+Authorization}
   \item \url{http://hadoop.apache.org/docs/r1.1.2/cluster_setup.html}
 \end{itemize}
@@ -460,7 +460,7 @@ Test the Kerberos configuration by running an example MapReduce job with command
 \verb|$ hadoop jar $HADOOP_HOME/hadoop-example*.jar pi 20 1000000|
 \subsection*{See also}
 \begin{itemize}
-  \item Configuring web UI authentication in Chapter 5, Hardening a Hadoop cluster
+  \item Configuring web UI authentication
   \item \url{http://en.wikipedia.org/wiki/SPNEGO}
   \item \url{https://ccp.cloudera.com/display/CDHDOC/Configuring+Hadoop+Security+in+CDH3+(SPNEGO)}
   \item Get more information about Kerberos from \url{http://web.mit.edu/kerberos/}
@@ -580,7 +580,7 @@ If simple authentication is used as the authentication type, anonymous user web 
 
 \subsection*{See also}
 \begin{itemize}
-  \item Securing Hadoop cluster with Kerberos in Chapter 5, Hardening a Hadoop cluster
+  \item Securing Hadoop cluster with Kerberos
   \item \url{http://hadoop.apache.org/docs/stable/HttpAuthentication.html}
 \end{itemize}
 
@@ -760,8 +760,8 @@ Start the cluster with command: \\
 
 \subsection*{See also}
 \begin{itemize}
-  \item Managing HDFS cluster in Chapter 4, Managing a Hadoop cluster
-  \item Managing DataNode daemons in Chapter 4, Managing a Hadoop cluster
+  \item Managing HDFS cluster in Chapter \ref{chap:4}, Managing a Hadoop cluster
+  \item Managing DataNode daemons in Chapter \ref{chap:4}, Managing a Hadoop cluster
   \item \url{https://issues.apache.org/jira/browse/HADOOP-2585}
 \end{itemize}
 
@@ -1016,7 +1016,7 @@ Restart the cluster with command: \\
 
 \subsection*{See also}
 \begin{itemize}
-  \item Configuring HDFS federation in Chapter 5, Hardening a Hadoop cluster
+  \item Configuring HDFS federation
   \item \url{http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/HDFSHighAvailabilityWithNFS.html}
 \end{itemize}
 
@@ -1234,7 +1234,7 @@ done
 
 \subsection*{See also}
 \begin{itemize}
-  \item Configuring NameNode high availability in Chapter 5, Hardening a Hadoop cluster
+  \item Configuring NameNode high availability
   \item \url{http://hadoop.apache.org/docs/r2.0.2-alpha/hadoop-yarn/hadoop-yarn-site/Federation.html}
   \item \url{http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml}
   \item \url{http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/HDFSHighAvailabilityWithQJM.html}

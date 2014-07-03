@@ -862,7 +862,6 @@ Before getting started, we assume that you have registered with AWS and have suc
 \subsection*{How to do it...}
 Use the following recipe to configure a Hadoop cluster with EC2:
 
-
 Run a number of instances either from the command line or from the web interface.
 
 After the instances are all in running state, run the following command to get the internal hostname of these instances:
@@ -990,7 +989,6 @@ In this step, we need to specify the location of the jar file and the arguments 
 
 Click 'Continue', we need to configure EC2 instances. By default, there will be one m1.small instance as the master node and two m1.small instances as the slave nodes. You can configure the instance type and the number of instances based on the job properties (for example, big or small input data size, data intensive or computation intensive etc.). This step is shown in the following screenshot:
 
-
 %% Insert image 5163os_08_26.png
 Click the 'Continue' button and we will go to the 'Advanced options' window. This window asks for instance boot options such as security key pairs etc. In this step, we can choose the key pair and use all others as default and click 'Continue'.
 
@@ -998,13 +996,11 @@ We will go to the 'Bootstrap actions' window. We can simply use default in this 
 
 The 'Review' window shows the options we have configured, if there is no problem, we can click the 'Create Job Flow' button to create an EMR job flow. This step is shown in the following screenshot:
 
-
 %% Insert image 5163os_08_27.png
 The job flow will be started and we can check the output when it completes. We can get its status from the web console as shown in the following screenshot:
-
 
 %% Insert image 5163os_08_28.png
 \subsection*{See also}
 \begin{itemize}
-  \item Chapter 3, Configuring a Hadoop cluster
+  \item Chapter \ref{chap:3}, Configuring a Hadoop cluster
 \end{itemize}

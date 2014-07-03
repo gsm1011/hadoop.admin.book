@@ -417,7 +417,7 @@ The usage for wordcount is as follows: \\
 
 \subsection*{See also}
 \begin{itemize}
-  \item Benchmarking a Hadoop cluster with GridMix in Chapter 7, Tuning a Hadoop cluster for best performance.
+  \item Benchmarking a Hadoop cluster with GridMix.
 \end{itemize}
 \section{Analyzing job history with Rumen}
 Rumen is a tool for extracting well formatted information from job log files. It parses logs and generates statistics for the Hadoop jobs. The job traces can be used for performance tuning and simulation.
@@ -530,7 +530,7 @@ For example, to scale the runtime of the job trace generated in the previous ste
 In this command, option \verb|-output-duration| defines the final runtime of the job trace, and the default value for this option is one hour. Option \verb|-input-cycle| is a mandatory option, and it defines the basic unit of time for the folding operation.
 \subsection*{See also}
 \begin{itemize}
-  \item Benchmarking a Hadoop cluster with GridMix in Chapter 7, Tuning a Hadoop cluster for best performance
+  \item Benchmarking a Hadoop cluster with GridMix.
   \item \url{http://hadoop.apache.org/docs/r1.1.2/rumen.html}
   \item \url{https://issues.apache.org/jira/browse/MAPREDUCE-751}
 \end{itemize}
@@ -757,7 +757,7 @@ Usage: gridmix [-generate <MiB>] [-users URI] [-Dname=value ...] <iopath> <trace
 \end{verbatim}
 \subsection*{See also}
 \begin{itemize}
-  \item Benchmarking and profiling a Hadoop cluster in Chapter 7, Tunning Hadoop cluster for best performance
+  \item Benchmarking and profiling a Hadoop cluster
   \item \url{http://hadoop.apache.org/docs/r1.1.2/rumen.html}
   \item \verb|$HADOOP_HOME/src/benchmarks/README.gridmix2|
 \end{itemize}
@@ -867,8 +867,8 @@ HiBench is a benchmarking suite for Hadoop. It has 9 typical workloads, includin
 The HiBench project and the paper provide nice examples of Hadoop benchmarking. For more information, you can refer to: \url{https://github.com/intel-hadoop/Hibench}.
 \subsection*{See also}
 \begin{itemize}
-  \item Benchmarking and profiling a Hadoop cluster in Chapter 7, Tuning a Hadoop cluster for best performance
-  \item Benchmarking a Hadoop cluster with GridMix in Chapter 7, Tuning a Hadoop cluster for best performance
+  \item Benchmarking and profiling a Hadoop cluster
+  \item Benchmarking a Hadoop cluster with GridMix
   \item \url{http://hadoop.apache.org/docs/stable/vaidya.html}
 \end{itemize}
 \section{Balancing data blocks for a Hadoop cluster}
@@ -1341,9 +1341,9 @@ The following table is a list of properties with descriptions of this recipe:
 
 \subsection*{See also}
 \begin{itemize}
-  \item Tuning TaskTracker configuration in Chapter 7, Tuning a Hadoop cluster for best performance
-  \item Configuring capacity scheduler in Chapter 4, Managing a Hadoop cluster
-  \item Configuring fair scheduler in Chapter 4, Managing a Hadoop cluster
+  \item Tuning TaskTracker configuration
+  \item Configuring capacity scheduler in Chapter \ref{chap:4}, Managing a Hadoop cluster
+  \item Configuring fair scheduler in Chapter \ref{chap:4}, Managing a Hadoop cluster
 \end{itemize}
 \section{Tuning TaskTracker configuration}
 TaskTrackers accept tasks from the JobTracker in a cluster and forks JVMs to run the tasks. A couple of TaskTracker properties can be configured based on the configuration of the cluster.
@@ -1478,7 +1478,7 @@ The following table contains a list of properties with descriptions of this reci
 
 \subsection*{See also}
 \begin{itemize}
-  \item Tuning JobTracker configuration in Chapter 7, Tuning a Hadoop cluster for best performance
+  \item Tuning JobTracker configuration
 \end{itemize}
 
 \section{Tuning shuffle, merge and sort parameters}
@@ -1629,8 +1629,8 @@ The following table show the description of the properties and their default val
 
 \subsection*{See also}
 \begin{itemize}
-  \item Configuring memory for a Hadoop cluster in Chapter 7, Tuning a Hadoop cluster for best performance
-  \item Setting proper number of parallel copies in Chapter 7, Tuning a Hadoop cluster for best performance
+  \item Configuring memory for a Hadoop cluster
+  \item Setting proper number of parallel copies
 \end{itemize}
 \section{Configuring memory for a Hadoop cluster}
 Hadoop has a few memory configuration properties. Their values should be set according to the configurations of the cluster. In this recipe, we will outline steps to configure these memory properties.
@@ -1738,10 +1738,9 @@ The following table lists the properties in the recipe that their descriptions.
 \end{table}
 
 \subsection*{See also}
-
 \begin{itemize}
-  \item Setting proper number of map and reduce slots for TaskTracker in Chapter 7, Tuning a Hadoop cluster for best performance
-  \item Tuning shuffle, merge and sort parameters in Chapter 7, Tuning a Hadoop cluster for best performance
+  \item Setting proper number of map and reduce slots for TaskTracker
+  \item Tuning shuffle, merge and sort parameters
 \end{itemize}
 
 \section{Setting proper number of parallel copies}
@@ -1784,8 +1783,8 @@ Restart the Hadoop cluster with the following command: \\
 
 \subsection*{See also}
 \begin{itemize}
-  \item Tuning TaskTracker configuration in Chapter 7, Tuning a Hadoop cluster for best performance
-  \item Tuning shuffle, merge and sort parameters in Chapter 7, Tuning a Hadoop cluster for best performance
+  \item Tuning TaskTracker configuration
+  \item Tuning shuffle, merge and sort parameters
 \end{itemize}
 
 \section{Tuning JVM parameters}
@@ -1828,7 +1827,7 @@ Start the MapReduce cluster with the following commands: \\
 
 \subsection*{See Also}
 \begin{itemize}
-  \item Configuring JVM reuse in Chapter 7, Tuning a Hadoop cluster for best performance.
+  \item Configuring JVM reuse.
 \end{itemize}
 \section{Configuring JVM reuse}
 MapReduce tasks are executed by JVM processes/threads, which are forked by the TaskTracker. The creation of a JVM, which includes the initialization of execution environments, is costly, especially when the number of tasks is large. In default configuration, the number of JVMs needed to finish a job should be equal to the number of the tasks. In other words, the default setting uses one JVM to execute one task. When the execution of a task completes, its JVM will be killed by the TaskTracker.
@@ -1871,7 +1870,7 @@ Start the Hadoop cluster with the following command: \\
 
 \subsection*{See also}
 \begin{itemize}
-  \item Tuning JVM parameters in Chapter 7, Tuning a Hadoop cluster for best performance.
+  \item Tuning JVM parameters.
 \end{itemize}
 \section{Configuring reducer initialization time}
 Reduce tasks can be started when a certain percentage of map tasks has been finished. By setting this property with a smaller number, the reduce tasks will start earlier, occupying the computing slots. On the other hand, if the number is set too large, for example, very close to 1, the reduce tasks will have to wait for the majority of the map tasks to finish, prolonging the job execution time. In this recipe, we will outline steps to configure reducer initialization.
@@ -1909,6 +1908,6 @@ Restart the MapReduce cluster with command: \\
 
 \subsection*{See also}
 \begin{itemize}
-  \item Tuning TaskTracker configuration in Chapter 7, Tuning a Hadoop cluster for best performance.
-  \item Configuring speculative execution in Chapter 7, Tuning a Hadoop cluster for best performance.
+  \item Tuning TaskTracker configuration.
+  \item Configuring speculative execution.
 \end{itemize}
