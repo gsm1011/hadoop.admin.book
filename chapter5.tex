@@ -1,4 +1,4 @@
-\chapter{Hardening a Hadoop Cluster}
+\chapter{Hardening a Hadoop Cluster}\label{chap:5}
 In this chapter, we will cover:
 \begin{itemize}
   \item Configuring service level authentication
@@ -98,7 +98,7 @@ The default value of these properties is *, which means all entities can access 
 \subsection*{See also}
 \begin{itemize}
   \item Configuring job authorization with ACLs in Chapter 5, Hardening a Hadoop cluster
-  \item \verb|http://hadoop.apache.org/docs/r1.1.2/service_level_auth.html#Enable+Service+Level+Authorization|
+  \item \url{http://hadoop.apache.org/docs/r1.1.2/service_level_auth.html#Enable+Service+Level+Authorization}
 \end{itemize}
 
 Configuring job authorization with ACL
@@ -188,8 +188,8 @@ Job modification ACLs can overlap with queue level ACLs. When this happens, a us
 \subsection*{See also}
 \begin{itemize}
   \item Configuring service level authentication in Chapter 5, Hardening a Hadoop cluster
-  \item \verb|http://hadoop.apache.org/docs/r1.1.2/mapred_tutorial.html#Job+Authorization|
-  \item \verb|http://hadoop.apache.org/docs/r1.1.2/cluster_setup.html|
+  \item \url{http://hadoop.apache.org/docs/r1.1.2/mapred_tutorial.html#Job+Authorization}
+  \item \url{http://hadoop.apache.org/docs/r1.1.2/cluster_setup.html}
 \end{itemize}
 
 \section{Securing Hadoop cluster with Kerberos}
@@ -205,7 +205,7 @@ Under our CentOS machine, use the following command to install the Kerberos pack
 After this, the kadmin and the kinit commands should be accessible from the command line.
 
 If you are also using CentOS or other Red Had compatible operating systems, we need to install Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files, by downloading it from the following command: \\
-\verb|http://www.oracle.com/technetwork/java/javase/downloads/index.html|
+\url{http://www.oracle.com/technetwork/java/javase/downloads/index.html}
 
 At the bottom of the web page, you should see options similar to the following:
 
@@ -226,7 +226,7 @@ Create the hduser principal with the following command in the kadmin shell: \\
 Create the HTTP principal for SPNEGO with command in the kadmin shell: \\
 \verb|$ addprinc -randkey HTTP/master.hdcluster.com@HDREALM|
 
-Create the keytab file that contains the hduser¡¯s and HTTP principal with: \\
+Create the keytab file that contains the hduser's and HTTP principal with: \\
 \verb|$ xst -norandkey -k hduser.keytab hduser/master.hdcluster.com HTTP/master.hdcluster.com|
 
 Show available keytab file entries with:
@@ -461,9 +461,9 @@ Test the Kerberos configuration by running an example MapReduce job with command
 \subsection*{See also}
 \begin{itemize}
   \item Configuring web UI authentication in Chapter 5, Hardening a Hadoop cluster
-  \item http://en.wikipedia.org/wiki/SPNEGO
-  \item https://ccp.cloudera.com/display/CDHDOC/Configuring+Hadoop+Security+in+CDH3+(SPNEGO)
-  \item Get more information about Kerberos from http://web.mit.edu/kerberos/
+  \item \url{http://en.wikipedia.org/wiki/SPNEGO}
+  \item \url{https://ccp.cloudera.com/display/CDHDOC/Configuring+Hadoop+Security+in+CDH3+(SPNEGO)}
+  \item Get more information about Kerberos from \url{http://web.mit.edu/kerberos/}
 \end{itemize}
 
 \section{Configuring web UI authentication}
@@ -565,10 +565,10 @@ Web UI authentication is implemented with the HTTP SPNEGO protocol . SPNEGO stan
 
 The pseudo-mechanism uses a protocol to determine what common GSSAPI mechanisms are available, selects one and then dispatches all further security operations to it. This can help organizations deploy new security mechanisms in a phased manner.
 
-For more information about SPNEGO, please refer to its wiki page at: http://en.wikipedia.org/wiki/SPNEGO.
+For more information about SPNEGO, please refer to its wiki page at: \url{http://en.wikipedia.org/wiki/SPNEGO}.
 
 \subsection*{There's more...}
-Other authentication methods include the simple authentication. If this authentication method is used, we must specify the user name in the first browser interaction using the user.name parameter in the URL. For example, we need to open JobTracker URL: http://master:50030/jobtracker.jsp?user.name=hduser.
+Other authentication methods include the simple authentication. If this authentication method is used, we must specify the user name in the first browser interaction using the user.name parameter in the URL. For example, we need to open JobTracker URL: \url{http://master:50030/jobtracker.jsp?user.name=hduser}.
 
 If simple authentication is used as the authentication type, anonymous user web UI request can be configured by changing the following property:
 \begin{verbatim}
@@ -581,7 +581,7 @@ If simple authentication is used as the authentication type, anonymous user web 
 \subsection*{See also}
 \begin{itemize}
   \item Securing Hadoop cluster with Kerberos in Chapter 5, Hardening a Hadoop cluster
-  \item http://hadoop.apache.org/docs/stable/HttpAuthentication.html
+  \item \url{http://hadoop.apache.org/docs/stable/HttpAuthentication.html}
 \end{itemize}
 
 \section{Recovering from NameNode failure}
@@ -608,7 +608,7 @@ Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 
 In this property, we configured two directories for the NameNode to write metadata to. The first directory /hadoop/dfs/name is a directory on master1 and the second directory /mnt/ssn/name is one NFS shared directory /hadoop/dfs/name on master2. In other words, we are configuring the two machines master1 and master2 to have the same directory layout for the NameNode.
 
-For brevity purposes, we are not showing you the configuration of NFS in this recipe. More information about this topic can be obtained from http://www.tldp.org/HOWTO/NFS-HOWTO/.
+For brevity purposes, we are not showing you the configuration of NFS in this recipe. More information about this topic can be obtained from \url{http://www.tldp.org/HOWTO/NFS-HOWTO/}.
 
 Configure the following property in file \verb|$HADOOP_HOME/conf/core-site.xml|:
 \begin{verbatim}
@@ -762,7 +762,7 @@ Start the cluster with command: \\
 \begin{itemize}
   \item Managing HDFS cluster in Chapter 4, Managing a Hadoop cluster
   \item Managing DataNode daemons in Chapter 4, Managing a Hadoop cluster
-  \item https://issues.apache.org/jira/browse/HADOOP-2585
+  \item \url{https://issues.apache.org/jira/browse/HADOOP-2585}
 \end{itemize}
 
 \section{Configuring NameNode high availability}
@@ -772,7 +772,7 @@ In order for the standby NameNode to automatically recover from the active NameN
 \subsection*{Getting ready}
 Currently, Hadoop release 1.x.y (MRv1) doesn¡¯t support NameNode HA, so we are assuming that all the cluster nodes already have Hadoop version 2.0.x (MRv2) installed.
 
-Be cautious that this Hadoop version is still in alpha status, so it is not recommended for production deployment. For more development status of MRv2, please refer to the official website at:  \verb|http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html|.
+Be cautious that this Hadoop version is still in alpha status, so it is not recommended for production deployment. For more development status of MRv2, please refer to the official website at:  \url{http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html}.
 
 We are assuming that we have two master nodes, with hostnames master1 and master2, to run the NameNode daemons.
 \subsection*{How to do it...}
@@ -1017,7 +1017,7 @@ Restart the cluster with command: \\
 \subsection*{See also}
 \begin{itemize}
   \item Configuring HDFS federation in Chapter 5, Hardening a Hadoop cluster
-  \item http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/HDFSHighAvailabilityWithNFS.html
+  \item \url{http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/HDFSHighAvailabilityWithNFS.html}
 \end{itemize}
 
 \section{Configuring HDFS federation}
@@ -1141,7 +1141,7 @@ Refresh the NameNode list with command: \\
 \verb|$ refresh-namenodes.sh|
 
 We can use the following URL to access the web UI for the HDFS cluster.
-\verb|http://namenode2:50070/dfsclusterhealth.jsp|
+\url{http://namenode2:50070/dfsclusterhealth.jsp}
 
 \subsubsection*{Running Balancer}
 Similar to the old Hadoop version, balancer is used to balance the data blocks over the cluster. On a HDFS federated Hadoop cluster, we can run a balancer with the following command: \\
@@ -1235,7 +1235,7 @@ done
 \subsection*{See also}
 \begin{itemize}
   \item Configuring NameNode high availability in Chapter 5, Hardening a Hadoop cluster
-  \item http://hadoop.apache.org/docs/r2.0.2-alpha/hadoop-yarn/hadoop-yarn-site/Federation.html
-  \item http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml
-  \item http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/HDFSHighAvailabilityWithQJM.html
+  \item \url{http://hadoop.apache.org/docs/r2.0.2-alpha/hadoop-yarn/hadoop-yarn-site/Federation.html}
+  \item \url{http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml}
+  \item \url{http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/HDFSHighAvailabilityWithQJM.html}
 \end{itemize}

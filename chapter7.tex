@@ -1,4 +1,4 @@
-\chapter{Tuning Hadoop Cluster for Best Performance}
+\chapter{Tuning Hadoop Cluster for Best Performance}\label{chap:7}
 In this chapter, we will cover:
 \begin{itemize}
   \item Benchmarking and profiling a Hadoop cluster
@@ -25,7 +25,7 @@ Hadoop performance tuning is a challenging task, mainly due to the distributed f
 
 A Hadoop cluster is composed of many components. A systematic way of performance tuning is to tune the components based on their contribution on the cluster performance. Most of the Big Data applications are I/O bound, so does Hadoop. So configurations that are closely related to I/O requests should be the first priority for performance tuning. For example, suboptimal configuration on data replication properties can cause large number of data block copies over the network, which will pose negative effect on the performance of a cluster. Similarly, improper JVM configurations can cause large data swaps for intermediate data. And unbalanced data block distribution on the DataNodes can cause the suboptimal execution of map and reduce tasks.
 
-The first step of Hadoop performance tuning is to understand how Hadoop MapReduce works with different configuration property settings. Based on this, optimized configurations or best practices can be derived. But this is not a trivial task. It requires techniques such as data collection by running controlled experiments under different parameter settings, data analysis using optimization techniques and analytical and reasoning skills. As a matter of fact, due to the challenges and novelty, Hadoop cluster performance tuning, the research community has recent projects and publications about learning and tuning the performance of a Hadoop cluster (for example, the starfish project at http://www.cs.duke.edu/starfish/).
+The first step of Hadoop performance tuning is to understand how Hadoop MapReduce works with different configuration property settings. Based on this, optimized configurations or best practices can be derived. But this is not a trivial task. It requires techniques such as data collection by running controlled experiments under different parameter settings, data analysis using optimization techniques and analytical and reasoning skills. As a matter of fact, due to the challenges and novelty, Hadoop cluster performance tuning, the research community has recent projects and publications about learning and tuning the performance of a Hadoop cluster (for example, the starfish project at \url{http://www.cs.duke.edu/starfish/}).
 
 While the method of finding the optimal parameter configurations is straightforward for tuning the performance of a Hadoop cluster, the implementation is demanding both theoretically and in practice. Various tools and strategies for optimizing Hadoop performance have been developed and adopted by the Hadoop community. For example, balancer is a tool used for balancing skewed data blocks and speculative execution is a strategy for launching a speculative task for a slowly progressing task.
 
@@ -531,8 +531,8 @@ In this command, option \verb|-output-duration| defines the final runtime of the
 \subsection*{See also}
 \begin{itemize}
   \item Benchmarking a Hadoop cluster with GridMix in Chapter 7, Tuning a Hadoop cluster for best performance
-  \item http://hadoop.apache.org/docs/r1.1.2/rumen.html
-  \item https://issues.apache.org/jira/browse/MAPREDUCE-751
+  \item \url{http://hadoop.apache.org/docs/r1.1.2/rumen.html}
+  \item \url{https://issues.apache.org/jira/browse/MAPREDUCE-751}
 \end{itemize}
 \section{Benchmarking a Hadoop cluster with GridMix}
 GridMix is a tool for benchmarking Hadoop clusters. It generates a number of synthetic MapReduce jobs and builds a model based on the performance of these jobs. Resource profiles of the cluster are modelled based on the job execution metrics. The profiles can help us find performance bottlenecks of the cluster. In this section, we will outline steps for benchmarking Hadoop with GridMix.
@@ -758,7 +758,7 @@ Usage: gridmix [-generate <MiB>] [-users URI] [-Dname=value ...] <iopath> <trace
 \subsection*{See also}
 \begin{itemize}
   \item Benchmarking and profiling a Hadoop cluster in Chapter 7, Tunning Hadoop cluster for best performance
-  \item http://hadoop.apache.org/docs/r1.1.2/rumen.html
+  \item \url{http://hadoop.apache.org/docs/r1.1.2/rumen.html}
   \item \verb|$HADOOP_HOME/src/benchmarks/README.gridmix2|
 \end{itemize}
 
@@ -864,12 +864,12 @@ PostExPerformanceDiagnoser -jobconf <fileurl> -joblog <fileurl> [-testconf <file
 \end{verbatim}
 \subsection*{There's more...}
 HiBench is a benchmarking suite for Hadoop. It has 9 typical workloads, including micro, HDFS, web search machine learning and data analytics benchmarks. For example, it supports benchmarks for Nutch (a text indexing software package), PageRank (the PageRank algorithm), the Mahout machine learning algorithms and Hive queries.
-The HiBench project and the paper provide nice examples of Hadoop benchmarking. For more information, you can refer to: \verb|https://github.com/intel-hadoop/Hibench|.
+The HiBench project and the paper provide nice examples of Hadoop benchmarking. For more information, you can refer to: \url{https://github.com/intel-hadoop/Hibench}.
 \subsection*{See also}
 \begin{itemize}
   \item Benchmarking and profiling a Hadoop cluster in Chapter 7, Tuning a Hadoop cluster for best performance
   \item Benchmarking a Hadoop cluster with GridMix in Chapter 7, Tuning a Hadoop cluster for best performance
-  \item http://hadoop.apache.org/docs/stable/vaidya.html
+  \item \url{http://hadoop.apache.org/docs/stable/vaidya.html}
 \end{itemize}
 \section{Balancing data blocks for a Hadoop cluster}
 HDFS stores data blocks on DataNode machines. When Hadoop processes jobs, data is generated and deleted. Overtime, some DataNodes can host much more data blocks than others. This unbalanced distribution of data on the cluster is called data skew.
@@ -884,7 +884,7 @@ Login from the cluster administrator machine to the master node with the followi
 \subsection*{How to do it...}
 Use the following recipe to balance HDFS data blocks with balancer:
 
-Check the data skew through the web UI, for example, by opening URL \verb|http://master:50070/|
+Check the data skew through the web UI, for example, by opening URL \url{http://master:50070/}
 
 The webpage will be similar to the following:
 
@@ -1157,7 +1157,7 @@ Started the MapReduce cluster with the following command:\\
 \verb|$ start-mapred.sh|
 
 \subsection*{How it works...}
-When speculative execution is enabled, some tasks will get killed. This can be verified by opening URL: \verb|http://master:50030/|.
+When speculative execution is enabled, some tasks will get killed. This can be verified by opening URL: \url{http://master:50030/}.
 
 The web page will be similar to the following screenshot:\\
 

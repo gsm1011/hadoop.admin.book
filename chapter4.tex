@@ -1,4 +1,4 @@
-\chapter{Managing a Hadoop Cluster}
+\chapter{Managing a Hadoop Cluster}\label{chap:4}
 In this chapter, we will cover: \\
 \begin{itemize}
   \item Managing HDFS cluster
@@ -986,7 +986,7 @@ Check the status of a job by opening the JobTracker URL: master:50030/jobtracker
 We will get a web page similar to the following screenshot:
 
 %% Insert image 5163OS_04_11.png
-From this web page, we can get the cluster summary information, the scheduling information, the running jobs list, the completed jobs list, and the retired jobs list. By clicking on a specific job link, we can check the details of a job, or we can open the URL, \verb|http://master:50030/jobdetails.jsp?jobid=job_201302281451_0004&refresh=30|. By specifying the refresh parameter, we can tell the web page to refresh every 30 seconds.
+From this web page, we can get the cluster summary information, the scheduling information, the running jobs list, the completed jobs list, and the retired jobs list. By clicking on a specific job link, we can check the details of a job, or we can open the URL, \url{http://master:50030/jobdetails.jsp?jobid=job_201302281451_0004&refresh=30}. By specifying the refresh parameter, we can tell the web page to refresh every 30 seconds.
 
 Kill a job by opening the URL, \verb|master:50030/jobdetails.jsp?jobid=job_201302281451_0007&action=kill|.
 
@@ -1010,7 +1010,7 @@ We assume that our Hadoop cluster has been properly configured and all daemons a
 \subsection*{How to do it...}
 Perform the following steps to check job history logs from web UI:\\ 
 
-Open the job history URL, \verb|http://master:50030/jobhistoryhome.jsp|. \\
+Open the job history URL, \url{http://master:50030/jobhistoryhome.jsp}. \\
 We will be able to get a web page similar to the following screenshot:
 
 %% Insert image 5163OS_04_01.png
@@ -1031,7 +1031,7 @@ The web page contains information of simple time analytics for each task, for ex
 To further check the information of a task, we can click on the link for the task, and we will get a web page similar to the following screenshot:
 
 %% Insert image 5163OS_04_04.png
-We can get the counters of a task by clicking on the Counters field of the task as shown in the preceding screenshot, or we can get the same web page by opening URL \verb|http://master:50030/taskstats.jsp?tipid=task_201302281211_0001_m_000000|.
+We can get the counters of a task by clicking on the Counters field of the task as shown in the preceding screenshot, or we can get the same web page by opening URL \url{http://master:50030/taskstats.jsp?tipid=task_201302281211_0001_m_000000}.
 
 In this URL, \verb|task_201302281211_0001_m_000000| is the task ID we want to get counters for.
 
@@ -1828,7 +1828,7 @@ When a Hadoop cluster has many jobs to run, the log file can become large very q
 A Hadoop cluster needs to be upgraded when new versions with bug fixes or new features are released. In this recipe, we will outline steps to upgrade a Hadoop cluster to a newer version.
 
 \subsection*{Getting ready}
-Download the desired Hadoop release from an Apache mirror site: http://www.apache.org/dyn/closer.cgi/hadoop/common/. In this book, we assume to upgrade Hadoop from version 1.1.2 to version 1.2.0, which is still in the beta state when writing this book.
+Download the desired Hadoop release from an Apache mirror site: \url{http://www.apache.org/dyn/closer.cgi/hadoop/common/}. In this book, we assume to upgrade Hadoop from version 1.1.2 to version 1.2.0, which is still in the beta state when writing this book.
 
 We assume that there are no running or pending MapReduce jobs in the cluster.
 

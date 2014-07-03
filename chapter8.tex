@@ -1,4 +1,4 @@
-\chapter{Building Hadoop Cluster with Amazon EC2 and S3}
+\chapter{Building Hadoop Cluster with Amazon EC2 and S3}\label{chap:8}
 
 In this chapter, we will cover:
 \begin{itemize}
@@ -23,7 +23,7 @@ We assume to use a GUI web browser for AWS registration. So, we are assuming you
 \subsection*{How to do it...}
 We can use the following steps to register with AWS:
 
-Use a web browser to open the following link: http://aws.amazon.com/.
+Use a web browser to open the following link: \url{http://aws.amazon.com/}.
 
 Click the 'Sign Up' button on the upper right corner of the window.
 
@@ -56,7 +56,7 @@ By clicking the 'Sign in using our secure server' button on the bottom of the wi
 Till here, we finished the registration step successfully.
 \subsection*{See also}
 \begin{itemize}
-  \item \verb|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html?r=1874|
+  \item \url{http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html?r=1874}
 \end{itemize}
 
 \section{Managing AWS security credentials}
@@ -143,7 +143,7 @@ Move the private key file to the .ec2 directory with command: \\
 
 Move the certificate file to the .ec2 directory with command: \\
 \verb|$ mv cert-*.pem ~/.ec2/|
-Download EC2 command line tools from URL \verb|http://aws.amazon.com/developertools/351|.
+Download EC2 command line tools from URL \url{http://aws.amazon.com/developertools/351}.
 
 
 Decompress the zip file with command: \\
@@ -392,7 +392,7 @@ Copy the public key to the \verb|authorized_keys| file with command: \\
 Copy the local Java installation to the image folder with command: \\
 \verb|$ sudo cp -r /usr/java /mnt/centos/usr|
 
-Download the latest Hadoop distribution from official mirror \verb|http://www.apache.org/dyn/closer.cgi/hadoop/common/|.
+Download the latest Hadoop distribution from official mirror \url{http://www.apache.org/dyn/closer.cgi/hadoop/common/}.
 
 Use the following command to decompress the Hadoop package and create the symbolic link:
 \begin{verbatim}
@@ -467,7 +467,7 @@ Bundle the loopback image file with command: \\
 
 Option \emph{-i} specifies the image file name, \emph{-k} specifies the private key file, \emph{-c} specifies the certificate file and -u specifies the user Account Number which is a 12 digit numeric string.
 
-We can get the Account number from the web user interface through the following URL: \verb|https://portal.aws.amazon.com/gp/aws/manageYourAccount|? The account number is on the upper left of the window as shown in the following screenshot:
+We can get the Account number from the web user interface through the following URL: \url{https://portal.aws.amazon.com/gp/aws/manageYourAccount}? The account number is on the upper left of the window as shown in the following screenshot:
 
 %% Insert image 5163os_08_16.png
 The command will ask for the architecture of the image, then it will bundle the image with user¡¯s security credentials and split the bundled image file into smaller files.
@@ -675,7 +675,7 @@ You will be prompted to enter the paraphrase, leave it empty by pressing the 'En
 Download and install Java with recipe installing Java and other tools of Chapter 2.
 
 
-Download the latest Hadoop distribution from \verb|http://www.apache.org/dyn/closer.cgi/hadoop/common/|.
+Download the latest Hadoop distribution from \url{http://www.apache.org/dyn/closer.cgi/hadoop/common/}.
 
 
 Use the following command to decompress the Hadoop package and create the symbolic link:
@@ -774,11 +774,11 @@ Register the AMI with command: \\
 In this command, the first parameter specifies the location of the manifest file in the S3 bucket, the \emph{-n} option specifies the name of the AMI, \emph{-O} specifies the access key string and -W specifies the secret key string.
 
 \subsubsection*{Creating an EBS backed AMI}
-Creating an EBS backed AMI is straightforward from the web management console. This recipe will guide you through the steps to create an EBS backed AMI from a running EC2 instance. For more information, you can visit Amazon official document at: \verb|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html#process_creating-an-ami-ebs|.
+Creating an EBS backed AMI is straightforward from the web management console. This recipe will guide you through the steps to create an EBS backed AMI from a running EC2 instance. For more information, you can visit Amazon official document at: \url{http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html#process_creating-an-ami-ebs}.
 
 Use the following recipe to create an EBS backed AMI:
 
-Go to \verb|https://console.aws.amazon.com/ec2/v2/home#Images:|, filter the AMIs with conditions similar to the following screenshot:
+Go to \url{https://console.aws.amazon.com/ec2/v2/home#Images:}, filter the AMIs with conditions similar to the following screenshot:
 
 %% Insert image 5163os_08_29.png
 Start an instance by right clicking on one of the AMIs and then click 'Launch' as shown in the following screenshot:
@@ -794,17 +794,17 @@ EC2 creates a snapshot for the new AMI. Similar to the image part files stored i
 
 \subsection*{See also}
 \begin{itemize}
-  \item Installing HBase in Chapter 3, Configuring a Hadoop cluster
-  \item Installing Hive in Chapter 3, Configuring a Hadoop cluster
-  \item Installing Pig in Chapter 3, Configuring a Hadoop cluster
-  \item Installing ZooKeeper in Chapter 3, Configuring a Hadoop cluster
-  \item Installing Mahout in Chapter 3, Configuring a Hadoop cluster
-  \item \verb|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Tutorial_CreateImage.html|
-  \item \verb|http://docs.aws.amazon.com/AWSEC2/latest/CommandLineReference/command-reference.html|
+  \item Installing HBase in Chapter \ref{chap:3}, Configuring a Hadoop cluster
+  \item Installing Hive in Chapter \ref{chap:3}, Configuring a Hadoop cluster
+  \item Installing Pig in Chapter \ref{chap:3}, Configuring a Hadoop cluster
+  \item Installing ZooKeeper in Chapter \ref{chap:3}, Configuring a Hadoop cluster
+  \item Installing Mahout in Chapter \ref{chap:3}, Configuring a Hadoop cluster
+  \item \url{http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Tutorial_CreateImage.html}
+  \item \url{http://docs.aws.amazon.com/AWSEC2/latest/CommandLineReference/command-reference.html}
 \end{itemize}
 
 \section{Using S3 to host data}
-Simple Storage Service (S3) provides a convenient online data store. Users can use it to store and retrieve data. More information about S3 can be obtained from \verb|http://aws.amazon.com/s3/|.
+Simple Storage Service (S3) provides a convenient online data store. Users can use it to store and retrieve data. More information about S3 can be obtained from \url{http://aws.amazon.com/s3/}.
 
 This recipe will outline steps to configure S3 as the distributed data storage system for MapReduce.
 
@@ -973,7 +973,7 @@ $ hadoop fs -put words.txt /input
 \end{verbatim}
 \emph{words.txt} contains the input data for the wordcount job.
 
-Open URL: \verb|https://console.aws.amazon.com/elasticmapreduce|.
+Open URL: \url{https://console.aws.amazon.com/elasticmapreduce}.
 
 Click the '\emph{Create New Job Flow}' button as shown in the following screenshot:
 

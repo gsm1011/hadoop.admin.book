@@ -1,4 +1,4 @@
-\chapter{Monitoring a Hadoop Cluster}
+\chapter{Monitoring a Hadoop Cluster}\label{chap:6}
 In this chapter, we will cover:
 \begin{itemize}
   \item Monitoring Hadoop cluster with JMX
@@ -18,7 +18,7 @@ In this chapter, we will first introduce the management framework Java Managemen
 Next, we will introduce Hadoop specific monitoring systems Ambari and Chukwa. Ambari was designed to be a full-fledged system for the deployment, management and monitoring of Hadoop clusters. It was developed based on the monitoring framework of Ganglia and Nagios. But different from Ganglia and Nagios, Apache Chukwa monitors a Hadoop cluster by analysing system logs collected from the Hadoop cluster. Apache Flume is another general purpose data analytics framework for streaming data such as system logs. It can be configured to do system monitoring, which is similar to Chukwa.
 
 \section{Monitoring Hadoop cluster with JMX}
-Java Management eXtensions (JMX) is the technology used by Java to build, monitor and manage distributed systems and network applications. It has been incorporated into Java since J2SE platform 5.0. For more information about JMX, please visit the official website at http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html. In this recipe, we will outline steps to configure Hadoop cluster monitoring with JMX.
+Java Management eXtensions (JMX) is the technology used by Java to build, monitor and manage distributed systems and network applications. It has been incorporated into Java since J2SE platform 5.0. For more information about JMX, please visit the official website at \url{http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html}. In this recipe, we will outline steps to configure Hadoop cluster monitoring with JMX.
 
 \begin{info}
 Notice: \\
@@ -112,8 +112,8 @@ See also
   \item Monitoring Hadoop cluster with Nagios in Chapter 6, Monitoring a Hadoop cluster
   \item Monitoring Hadoop cluster with Ambari in Chapter 6, Monitoring a Hadoop cluster
   \item Monitoring Hadoop cluster with Chukwa in Chapter 6, Monitoring a Hadoop cluster
-  \item http://docs.oracle.com/javase/tutorial/jmx/
-  \item docs.oracle.com/javase/tutorial/jmx/
+  \item \url{http://docs.oracle.com/javase/tutorial/jmx/}
+  \item \url{docs.oracle.com/javase/tutorial/jmx/}
 \end{itemize}
 
 \section{Monitoring Hadoop cluster with Ganglia}
@@ -279,7 +279,7 @@ The access control setting in this file allows everyone to visit the Ganglia web
 Start the httpd daemon with command: \\
 \verb|$ sudo service httpd start|
 
-Check the status of Ganglia by opening URL http://master:80/ganglia and we can get webpage similar to the following screenshot: \\
+Check the status of Ganglia by opening URL \url{http://master:80/ganglia} and we can get webpage similar to the following screenshot: \\
 
 %% Insert image 5163os_06_06.png
 
@@ -315,8 +315,8 @@ Ganglia gmond daemons run on each node that is being monitored in the cluster. T
   \item Monitoring Hadoop cluster with Chukwa in Chapter 6, Monitoring a Hadoop cluster
   \item Monitoring Hadoop cluster with Nagios in Chapter 6, Monitoring a Hadoop cluster
   \item Monitoring Hadoop cluster with Ambari in Chapter 6, Monitoring a Hadoop cluster
-  \item http://ganglia.sourceforge.net/
-  \item http://www.ibm.com/developerworks/wikis/display/WikiPtype/ganglia
+  \item \url{http://ganglia.sourceforge.net/}
+  \item \url{http://www.ibm.com/developerworks/wikis/display/WikiPtype/ganglia}
 \end{itemize}
 \section{Monitoring Hadoop cluster with Nagios}
 Nagios is a powerful open source cluster monitoring system. It can monitor not only hosts and servers but also interconnecting devices such as routers and switches. The alerting services provide notification mechanism for fast response on system problems.
@@ -332,9 +332,9 @@ This command will automatically install the dependency software packages such as
 Install Nagios Remote Plugin Executor (NRPE) package with command:\\
 \verb|$ sudo yum install nrpe|
 
-\emph{NRPE} is a Nagios add-on that allows us to execute Nagios plug-ins on a remote machine. For more information, please check: \verb|http://nagios.sourceforge.net/docs/3_0/addons.html| and \verb|http://nagios.sourceforge.net/docs/nrpe/NRPE.pdf|.
+\emph{NRPE} is a Nagios add-on that allows us to execute Nagios plug-ins on a remote machine. For more information, please check: \url{http://nagios.sourceforge.net/docs/3_0/addons.html} and \url{http://nagios.sourceforge.net/docs/nrpe/NRPE.pdf}.
 
-Download \verb|check_jmx| Nagios plugin from \verb|http://exchange.nagios.org/directory/Plugins/Java-Applications-and-Servers/check_jmx/details|.
+Download \verb|check_jmx| Nagios plugin from \url{http://exchange.nagios.org/directory/Plugins/Java-Applications-and-Servers/check_jmx/details}.
 
 We want to use Java JMX as a Nagios plugin to monitor Hadoop metrics.
 
@@ -370,9 +370,9 @@ define contact{
 }
 \end{verbatim}
 
-Other alerting methods such as SMS messages and paging are also available. Please refer to the following web page for more information: \verb|http://nagios.sourceforge.net/docs/3_0/objectdefinitions.html|.
+Other alerting methods such as SMS messages and paging are also available. Please refer to the following web page for more information: \url{http://nagios.sourceforge.net/docs/3_0/objectdefinitions.html}.
 
-Change the Apache web server configuration file /etc/httpd/conf/httpd.conf file by adding the following line: \\
+Change the Apache web server configuration file \verb|/etc/httpd/conf/httpd.conf| file by adding the following line: \\
 \verb|Include /etc/httpd/conf/nagios.conf| \\
 File \verb|/etc/httpd/conf/nagios.conf| is the configuration file for Nagios web interface, the content of this file should be similar to the following:
 
@@ -560,7 +560,7 @@ If SELinux is on, we need to change the context of the web directory with:\\
 Restart the web server with command:\\
 \verb|$ sudo service httpd restart|
 
-Now, we should be able to check the web UI by opening URL: \verb|http://master/nagios|.
+Now, we should be able to check the web UI by opening URL: \url{http://master/nagios}.
 
 If you are opening the web UI for the first time, you need to type in the username and password. The username should be "nagiosadmin" and the password should be the one you entered for the htpasswd command.
 
@@ -572,7 +572,7 @@ Nagios is an open source centralized network monitoring system. A typical Nagios
   \item Monitoring Hadoop cluster with Chukwa  in Chapter 6, Monitoring a Hadoop cluster
   \item Monitoring Hadoop cluster with Ganglia in Chapter 6, Monitoring a Hadoop cluster
   \item Monitoring Hadoop cluster with Ambari in Chapter 6, Monitoring a Hadoop cluster
-  \item \verb|http://library.nagios.com/library/products/nagioscore/manuals|
+  \item \url{http://library.nagios.com/library/products/nagioscore/manuals}
 \end{itemize}
 
 \section{Monitoring Hadoop cluster with Ambari}
@@ -673,7 +673,7 @@ Ambari Server 'setup' finished successfully
 Now, we can start the Ambari server with command: \\
 \verb|$ sudo service ambari-server start|
 
-Visit the web UI by opening URL: \verb|http://master:8080|. \\
+Visit the web UI by opening URL: \url{http://master:8080}. \\
 Now, we need to login to the Ambari server with username and password both as admin.
 
 After login, we will be able to install and manage our Hadoop cluster from the Ambari web UI, which is similar to the following screenshot:
@@ -718,8 +718,8 @@ By clicking on the "Complete" button, the cluster installation process will comp
   \item Monitoring Hadoop cluster with Chukwa  in Chapter 6, Monitoring a Hadoop cluster
   \item Monitoring Hadoop cluster with Ganglia in Chapter 6, Monitoring a Hadoop cluster
   \item Monitoring Hadoop cluster with Nagios in Chapter 6, Monitoring a Hadoop cluster
-  \item http://incubator.apache.org/ambari/
-  \item http://incubator.apache.org/ambari/1.2.1/installing-hadoop-using-ambari/content/index.html
+  \item \url{http://incubator.apache.org/ambari/}
+  \item \url{http://incubator.apache.org/ambari/1.2.1/installing-hadoop-using-ambari/content/index.html}
 \end{itemize}
 
 \section{Monitoring Hadoop cluster with Chukwa}
@@ -729,7 +729,7 @@ Latest release of Chukwa uses HBase for key-value storage. So, before getting st
 
 Next, we can use the following steps to install Chukwa:
 
-Download the latest release from the official website http://incubator.apache.org/chukwa, for example, use command: \\
+Download the latest release from the official website \url{http://incubator.apache.org/chukwa}, for example, use command: \\
 \verb|$ sudo wget http://mirror.symnds.com/software/Apache/incubator/chukwa/chukwa-0.5.0/chukwa-incubating-src-0.5.0.tar.gz -P /usr/local|
 
 Decompress the archive with command: \\
@@ -923,7 +923,7 @@ Use pig to analyze the data with command: \\
 Start the web UI for Hadoop Infrastructure Care Center (HICC) with command: \\
 \verb|$ chukwa hicc|
 
-Open URL: \verb|http://master:4080| and use admin as both user name and password for login.
+Open URL: \url{http://master:4080} and use admin as both user name and password for login.
 
 We can modify file \verb|$CHUKWA_HOME/etc/chukwa/auth.conf| to change the login credential.
 
@@ -977,5 +977,5 @@ Currently, Chukwa is an incubator project under Apache Free Software (AFS) found
   \item Monitoring Hadoop cluster with Ganglia in Chapter 6, Monitoring a Hadoop cluster
   \item Monitoring Hadoop cluster with Nagios in Chapter 6, Monitoring a Hadoop cluster
   \item Monitoring Hadoop cluster with Ambari in Chapter 6, Monitoring a Hadoop cluster
-  \item http://incubator.apache.org/chukwa/docs/r0.5.0/admin.html
+  \item \url{http://incubator.apache.org/chukwa/docs/r0.5.0/admin.html}
 \end{itemize}
