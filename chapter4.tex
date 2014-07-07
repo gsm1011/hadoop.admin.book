@@ -1649,7 +1649,7 @@ CapacityScheduler is available as a JAR file under the \verb|$HADOOP_HOME/lib| d
 
 Table \ref{tbl:queueconfig} shows the description of queue configuration properties: 
 \begin{table}[ht]
-  \scriptsize
+  \footnotesize
   \centering
   \begin{tabular}{p{.45\textwidth}p{.45\textwidth}}
     \toprule 
@@ -1689,12 +1689,13 @@ Log in to the master node from the Hadoop administrator machine using the follow
 Perform the following steps to configure Hadoop Fair Scheduler: 
 
 Enable fair scheduling by changing the following property in the file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
-\begin{verbatim}[language=XML]
+\lstset{style=bashstyle}
+\begin{lstlisting}[language=XML]
   <property>
     <name>mapred.jobtracker.taskScheduler</name>
     <value>org.apache.hadoop.mapred.FairScheduler</value>
   </property>
-\end{verbatim}
+\end{lstlisting}
 
 Create the Fair Scheduler configuration file, \verb|$HADOOP_HOME/conf/fair-scheduler.xml|, with content similar to the following: 
 \lstset{style=bashstyle}
@@ -1741,7 +1742,7 @@ Table \ref{tbl:fairscheduler} shows the properties supported by fair scheduler:
 \begin{table}[ht]
   \centering
   \scriptsize
-  \begin{tabular}{llp{9cm}}
+  \begin{tabular}{p{.27\textwidth}p{.07\textwidth}p{.56\textwidth}}
     \toprule 
     \textbf{Property} & \textbf{Value} & \textbf{Description} \\ \midrule
     minMaps & Integer & Minimum map slots for a pool. \\
@@ -1883,7 +1884,7 @@ Additionally, Table \ref{tbl:loggingenv} shows other environment variables we ca
 \begin{table}\scriptsize\centering
   \begin{tabular}{ll}
     \toprule 
-    Variable name & Description \\ midrule
+    \textbf{Variable name} & \textbf{Description} \\ \midrule
     \verb|HADOOP_LOG_DIR| & Directory for log files. \\ 
     \verb|HADOOP_PID_DIR| & Directory to store the PID for the servers. \\
     \verb|HADOOP_ROOT_LOGGER| & Logging configuration for hadoop.root.logger. Default value: "INFO,console". \\
