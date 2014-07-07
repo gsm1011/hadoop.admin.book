@@ -26,7 +26,7 @@ Use the following steps to configure Hadoop SLA:
 
 Enable SLA by opening file \verb|$HADOOP_HOME/conf/core-site.xml| and add or change the \verb|hadoop.property.authorization| to be true as shown in the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>hadoop.property.authorization</name>
   <value>true</name>
@@ -37,7 +37,7 @@ SLA of a Hadoop cluster is disabled by default.
 
 Allow only specific users to submit jobs to the Hadoop cluster by adding or changing the following property in file \verb|$HADOOP_HOME/conf/hadoop-policy.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>security.job.submission.protocol.acl</name>
   <value>hduser hadoop</name>
@@ -48,7 +48,7 @@ This configuration only allows user hduser and group hadoop to submit jobs to th
 
 Allow only specific users and groups to talk to HDFS by opening file \verb|$HADOOP_HOME/conf/hadoop-policy.xml| and add the following property:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>security.client.protocol.acl</name>
   <value>hduser,hdadmin hadoop</name>
@@ -59,7 +59,7 @@ This configuration only allows users hduser and hdadmin and group hadoop to acce
 
 Allows only specific DataNodes to communicate with the NameNode by changing the security.datanode.protocol.acl property in file \verb|$HADOOP_HOME/conf/hadoop-policy.xml| similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>security.datanode.protocol.acl</name>
   <value>datanode</name>
@@ -118,7 +118,7 @@ Use the following steps to configure job authorization with ACLs:
 
 Enable job ACL authorization by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>mapred.acls.enabled</name>
   <value>true</name>
@@ -128,7 +128,7 @@ This property will enable both the queue ACL and the job ACL.
 
 Configure to only allow specific users and groups to submit jobs by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-queue-acls.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>mapred.queue.hdqueue.acl-submit-job</name>
   <value>hduser hadoop</name>
@@ -139,7 +139,7 @@ This configuration will only allow user hduser and group hadoop to submit jobs t
 
 Configure to allow specific users and groups to manage jobs in a named queue by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-queue-acls.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>mapred.queue.hdqueue.acl-administer-job</name>
   <value>hduser hadoop</name>
@@ -162,7 +162,7 @@ hdqueue  submit-job,administer-jobs
 
 Configure to allow only specific users and groups to view the status of a job by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-queue-acls.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>mapreduce.job.acl-view-job</name>
   <value>hduser hadoop</name>
@@ -172,12 +172,13 @@ Configure to allow only specific users and groups to view the status of a job by
 Different to queue level ACL, job level ACLs specifies access control for any submitted jobs, regardless of the queue a job has been submitted to.
 
 Configure to allow only specific users and groups to modify a job by adding the following property to file \verb|$HADOOP_HOME/conf/mapred-queue-acls.xml|:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}[language=XML]
 <property>
   <name>mapreduce.job.acl-modify-job</name>
   <value>hduser hadoop</name>
 </property>
-\end{verbatim}
+\end{lstlisting}
 
 Force the NameNode and the JobTracker to reload the ACL configurations with commands: \\
 \verb|$ hadoop dfsadmin -refreshServiceAcl| \\
@@ -219,7 +220,7 @@ If you are also using CentOS or other Red Had compatible operating systems, we n
 At the bottom of the web page, you should see options similar to the following:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{figs/5163os_05_01.png}
+  \includegraphics[width=.85\textwidth]{figs/5163os_05_01.png}
   \caption{Option of downloading JCE}\label{fig:jce}
 \end{figure} 
 Click the right download link based on your Java version, which we can get with the \verb|``java -version''| command.
@@ -280,7 +281,7 @@ Stop the cluster with command: \\
 
 Open the \verb|$HADOOP_HOME/conf/core-site.xml| file with your favorite text editor and add the following lines to the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>hadoop.security.authorization</name>
   <value>true</value>
@@ -299,7 +300,7 @@ Open the \verb|$HADOOP_HOME/conf/core-site.xml| file with your favorite text edi
 
 Open file \verb|$HADOOP_HOME/conf/hdfs-site.xml| with your favorite text editor and add the following lines into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.block.access.token.enable</name>
   <value>true</value>
@@ -372,16 +373,17 @@ Open file \verb|$HADOOP_HOME/conf/hdfs-site.xml| with your favorite text editor 
 \end{lstlisting}
 
 Enable webHDFS by adding the following property to file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.webhdfs.enabled</name>
   <value>true</value>
 </property>
-\end{verbatim}
+\end{lstlisting}
 
 Configure Kerberos web authentication by adding the following two properties to file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.web.authentication.kerberos.principal</name>
   <value>HTTP/master.hdcluster.com@HDREALM</value>
@@ -424,7 +426,7 @@ drwxr-xr-x - hduser supergroup 0 2013-03-10 14:01 /user
 
 Configure MapReduce Kerberos authentication by adding the following lines into file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>mapreduce.jobtracker.kerberos.principal</name>
   <value>hduser/master.hdcluster.com@HDREALM</value>
@@ -508,7 +510,7 @@ Stop the cluster with command: \\
 
 Add or change the following property:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>hadoop.http.filter.initializers</name>
 <value>org.apache.hadoop.security.AuthenticationFilterInitializer</value>
@@ -517,7 +519,7 @@ Add or change the following property:
 
 And change the http authentication type by adding the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>hadoop.http.authentication.type</name>
   <value>kerberos</value>
@@ -528,7 +530,7 @@ Other http authentication types include simple and user customized by specifying
 
 Configure the authentication token valid time length by changing the hadoop.http.authentication.token.validity property to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>hadoop.http.authentication.token.validity</name>
   <value>10000</value>
@@ -539,7 +541,7 @@ The unit of the value is in seconds.  The default value for this property is 360
 
 Configure the location of the signature secret file, which will be used to sign the authentication tokens, by changing the  hadoop.http.authentication.signature.secret.file property similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>hadoop.http.authentication.signature.secret.file</name>
   <value>$HADOOP_HOME/conf/http-auth.secret</value>
@@ -550,7 +552,7 @@ If this property is not set, a random secret will be generated at startup time. 
 
 Configure the domain name for HTTP cookies, which stores authentication tokens, by changing the hadoop.http.authentication.cookie.domain property similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>hadoop.http.authentication.cookie.domain</name>
   <value>hdcluster.com</value>
@@ -563,7 +565,7 @@ This property is required for HTTP authentication to work properly.
 
 Configure Kerberos principal for HTTP endpoint by changing the hadoop.http.authentication.kerberos.principal property similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>hadoop.http.authentication.kerberos.principal</name>
   <value>HTTP/master.hdcluster.com@HDREALM</value>
@@ -572,7 +574,7 @@ Configure Kerberos principal for HTTP endpoint by changing the hadoop.http.authe
 
 Configure the location of the keytab file for the Kerberos principal for HTTP endpoints by changing the hadoop.http.authentication.kerberos.keytab property similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>hadoop.http.authentication.kerberos.keytab</name>
   <value>${user.home}/kerberos.hadoop.keytab</value>
@@ -580,12 +582,13 @@ Configure the location of the keytab file for the Kerberos principal for HTTP en
 \end{lstlisting}
 
 Sync the configurations to the slave nodes with command:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo 'Copying Hadoop configration files to host: ' $host
   scp $HADOOP_HOME/conf/core-site.xml $host:$HADOOP_HOME/conf
 done
-\end{verbatim}
+\end{lstlisting}
 
 Start the Hadoop cluster with: \\
 \verb|$ start-all.sh|
@@ -594,7 +597,8 @@ Validate the configuration by opening URL master:50030/jobtracker.jsp.
 
 Alternatively, we can test our configuration with the curl command:
 \lstset{style=bashstyle}
-\begin{lstlisting}$ curl -v -u hduser --negotiate http://master:50030/jobtracker.jsp 
+\begin{lstlisting}
+$ curl -v -u hduser --negotiate http://master:50030/jobtracker.jsp 
 \end{lstlisting}
 
 \subsection*{How it works}
@@ -609,7 +613,7 @@ Other authentication methods include the simple authentication. If this authenti
 
 If simple authentication is used as the authentication type, anonymous user web UI request can be configured by changing the following property:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>hadoop.http.authentication.simple.anonymous.allowed</name>
   <value>true</value>
@@ -638,7 +642,7 @@ Log into master1 with command: \\
 
 Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
     <name>dfs.name.dir</name>
     <value>/hadoop/dfs/name,/mnt/snn/name</value>
@@ -651,7 +655,7 @@ For brevity purposes, we are not showing you the configuration of NFS in this re
 
 Configure the following property in file \verb|$HADOOP_HOME/conf/core-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
     <name>fs.default.name </name>
     <value>master1:54310</value>
@@ -660,14 +664,14 @@ Configure the following property in file \verb|$HADOOP_HOME/conf/core-site.xml|:
 
 Copy the configuration to master2 with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ scp $HADOOP_HOME/conf/hdfs-site.xml master2:$HADOOP_HOME/conf/
 $ scp $HADOOP_HOME/conf/slaves master2:$HADOOP_HOME/conf/
 \end{lstlisting}
 
 Copy the configuration file to all the slave nodes in the cluster with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo "Sync configuration files to " $host
   scp $HADOOP_HOME/conf/core-site.xml $host:$HADOOP_HOME/conf
@@ -688,7 +692,7 @@ Stop the cluster with command: \\
 \verb|$ ssh master1 -C "stop-all.sh"|
 
 Configure to use master2 as the NameNode by adding the following property into file \verb|$HADOOP_HOME/conf/core-site.xml|:
-\begin{verbatim}
+\begin{verbatim}[language=XML]
 <property>
     <name>fs.default.name </name>
     <value>master2:54310</value>
@@ -722,7 +726,7 @@ Create the Hadoop directory with command: \\
 
 Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
     <name>dfs.name.dir</name>
     <value>/hadoop/dfs/name,/hadoop1/dfs/name</value>
@@ -738,7 +742,7 @@ Stop the Hadoop cluster with command: \\
 
 Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
     <name>dfs.name.dir</name>
     <value>/hadoop1/dfs/name</value>
@@ -762,7 +766,7 @@ By doing this, we configure to run SecondaryNameNode on master2.
 
 Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
     <name>dfs.name.dir</name>
     <value>/hadoop/dfs/name</value>
@@ -771,7 +775,7 @@ Configure the following property in file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 
 Sync the configuration files to the slave nodes in the cluster with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo "Sync configuration files to " $host
   scp $HADOOP_HOME/conf/hdfs-site.xml $host:$HADOOP_HOME/conf
@@ -795,19 +799,19 @@ Format the NameNode with command: \\
 
 Configure the NameNode version number with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ scp slave1:/hadoop/dfs/data/current/VERSION* /hadoop/dfs/name/current/VERSION
 \end{lstlisting}
 
 Copy the checkpoint image from SecondaryNameNode with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ scp master2:/hadoop/dfs/namesecondary/image/fsimage /hadoop/dfs/name/fsimage
 \end{lstlisting}
 
 Copy the current edit logs from SecondaryNameNode with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ scp master2:/hadoop/dfs/namesecondary/current/* /hadoop/dfs/name/current
 \end{lstlisting}
 
@@ -842,7 +846,7 @@ Login to one of the NameNode machines with command: \\
 
 Configure a logical name service by adding the following property into the file \verb|$HADOOP_CONF_DIR/hdfs-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.nameservices</name>
   <value>hdcluster</value>
@@ -853,7 +857,7 @@ We are assume all the subsequent configurations are making changes on file \verb
 
 Specify the NameNode IDs for the configured name service by adding the following property in the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.ha.namenodes.hdcluster</name>
   <value>namenode1,namenode2</value>
@@ -866,7 +870,7 @@ Note that, current HA implementation only supports two NameNodes in maximum.
 
 Configure the RPC address for namenode1 on host master1 by adding the following property:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.namenode.rpc-address.hdcluster.namenode1</name>
   <value>master1:54310</value>
@@ -877,7 +881,7 @@ The MRv1 RPC address specification for the NameNode is similar to the specificat
 
 Configure the RPC address for namenode2 on host master2 by adding the following property:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.namenode.rpc-address.hdcluster.namenode2</name>
   <value>master2:54310</value>
@@ -886,7 +890,7 @@ Configure the RPC address for namenode2 on host master2 by adding the following 
 
 Configure the HTTP web UI address of the two NameNodes by adding the following lines to the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.namenode.http-address.hdcluster.namenode1</name>
   <value>master1:50070</value>
@@ -900,7 +904,7 @@ Configure the HTTP web UI address of the two NameNodes by adding the following l
 
 Configure the NameNode shared edits directory by adding the following property into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.namenode.shared.edits.dir</name> <value>qjournal://master1:8485;master1:8486;master2:8485/hdcluster</value>
 </property>
@@ -910,7 +914,7 @@ This property configures three Journal Node addresses for Quorum to provide the 
 
 Configure Quorum Journal Node directory for storing edit logs in local filesystem by adding the following property into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.journalnode.edits.dir</name>
   <value>/hadoop/journaledits/</value>
@@ -921,7 +925,7 @@ This property should be configured on each NameNode machine.
 
 Configure the proxy provider for the NameNode HA by adding the following lines into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.client.failover.proxy.provider.hdcluster</name>
 <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
@@ -930,7 +934,7 @@ Configure the proxy provider for the NameNode HA by adding the following lines i
 
 Configure the fencing method by adding the following property into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.ha.fencing.methods</name>
   <value>sshfence</value>
@@ -941,7 +945,7 @@ Currently, NameNode HA supports two fencing methods, one is sshfence and the oth
 
 Configure the private key file for the sshfence method by adding the following property into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.ha.fencing.ssh.private-key-files</name>
   <value>$HOME/.ssh/id_rsa</value>
@@ -954,7 +958,7 @@ In order for sshfence to work, we are configuring the private key files so that 
 
 Configure the SSH connection timeout, in milliseconds, by adding the following property into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.ha.fencing.ssh.connect-timeout</name>
   <value>50000</value>
@@ -963,7 +967,7 @@ Configure the SSH connection timeout, in milliseconds, by adding the following p
 
 Enable automatic failover by adding the following property into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.ha.automatic-failover.enabled</name>
   <value>true</value>
@@ -973,7 +977,7 @@ Enable automatic failover by adding the following property into the file:
 This configuration will enable automatic failover for all the name service IDs. If we want to enable automatic failover for a specific name service ID, for example h
 dcluster, we can configure the following property:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.ha.automatic-failover.enabled.hdcluster</name>
   <value>true</value>
@@ -982,7 +986,7 @@ dcluster, we can configure the following property:
 
 Configure the ZooKeeper services by adding the following property into file \verb|$HADOOP_CONF_DIR/core-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
    <name>ha.zookeeper.quorum</name>
    <value>master1:2181,master2:2181</value>
@@ -991,13 +995,13 @@ Configure the ZooKeeper services by adding the following property into file \ver
 
 Sync the configurations to all the nodes in the cluster with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_CONF_DIR/slaves`; do
   echo "Sync configuration files to " $host
   scp $HADOOP_CONF_DIR/hdfs-site.xml $host:$HADOOP_CONF_DIR/
   scp $HADOOP_CONF_DIR/core-site.xml $host:$HADOOP_CONF_DIR/
 done
-\end{lstlisting}
+\end{lstlisting}[language=XML]
 
 Initialized ZooKeeper with command: \\
 \verb|$ hdfs zkfc -formatZK|
@@ -1041,7 +1045,7 @@ Login to master1 machine with the ssh command.
 
 Add the following property to file \verb|$HADOOP_CONF_DIR/core-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>ha.zookeeper.auth</name>
   <value>@$HADOOP_CONF_DIR/zkauth.txt</value>
@@ -1053,7 +1057,7 @@ This property configures the file used for ZooKeeper authentication. The special
 
 Add the following property into file \verb|$HADOOP_CONF_DIR/core-site.xml| for ZooKeeper access control:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>ha.zookeeper.acl</name>
   <value>@$HADOOP_CONF_DIR/zkacl.txt</value>
@@ -1064,7 +1068,7 @@ Similar to the ha.zookeeper.auth property, the '@' character in the value specif
 
 Generate ZooKeeper ACL corresponding to the authentication with command: \\
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ java -cp $ZK_HOME/lib/*:$ZK_HOME/zookeeper-*.jar org.apache.zookeeper.server.auth.DigestAuthenticationProvider zkuser:password
 \end{lstlisting}
 
@@ -1082,7 +1086,7 @@ digest:zkuser:a4XNgljR6VhODbC7jysuQ4gBt98=
 
 Sync the configuration to master2 with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ scp $HADOOP_CONF_DIR/zkacl.txt master2:$HADOOP_CONF_DIR/
 $ scp $HADOOP_CONF_DIR/zkauth.txt master2:$HADOOP_CONF_DIR/
 \end{lstlisting}
@@ -1122,7 +1126,7 @@ Login to master1 with command: \\
 
 Specify a list of NameNode service IDs by adding the following lines into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.nameservices</name>
   <value>namenode1,namenode2</value>
@@ -1133,7 +1137,7 @@ The value of this property is a comma separated list of NameNode service IDs. Fo
 
 Configure the NameNode RPC and http URI for namenode1 by adding the following into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
     <name>dfs.namenode.rpc-address.namenode1</name>
     <value>master1:54310</value>
@@ -1154,7 +1158,7 @@ The above configurations assume that the NameNode daemons and NameNode HTTP and 
 
 Specify the NameNode RPC and http URI for namenode2 by adding the following into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.namenode.rpc-address.namenode2</name>
   <value> master2:54310</value>
@@ -1239,7 +1243,8 @@ We can use the following URL to access the web UI for the HDFS cluster.
 \subsubsection*{Running Balancer}
 Similar to the old Hadoop version, balancer is used to balance the data blocks over the cluster. On a HDFS federated Hadoop cluster, we can run a balancer with the following command: \\
 \lstset{style=bashstyle}
-\begin{lstlisting}$ hadoop-daemon.sh --config $HADOOP_HOME/conf --script hdfs start balancer -policy node
+\begin{lstlisting}[language=bash]
+$ hadoop-daemon.sh --config $HADOOP_HOME/conf --script hdfs start balancer -policy node
 \end{lstlisting}
 
 This command will balance the data blocks on the node level. Another balancing policy is blockpool, which balances the storage at the block pool level as well as the data node level.
@@ -1253,7 +1258,7 @@ Configure MRv2 on node master3.
 
 Add the following lines into file \verb|$HADOOP_CONF_DIR/hdfs-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.nameservices</name>
   <value>namenode1,namenode2,namenode3</value>
@@ -1307,14 +1312,14 @@ Format namenode3 with command: \\
 
 Sync the configuration into all the other NameNodes with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ scp $HADOOP_CONF_DIR/hdfs-site.xml master1:$HADOOP_CONF_DIR/
 $ scp $HADOOP_CONF_DIR/hdfs-site.xml master2:$HADOOP_CONF_DIR/
 \end{lstlisting}
 
 Sync the configuration into all the slave nodes in the cluster with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_CONF_DIR/slaves`; do
   echo 'Sync configuration files to ' $host
   scp $HADOOP_CONF_DIR/hdfs-site.xml $host:$HADOOP_CONF_DIR/
@@ -1326,7 +1331,7 @@ Start the HDFS cluster with command: \\
 
 Tell the DataNodes the change of the NameNodes with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for slavehost in `$HADOOP_CONF_DIR/slaves`;  do
   echo 'Processing on host ' $slavehost
   ssh $slavehost -C 'hdfs dfsadmin -refreshNameNode master3:54310'

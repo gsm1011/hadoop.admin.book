@@ -32,7 +32,7 @@ We assume that Oracle JDK has been installed and our Hadoop cluster has been con
 
 Create a JMX password file for remote monitoring with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cp $JAVA_HOME/jre/lib/management/jmxremote.password.template $HADOOP_HOME/conf/jmxremote.password
 \end{lstlisting}
 
@@ -93,7 +93,7 @@ Use the following command to start the monitor user interface: \\
 We can see a window that is similar to the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_06_01.png}
+  \includegraphics[width=.7\textwidth]{figs/5163os_06_01.png}
   \caption{jconsole UI}\label{fig:jconsole}
 \end{figure} 
 From this window, we can check the status of both local and remote processes. Checking the status of local processes is relatively simple. First, select the desired process to check from the process list. Then, we only need to click the ``Connect'' button. Checking the status of remote processes is relatively complicated. We need to specify the location of the service by either specifying hostname and port or protocol and sap as shown in the screenshot. We also need to enter the username and password for authentication purposes.  In the following steps, we assume to check the status of local JobTracker process.
@@ -101,7 +101,7 @@ From this window, we can check the status of both local and remote processes. Ch
 Select the ``Local Process'' radio button and then click ``Connect'' button. We can get a monitoring window after waiting for a few moments:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_06_02.png}
+  \includegraphics[width=.7\textwidth]{figs/5163os_06_02.png}
   \caption{jconsole JobTracker resource usage monitoring UI}\label{fig:jconsole.jobtracker}
 \end{figure} 
 The window shows the daemon status for the JobTracker. From the window, we can check the memory usage, threads, classes, summary of JVM and details of MBeans.
@@ -109,7 +109,7 @@ The window shows the daemon status for the JobTracker. From the window, we can c
 Check the memory of the daemon by clicking on the "Memory" tab of the jconsole window and we will get a window similar to the following:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_06_03.png}
+  \includegraphics[width=.7\textwidth]{figs/5163os_06_03.png}
   \caption{The Heap Memory Usage Window}\label{fig:heap.usage.window}
 \end{figure} 
 The memory window shows the heap memory usage as a time serial chart. From this window, we can select from different charts and time ranges to display. The bottom part of the window is a summary of the current memory usage.
@@ -117,7 +117,7 @@ The memory window shows the heap memory usage as a time serial chart. From this 
 By clicking on the "Threads" tab of the window, we can check the running threads of the JobTracker and we can get a window similar to the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_06_04.png}
+  \includegraphics[width=.7\textwidth]{figs/5163os_06_04.png}
   \caption{Number of Threads Window}\label{fig:num.threads}
 \end{figure} 
 The upper part of the window shows the number of peak live threads and the number of current live threads. On the lower part of the window, we can see a list of threads, the information of which can be viewed by clicking on the desired thread names.
@@ -126,7 +126,7 @@ Similarly, we can check the current classes by clicking on the "Classes" tab of 
 The "MBeans" tab is the most informative one if you want to check the status details of the daemon. For example, the following screenshot shows more metrics details for JobTracker:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_06_05.png}
+  \includegraphics[width=.7\textwidth]{figs/5163os_06_05.png}
   \caption{MBeans Hadoop Metrics}\label{fig:mbeans.hadoop.metrics}
 \end{figure} 
 From this window, we can get a number of JobTracker metrics such as number of running jobs, number of map and reduce slots and number of running map and reduce tasks etc.
@@ -148,13 +148,13 @@ Login to the master node from administrator machine with command: \\
 
 Use the following yum command to install Ganglia on the master machine: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo yum install -y ganglia-gmond ganglia-gmetad ganglia-web
 \end{lstlisting}
 
 Install Ganglia monitoring daemon on all the slave nodes with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`
 do
   echo "Installing Ganglia on host " $host
@@ -232,7 +232,7 @@ In the above configuration, we have specified three common parameters: class, pe
 
 Copy configuration files to all the slave nodes with command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`
 do
   echo "Copying ganglia monitoring configuration file to host" $host;
@@ -244,7 +244,7 @@ done
 
 Restart the Hadoop cluster with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ stop-all.sh
 $ start-all.sh
 \end{lstlisting}
@@ -256,7 +256,7 @@ Run command: \verb|$ sudo chkconfig gmond on| if you want the process to survive
 
 Check the status of gmond with command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 $ curl master:8649
 <GANGLIA_XML VERSION="3.1.7" SOURCE="gmond">
 <CLUSTER NAME="hdcluster" LOCALTIME="1363403519" OWNER="hduser" LATLONG="unspecified" URL="hdcluster.com">
@@ -296,7 +296,7 @@ Start gmetad daemon with command on the master node: \\
 
 Start gmond on all slave nodes with command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`
 do
   echo "Starting gmond service on host: " $host;
@@ -306,7 +306,7 @@ done
 
 Open file \verb|/etc/httpd/conf.d/ganglia.conf| with your favorite text editor and add the following content: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <Location /ganglia>
    Order deny,allow
    Allow from all
@@ -321,7 +321,7 @@ Start the httpd daemon with command: \\
 Check the status of Ganglia by opening URL \url{http://master:80/ganglia} and we can get webpage similar to the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_06_06.png}
+  \includegraphics[width=.90\textwidth]{figs/5163os_06_06.png}
   \caption{Ganglia Cluster Summary}\label{fig:ganglia.cluster.summary}
 \end{figure} 
 The upper left portion of the UI is a summary of the cluster, including number of hosts, host status, average load etc.
@@ -331,13 +331,13 @@ The upper right part of the screenshot shows an overview of the whole cluster, i
 The lower part of the screenshot shows the status for each node in the cluster, including the master node and all the slave nodes. We can change the metric to display by selecting from the combo box as shown in the screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_06_09.png}
+  \includegraphics[width=.9\textwidth]{figs/5163os_06_09.png}
   \caption{Ganglia Available Monitoring Metrics}\label{fig:ganglia.metrics}
 \end{figure} 
 For example, by selecting metric "\verb|dfs_datenode.bytes_written|", we can get the following screenshot for each node:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_06_10.png}
+  \includegraphics[width=.9\textwidth]{figs/5163os_06_10.png}
   \caption{The bytes written metric for all the Datanodes}\label{fig:bytes.written.metric}
 \end{figure} 
 This screenshot confirms that a DataNode is the actual place where data blocks are stored and NameNode only keeps track of the metadata for the data blocks. So the written data size is much smaller for NameNode.
@@ -396,7 +396,7 @@ We want to use Java JMX\index{JMX} as a Nagios plugin to monitor Hadoop metrics.
 
 Use the following commands to build the \verb|check_jmx| package:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ tar xvf check_jmx.tgz
 $ cd check_jmx
 $ ant
@@ -408,7 +408,7 @@ After this, we want to get the following directory structure:\\
 
 Copy the two highlighted files into directory /usr/local/nagios/libexec:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cp check_jmx/nagios/plugin/check_jmx /usr/local/nagios/libexec
 $ cp check_jmx/nagios/plugin/jmxquery.jar /usr/local/nagios/libexec
 \end{lstlisting}
@@ -621,7 +621,7 @@ If Nagios is running, the output should be similar to:\\
 
 If SELinux is on, we need to change the context of the web directory with:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ chcon -R -t httpd_sys_content_t /usr/local/nagios/sbin/
 $ chcon -R -t httpd_sys_content_t /usr/local/nagios/share/
 \end{lstlisting}
@@ -683,7 +683,7 @@ Use the following recipe to configure Ambari for Hadoop monitoring and managemen
 
 Download the repository file from the Horntonworks website with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo wget http://public-repo-1.hortonworks.com/ambari/centos6/1.x/GA/ambari.repo -P /etc/yum.repos.d
 \end{lstlisting}
 
@@ -832,7 +832,7 @@ Next, we can use the following steps to install Chukwa:
 
 Download the latest release from the official website \url{http://incubator.apache.org/chukwa}, for example, use command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo wget http://mirror.symnds.com/software/Apache/incubator/chukwa/chukwa-0.5.0/chukwa-incubating-src-0.5.0.tar.gz -P /usr/local
 \end{lstlisting}
 
@@ -844,7 +844,7 @@ Create symbolic link from for the directory with: \\
 
 Change ownership for the directories with: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo chown hduser.hduser chukwa-incubating-src-0.5.0 -R
 $ sudo chown hduser.hduser chukwa -R
 \end{lstlisting}
@@ -858,7 +858,7 @@ PATH=$CHUKWA_HOME/bin:$PATH
 
 Build Chukwa from source with command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ source ~/.bashrc
 $ cd $CHUKWA_HOME
 $ mvn clean package
@@ -885,25 +885,25 @@ Change the \verb|log4j.appender.DRFA| variable in file \verb|$HADOOP_HOME/conf/l
 
 Copy the Hadoop metrics file from the Chukwa directory to the Hadoop configuration directory with:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cp $CHUKWA_HOME/etc/chukwa/hadoop-metrics.properties $HADOOP_HOME/conf
 \end{lstlisting}
 
 Copy the client jar file from the Chukwa installation directory to the Hadoop shared directory with:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cp $CHUKWA_HOME/share/chukwa/chukwa-0.5.0-client.jar $HADOOP_HOME/lib
 \end{lstlisting}
 
 Copy the json library from the Chukwa library to the Hadoop library with:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cp $CHUKWA_HOME/share/chukwa/lib/json-simple-1.1.jar $HADOOP_HOME/lib
 \end{lstlisting}
 
 Sync the files and configurations to the slave nodes with command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`
 do
   echo "Copying file to " $host
@@ -1039,7 +1039,7 @@ Add configuration directory of Hadoop and HBase to Pig CLASSPATH with: \\
 
 Use pig to analyze the data with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ pig -Dpig.additional.jars=$HBASE_HOME/hbase-0.94.5.jar:$PIG_HOME/pig-0.11.0.jar $CHUKWA_HOME/share/chukwa/script/pig/ClusterSummary.pig
 \end{lstlisting}
 

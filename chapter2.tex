@@ -91,7 +91,7 @@ In this book, we assume to use CentOS\index{CentOS} 6.3 (which corresponds to Re
 
 Login to the administrator machine as hdadmin and change the hostname of the machine with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo sed -i 's/\^HOSTNAME.*\$/HOSTNAME=hadoop.admin/' /etc/sysconfig/network
 \end{lstlisting}
 Create directories with command: \\
@@ -101,7 +101,7 @@ We will use directory ~/mnt as the mount point for ISO images. Directory \verb|~
 
 Install DHCP and FTP servers on the machine with commands: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo yum -y install dhcp
 $ sudo yum -y install vsftpd
 \end{lstlisting}
@@ -120,19 +120,19 @@ If you are not sure about the architecture of the cluster machines, please refer
 
 Alternatively, we can use the following rsync to download the image:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ rsync rsync://mirror.its.dal.ca/centos/6.3/isos/x86_64/ CentOS-6.3-x86_64-netinstall.iso ~/isoimages
 \end{lstlisting}
 
 We can also use the following wget command to download the image file: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ wget http://mirror.its.dal.ca/centos/6.3/isos/x86_64/ CentOS-6.3-x86_64-netinstall.iso -P ~/isoimages
 \end{lstlisting}
 
 Mount the image file with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo mount $~/isoimages/ CentOS-6.3-x86_64-minimal.iso \
 ~/$mnt
 \end{lstlisting}
@@ -180,14 +180,14 @@ authoritative;
 subnet 10.0.0.0 netmask 255.255.255.0 {
 
 # Range of lease IP address, should be based
-    # on the size of the network
-    range dynamic-bootp 10.0.0.200 10.0.0.254;
+# on the size of the network
+range dynamic-bootp 10.0.0.200 10.0.0.254;
 
-    # Broadcast address
-    option broadcast-address 10.0.0.255;
+# Broadcast address
+option broadcast-address 10.0.0.255;
 
-    # Default gateway
-    option routers 10.0.0.1;
+# Default gateway
+option routers 10.0.0.1;
 }
 \end{lstlisting}
 
@@ -281,145 +281,145 @@ Install kickstart with command: \\
 
 Use your favourite text editor to create a file \verb|ks.cfg| with the following content:
 \lstset{style=bashstyle}
-\begin{lstlisting}
-    #!/bin/bash
-    # Kickstart for CentOS 6.3 for Hadoop cluster.
+\begin{lstlisting}[language=bash]
+#!/bin/bash
+# Kickstart for CentOS 6.3 for Hadoop cluster.
 
-    # Install system on the machine.
-    install
+# Install system on the machine.
+install
 
-    # Use ftp as the package repository
-    url --url ftp://hadoop.admin/repo
+# Use ftp as the package repository
+url --url ftp://hadoop.admin/repo
 
-    # Use the text installation interface.
-    text
+# Use the text installation interface.
+text
 
-    # Use UTF-8 encoded USA English as the language.
-    lang en_US.UTF-8
+# Use UTF-8 encoded USA English as the language.
+lang en_US.UTF-8
 
-    # Configure time zone.
-    timezone America/New_York
+# Configure time zone.
+timezone America/New_York
 
-    # Use USA keyboard.
-    keyboard us
+# Use USA keyboard.
+keyboard us
 
-    # Set bootloader location.
-    bootloader --location=mbr --driveorder=sda rhgb quiet
+# Set bootloader location.
+bootloader --location=mbr --driveorder=sda rhgb quiet
 
-    # Set root password
-    rootpw  --password=hadoop
+# Set root password
+rootpw  --password=hadoop
 
-    ################################
-    # Partion the hard disk
-    ################################
+################################
+# Partion the hard disk
+################################
 
-    # Clear the master boot record on the hard drive.
-    zerombr yes
+# Clear the master boot record on the hard drive.
+zerombr yes
 
-    # Clear existing partitions.
-    clearpart --all --initlabel
+# Clear existing partitions.
+clearpart --all --initlabel
 
-    # Create /boot partition, size is in MB.
-    part /boot --fstype ext3 --size 128
+# Create /boot partition, size is in MB.
+part /boot --fstype ext3 --size 128
 
-    # Create / (root) partition.
-    part / --fstype ext3 --size 4096 --grow --maxsize 8192
+# Create / (root) partition.
+part / --fstype ext3 --size 4096 --grow --maxsize 8192
 
-    # Create /var partition.
-    part /var --fstype ext3 --size 4096 --grow --maxsize 8192
+# Create /var partition.
+part /var --fstype ext3 --size 4096 --grow --maxsize 8192
 
-    # Create Hadoop data storage directory.
-    part /hadoop --fstype ext3 --grow
+# Create Hadoop data storage directory.
+part /hadoop --fstype ext3 --grow
 
-    # Create swap partition, 16GB, double size of the main memory.
-    # Change size according to your hardware memory configuration.
-    part swap --size 16384
+# Create swap partition, 16GB, double size of the main memory.
+# Change size according to your hardware memory configuration.
+part swap --size 16384
 
-    #################################
-    # Configure Network device.
-    #################################
+#################################
+# Configure Network device.
+#################################
 
-    # Use DHCP and disable IPv6.
-    network --onboot yes --device eth0 --bootproto dhcp --noipv6
+# Use DHCP and disable IPv6.
+network --onboot yes --device eth0 --bootproto dhcp --noipv6
 
-    # Disable firewall.
-    firewall --disabled
+# Disable firewall.
+firewall --disabled
 
-    # Configure authorization.
-    authconfig --enableshadow
+# Configure authorization.
+authconfig --enableshadow
 
-    # Put Selinux in permissive mode.
-    selinux --permissive
+# Put Selinux in permissive mode.
+selinux --permissive
 
-    ############################################
-    # Specify packages to install.
-    ############################################
+############################################
+# Specify packages to install.
+############################################
 
-    # Automatically resolve package dependencies,
-    # exclude installation of documents and ignore missing packages.
-    %packages --resolvedeps --excludedocs --ignoremissing
+# Automatically resolve package dependencies,
+# exclude installation of documents and ignore missing packages.
+%packages --resolvedeps --excludedocs --ignoremissing
 
-    # Install core packages.
-    @Base
+# Install core packages.
+@Base
 
-    # Don't install OpenJDK.
-    -java
+# Don't install OpenJDK.
+-java
 
-    # Install wget.
-    wget
+# Install wget.
+wget
 
-    # Install the vim text editor.
-    vim
+# Install the vim text editor.
+vim
 
-    # Install the Emacs text editor.
-    emacs
+# Install the Emacs text editor.
+emacs
 
-    # Install rsync.
-    rsync
+# Install rsync.
+rsync
 
-    # install nmap network mapper.
-    nmap
+# install nmap network mapper.
+nmap
 
-    %end
+%end
 
-    ####################################
-    # Post installation configuration.
-    ####################################
+####################################
+# Post installation configuration.
+####################################
 
-    # Enable post process logging.
-    %post --log=~/install-post.log
+# Enable post process logging.
+%post --log=~/install-post.log
 
-    # Create Hadoop user hduser with password hduser.
-    useradd -m -p hduser hduser
+# Create Hadoop user hduser with password hduser.
+useradd -m -p hduser hduser
 
-    # Create group Hadoop.
-    groupadd hadoop
+# Create group Hadoop.
+groupadd hadoop
 
-    # Change user hduser's current group to hadoop.
-    usermod -g hadoop hduser
+# Change user hduser's current group to hadoop.
+usermod -g hadoop hduser
 
-    # Tell the nodes hostname and ip address of the admin machine.
-    echo "10.0.0.1 hadoop.admin" >> /etc/hosts
+# Tell the nodes hostname and ip address of the admin machine.
+echo "10.0.0.1 hadoop.admin" >> /etc/hosts
 
-    # Configure administrative privilege to hadoop group.
+# Configure administrative privilege to hadoop group.
 
-    # Configure the kernel settings.
-    ulimit -u
+# Configure the kernel settings.
+ulimit -u
 
-    #########################
-    # Startup services.
-    #########################
+#########################
+# Startup services.
+#########################
 
-    service sshd start
-    chkconfig sshd on
+service sshd start
+chkconfig sshd on
 
-    %end
+%end
 
-    # Reboot after installation.
-    reboot
+# Reboot after installation.
+reboot
 
-    # Disable first boot configuration.
-    firstboot --disable
+# Disable first boot configuration.
+firstboot --disable
 \end{lstlisting}
 
 Put the kickstart file into the root directory of the FTP server with command: \\
@@ -432,23 +432,23 @@ Create a USB boot media with the following recipe:
 Use a text editor to open file \verb|~/isolinux/grub.conf| and add the following content:
 \lstset{style=bashstyle}
 \begin{lstlisting}
-    default=0
-    splashimage=@SPLASHPATH@
-    timeout 0
-    hiddenmenu
-    title @PRODUCT@ @VERSION@
-    	kernel @KERNELPATH@ ks=ftp://hadoop.admin/ks.cfg
-    	initrd @INITRDPATH@
+default=0
+splashimage=@SPLASHPATH@
+timeout 0
+hiddenmenu
+title @PRODUCT@ @VERSION@
+	kernel @KERNELPATH@ ks=ftp://hadoop.admin/ks.cfg
+	initrd @INITRDPATH@
 \end{lstlisting}
 
 Make an ISO file from the isolinux\index{isolinux} directory with the following commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
-    mkisofs -o CentOS6.3-x86_64-boot.iso \
-        -b ~/repo/isolinux/isolinux.bin \
-        -c ~/repo/isolinux/boot.cat \
-        -no-emul-boot \
-        -boot-load-size 4
+\begin{lstlisting}[language=bash]
+mkisofs -o CentOS6.3-x86_64-boot.iso \
+    -b ~/repo/isolinux/isolinux.bin \
+    -c ~/repo/isolinux/boot.cat \
+    -no-emul-boot \
+    -boot-load-size 4
 \end{lstlisting}
 
 Plugin a USB flash drive on the administrator machine and write the bootable ISO image\index{bootable ISO image} into the USB flash drive with the following command (assuming the USB drive corresponds to \verb|/dev/sdb| device file): \\
@@ -535,39 +535,39 @@ We have mentioned the basic configuration of a DHCP server in the previous secti
 Create the configuration file \verb|/etc/dhcpd.conf| for DHCP with the following content:
 \lstset{style=bashstyle}
 \begin{lstlisting}
-    option domain-name "hadoop.cluster";
-    default-lease-time 5000;
-    max-lease-time 7200;
+option domain-name "hadoop.cluster";
+default-lease-time 5000;
+max-lease-time 7200;
 
-    # Enable network booting and bootp protocol.
-    allow booting;
-    allow bootp;
+# Enable network booting and bootp protocol.
+allow booting;
+allow bootp;
 
-    # IP address allocations.
-    subnet 10.0.0.0 netmask 255.255.255.0 {
+# IP address allocations.
+subnet 10.0.0.0 netmask 255.255.255.0 {
 
-      range 10.0.0.200 10.0.0.253;
+  range 10.0.0.200 10.0.0.253;
 
-      option broadcast-address 10.0.0.255;
+  option broadcast-address 10.0.0.255;
 
-      # Gateway address
-      option routers 10.0.0.1;
+  # Gateway address
+  option routers 10.0.0.1;
 
-      # indicate the dns you want to use
-      option domain-name-servers 10.0.0.1;
-    }
+  # indicate the dns you want to use
+  option domain-name-servers 10.0.0.1;
+}
 
-    group {
-      next-server 10.0.0.1;
+group {
+  next-server 10.0.0.1;
 
-      host tftpclient {
+  host tftpclient {
 
-      # tftp client hardware address
-      hardware ethernet  00:10:DC:27:6C:15;
+    # tftp client hardware address
+    hardware ethernet  00:10:DC:27:6C:15;
 
-      filename "/pxelinux.0";
-     }
-    }
+    filename "/pxelinux.0";
+  }
+}
 \end{lstlisting}
 
 \section{Configuring TFTP for network boot}
@@ -580,18 +580,17 @@ Install TFTP server with command: \\
 Open file /etc/xinetd.d/tftpd with your favorite text editor and edit content to be similar to the following:
 \lstset{style=bashstyle}
 \begin{lstlisting}
-    service tftp
-    {
-    	socket_type	= dgram
-    	protocol	= udp
-    	wait		= yes
-    	user		= hdadmin
-    	server		= /usr/sbin/in.tftpd
-    	server_args	= -c -s /tftpboot
-    	disable		= no
-    	per_source	= 11
-    	cps		= 100 2
-    }
+service tftp {
+  socket_type	= dgram
+  protocol	= udp
+  wait		= yes
+  user		= hdadmin
+  server	= /usr/sbin/in.tftpd
+  server_args	= -c -s /tftpboot
+  disable  	= no
+  per_source	= 11
+  cps		= 100 2
+}
 \end{lstlisting}
 In this file, we enabled the TFTP service by setting the disable primitive to be no.
 
@@ -746,9 +745,9 @@ Verify that sshd works properly with command from master node: \\
 If it is the first time to login to the host, we will get message similar to the following:
 \lstset{style=bashstyle}
 \begin{lstlisting}
-    The authenticity of host 'hdslave.host(10.0.0.1)' can't be established.
-    RSA key fingerprint is 7c:e0:61:3b:b6:70:07:ab:65:f9:bf:2d:90:77:1b:57.
-    Are you sure you want to continue connecting (yes/no)?
+The authenticity of host 'hdslave.host(10.0.0.1)' can't be established.
+RSA key fingerprint is 7c:e0:61:3b:b6:70:07:ab:65:f9:bf:2d:90:77:1b:57.
+Are you sure you want to continue connecting (yes/no)?
 \end{lstlisting}
 
 We need to type in yes and then provide the password for user hduser to login to the host.
@@ -785,14 +784,14 @@ Configuration of password-less login failure can be caused by many reasons, for 
 \subsubsection*{Erroneous SSH settings}
 If the \verb|/etc/ssh_config| file contains the following lines:
 \begin{verbatim}
-    RSAAuthentication no
-    PubkeyAuthentication no
+RSAAuthentication no
+PubkeyAuthentication no
 \end{verbatim}
 
 It means that the public key authorization\index{authorization} has been disabled. We need to change these two lines to the following:
 \begin{verbatim}
-    RSAAuthentication yes
-    PubkeyAuthentication yes
+RSAAuthentication yes
+PubkeyAuthentication yes
 \end{verbatim}
 
 Make sure that the SSHD service has been successfully restarted on the remote machine with command: \\
@@ -800,7 +799,7 @@ Make sure that the SSHD service has been successfully restarted on the remote ma
 
 Manually check the \verb|~/.ssh/authorized_hosts| file on the remote host and see if the local machine's public key string has been appended. If not, we can manually append the local machine's public key to the \verb|~/.ssh/authorized_hosts| on the remote machine with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ scp ~/.ssh/id_rsa.pub hduser@hdslave.host:~/
 $ ssh hduser@hdslave.host -C "cat ~/id_rsa.pub >> ~/.ssh/authorized_hosts"
 \end{lstlisting}

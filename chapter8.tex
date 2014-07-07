@@ -89,7 +89,7 @@ Open a web browser and go to URL \url{aws.amazon.com}.
 Click the '\textbf{My Account / Console}' dropdown button on the upper left of the window as shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.45\textwidth]{figs/5163os_08_07.png}
+  \includegraphics[width=.35\textwidth]{figs/5163os_08_07.png}
   \caption{Choose the Security Credentials button}\label{fig:secu.select}
 \end{figure} 
 Click the '\textbf{Security Credentials}' in the dropdown list as shown in the previous screenshot.
@@ -119,7 +119,7 @@ Similarly, we can make a X.509 certificate inactive. Inactive certificates can b
 By clicking the '\textbf{Create a new Certificate}' link we will be able to create a new certificate as shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_08_10.png}
+  \includegraphics[width=.65\textwidth]{figs/5163os_08_10.png}
   \caption{Create X.509 Certificates}\label{fig:aws.create.x509}
 \end{figure} 
 We need to download the private key file\index{private key file} as well as the X.509 certificate by clicking on the buttons as shown in the screenshot. These files should be kept security and never shared with any other people.
@@ -277,7 +277,7 @@ Create the \verb|/dev| directory under the root directory of the mounted file sy
 
 Create a minimal set of devices with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo /sbin/MAKEDEV -d /mnt/centos/dev -x console
 $ sudo /sbin/MAKEDEV -d /mnt/centos/dev -x null
 $ sudo /sbin/MAKEDEV -d /mnt/centos/dev -x zero
@@ -326,7 +326,7 @@ protect=1
 
 Install the latest CentOS\index{CentOS} 6.3 operating system with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo yum --disablerepo=* --enablerepo=centos  --installroot=/mnt/centos -y groupinstall Base
 \end{lstlisting}
 
@@ -393,7 +393,7 @@ These two lines configure the mount points for the swap and root partitions.
 
 Configure to start necessary services with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo chroot /mnt/centos /bin/sh
 $ chkconfig --level 345 network on
 $ exit
@@ -401,20 +401,20 @@ $ exit
 
 Umount the image file with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo umount /mnt/centos/proc
 $ sudo umount -d /mnt/centos
 \end{lstlisting}
 
 Copy the private key and X.509 certificate file into the instance with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ scp -i shumin.guo ~/.ec2/pk-*pem ~/.ec2/cert-*pem root@ec2-58-214-29-104.compute-1.amazonaws.com:~/.ec2/
 \end{lstlisting}
 
 Login to the instance with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ssh -i ~/.ec2/shumin.guo.pem root@ec2-58-214-29-104.compute-1.amazonaws.com
 \end{lstlisting}
 
@@ -422,7 +422,7 @@ In this command, \verb|ec2-58-214-29-104.compute-1.amazonaws.com| is the public 
 
 Configure password-less login\index{passwordless login} with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ssh-keygen
 $ mkdir -v /mnt/centos/root/.ssh
 $ sudo cp ~/.ssh/id_* /mnt/centos/root/.ssh
@@ -432,7 +432,7 @@ When you are prompted to enter the paraphrase, leave it empty by pressing the '\
 
 Copy the public key to the \verb|authorized_keys| file with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cat /mnt/centos/root/.ssh/id_rsa.pub >> /mnt/centos/root/.ssh/authorized_keys
 \end{lstlisting}
 
@@ -443,7 +443,7 @@ Download the latest Hadoop distribution from official mirror \url{http://www.apa
 
 Use the following command to decompress the Hadoop package and create the symbolic link:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo tar xvf hadoop-*.tar.gz -C /mnt/centos/usr/local/
 $ sudo ln -s /mnt/centos/usr/local/hadoop-* /mnt/centos/usr/local/hadoop
 \end{lstlisting}
@@ -458,7 +458,7 @@ export PATH=$PATH:$HADOOP_HOME/bin
 
 Add the following content into file \verb|$HADOOP_HOME/conf/core-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <configuration>
   <property>
     <name>fs.default.name</name>
@@ -512,7 +512,7 @@ Download and install the other ecosystem components with recipes in Chapter 3.
 We can use the following recipe to bundle, upload and register an AMI: \\
 Bundle the loopback image file with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ec2-bundle-image -i centos.img -k .ec2/pk-*.pem -c .ec2/cert-*.pem -u 123412341234
 \end{lstlisting}
 
@@ -521,7 +521,7 @@ Option \emph{-i} specifies the image file name, \emph{-k} specifies the private 
 We can get the Account number from the web user interface through the following URL: \url{https://portal.aws.amazon.com/gp/aws/manageYourAccount}? The account number is on the upper left of the window as shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.56\textwidth]{figs/5163os_08_16.png}
+  \includegraphics[width=.50\textwidth]{figs/5163os_08_16.png}
   \caption{AWS Account Number}\label{fig:aws.account.number}
 \end{figure} 
 The command will ask for the architecture of the image, then it will bundle the image with user's security credentials and split the bundled image file into smaller files.
@@ -553,24 +553,24 @@ ec2-bundle-image complete.
 Create a bucket from the S3 web interface as shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_08_17.png}
+  \includegraphics[width=.75\textwidth]{figs/5163os_08_17.png}
   \caption{AWS Creating S3 Bucket}\label{fig:aws.s3.bucket.create}
 \end{figure} 
 Type in the bucket name and select the region based on your location as shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_08_18.png}
+  \includegraphics[width=.70\textwidth]{figs/5163os_08_18.png}
   \caption{Choose Region for the Bucket}\label{fig:aws.s3.bucket.region}
 \end{figure} 
 Click the 'Create' button, the bucket will be successfully created as shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.50\textwidth]{figs/5163os_08_19.png}
+  \includegraphics[width=.40\textwidth]{figs/5163os_08_19.png}
   \caption{AWS S3 Buckets}\label{fig:aws.s3.buckets}
 \end{figure} 
 Upload the bundled file into S3 with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ec2-upload-bundle -b packt-bucket -m /tmp/centos.img.manifest.xml -a AKIAJ7GAQT52MZKJA4WQ -s QDHHZ0/Mj5pDYFWKpqEzXhwjqM1UB+cqjGQQ6l3S
 \end{lstlisting}
 
@@ -605,7 +605,7 @@ When the upload completes, we can check the content of the bucket by clicking on
 \end{figure} 
 Register the AMI with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ec2-register packt-bucket/image.manifest.xml -n packt-centos-6.4-x64 -O AKIAJ7GAQT52MZKJA4WQ -W QDHHZ0/Mj5pDYFWKpqEzXhwjqM1UB+cqjGQQ6l3S
 \end{lstlisting}
 
@@ -618,7 +618,7 @@ The AMI registration step is required in order for EC2 to find the AMI and run i
 
 We can check the details of the new AMI with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ec2-describe-images ami-9f422ff6
 IMAGE   ami-9f422ff6    869345430376/packt-centos-6.4-x64       869345430376    available       private             x86_64  machine                         instance-store  paravirtual     xen
 \end{lstlisting}
@@ -709,12 +709,12 @@ The instance status tells us that it is in running state.
 Alternatively, we can check the status of the instance from the web UI. For example, we can get the status of the instance similar to the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{figs/5163os_08_21.png}
+  \includegraphics[width=.95\textwidth]{figs/5163os_08_21.png}
   \caption{AWS EC2 Instances}\label{fig:aws.ec2.instances}
 \end{figure} 
 Login to the instance with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ssh -i ~/.ec2/shumin.guo.pem root@ec2-54-224-240-54.compute-1.amazonaws.com
 \end{lstlisting}
 
@@ -734,13 +734,13 @@ This command will start up one instance from the new AMI. Key pair shumin.guo is
 
 Copy the private key and X.509 certificate into the instance with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ scp -i shumin.guo ~/.ec2/pk-*pem ~/.ec2/cert-*pem root@ec2-58-214-29-104.compute-1.amazonaws.com:~/.ec2/
 \end{lstlisting}
 
 Login to the instance with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ssh -i ~/.ec2/shumin.guo.pem root@ec2-58-214-29-104.compute-1.amazonaws.com
 \end{lstlisting}
 
@@ -756,14 +756,14 @@ Download the latest Hadoop distribution from \url{http://www.apache.org/dyn/clos
 
 Use the following command to decompress the Hadoop package and create the symbolic link:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ tar xvf hadoop-*.tar.gz -C /usr/local/
 $ ln -s /usr/local/hadoop-* /usr/local/hadoop
 \end{lstlisting}
 
 Add the following environment variables to file .bashrc: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ export JAVA_HOME=/usr/java/latest
 $ export HADOOP_HOME=/usr/local/hadoop
 $ export PATH=$PATH:$HADOOP_HOME/bin
@@ -771,7 +771,7 @@ $ export PATH=$PATH:$HADOOP_HOME/bin
 
 Add the following content into file \verb|$HADOOP_HOME/conf/core-site.xml|\index{core-site.xml}:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <configuration>
   <property>
     <name>fs.default.name</name>
@@ -782,7 +782,7 @@ Add the following content into file \verb|$HADOOP_HOME/conf/core-site.xml|\index
 
 Add the following content into file \verb|$HADOOP_HOME/conf/mapred-site.xml|\index{mapred-site.xml}:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <configuration>
   <property>
     <name>dfs.replication</name>
@@ -804,7 +804,7 @@ Add the following content into file \verb|$HADOOP_HOME/conf/mapred-site.xml|\ind
 
 Add the following content into file \verb|$HAOOP_HOME/conf/hdfs-site.xml|\index{hdfs-site.xml}:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <configuration>
 
   <property>
@@ -824,7 +824,7 @@ Download and install all other Hadoop ecosystem components by using the recipes 
 
 Install the AMI tools package with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ rpm -ivh http://s3.amazonaws.com/ec2-downloads/ec2-ami-tools.noarch.rpm
 \end{lstlisting}
 
@@ -837,7 +837,7 @@ Disable iptables with command: \\
 
 Bundle the image with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ec2-bundle-vol -e ~/.ec2 -k pk-*pem -c cert-*.pem -u 123412341234
 \end{lstlisting}
 
@@ -845,7 +845,7 @@ In this command, \emph{-k} specifies the name of the file that contains the priv
 
 Upload the bundled AMI to S3 with command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ec2-upload-bundle -b packt-bucket -m /tmp/image.manifest.xml\index{image.manifest.xml} -a AKIAJ7GAQT52MZKJA4WQ -p QDHHZ0/Mj5pDYFWKpqEzXhwjqM1UB+cqjGQQ6l3S
 \end{lstlisting}
 
@@ -853,7 +853,7 @@ In this command, \emph{-b} specifies the name of the bucket on S3, \emph{-m} spe
 
 Register the AMI with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ec2-register packt-bucket/image.manifest.xml -n centos-hadoop-1.0 -O AKIAJ7GAQT52MZKJA4WQ -W QDHHZ0/Mj5pDYFWKpqEzXhwjqM1UB+cqjGQQ6l3S
 \end{lstlisting}
 
@@ -867,25 +867,25 @@ Use the following recipe to create an EBS backed AMI:
 Go to \url{https://console.aws.amazon.com/ec2/v2/home#Images:}, filter the AMIs with conditions similar to the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_08_29.png}
+  \includegraphics[width=.90\textwidth]{figs/5163os_08_29.png}
   \caption{Filtering EC2 AMIs}\label{fig:aws.ec2.ami.filter}
 \end{figure} 
 Start an instance by right clicking on one of the AMIs and then click 'Launch' as shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_08_30.png}
+  \includegraphics[width=.90\textwidth]{figs/5163os_08_30.png}
   \caption{Launching EC2 Instance}\label{fig:aws.launch.instance}
 \end{figure} 
 When the instance is running, login to the instances, make changes according to your requirements. Then, from the web management console, right click on the running instance and then select 'Create Image (EBS AMI)' as shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_08_31.png}
+  \includegraphics[width=.9\textwidth]{figs/5163os_08_31.png}
   \caption{Create EBS AMI from Running Instance}\label{fig:aws.create.ebsami}
 \end{figure} 
 Go to the AMIs tab of the AWS web console, and select 'Owned By Me', we will see that the EBS AMI is being created as shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_08_33.png}
+  \includegraphics[width=.9\textwidth]{figs/5163os_08_33.png}
   \caption{Owned AMI}\label{fig:aws.owned.ami}
 \end{figure} 
 EC2 creates a snapshot for the new AMI. Similar to the image part files stored in S3, the snapshot stores the physical image of the EBS backed AMI.
@@ -917,7 +917,7 @@ Stop the Hadoop cluster with commands: \\
 
 Open file \verb|$HADOOP_HOME/conf/core-site.xml| and add the following contents into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>fs.default.name</name>
   <!-- value>master:54310</value-->
@@ -965,7 +965,7 @@ Run a number of instances either from the command line or from the web interface
 
 After the instances are all in running state, run the following command to get the internal hostname of these instances:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ec2-describe-instances | grep running | egrep -o 'ip.*?internal' | sed -e 's/.ec2.internal//g' > nodes.txt
 \end{lstlisting}
 
@@ -984,24 +984,24 @@ We are assuming to use the highlighted node as the master node and the public do
 
 Copy file nodes.txt to the master node with command from the local machine:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ scp -i ~/.ec2/shumin.guo.pem nodes.txt ec2-user@ec2-174-129-127-90.compute-1.amazonaws.com:~/
 \end{lstlisting}
 Login to the new instance with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ssh -i ~/.ec2/shumin.guo.pem root@ec2-user@ec2-174-129-127-90.compute-1.amazonaws.com
 \end{lstlisting}
 
 Use the following commands to create a hosts file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
-cp nodes.txt nodes.ip.txt
-cp nodes.txt slaves
-sed -i 's/ip-//g' nodes.ip.txt
-sed -i 's/-/./g' nodes.ip.txt
-sed -i '1d' slaves
-paste nodes.ip.txt nodes.txt > hosts
+\begin{lstlisting}[language=bash]
+$ cp nodes.txt nodes.ip.txt
+$ cp nodes.txt slaves
+$ sed -i 's/ip-//g' nodes.ip.txt
+$ sed -i 's/-/./g' nodes.ip.txt
+$ sed -i '1d' slaves
+$ paste nodes.ip.txt nodes.txt > hosts
 \end{lstlisting}
 
 The hosts file should have the following content:
@@ -1017,7 +1017,7 @@ The hosts file should have the following content:
 
 Move the hosts file to \verb|/etc/hosts| with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for hosts in `cat nodes.txt`; do
   echo 'Configuring /etc/hosts file for host : ' $host
   scp hosts $hosts:/etc/hosts
@@ -1029,7 +1029,7 @@ Configure the slaves file with command: \\
 
 Open file \verb|$HADOOP_HOME/conf/core-site.xml| with a text editor and change the \verb|fs.default.name| similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>fs.default.name</name>
   <value>hdfs://ip-10-190-81-210:54310</value>
@@ -1038,7 +1038,7 @@ Open file \verb|$HADOOP_HOME/conf/core-site.xml| with a text editor and change t
 
 Open file \verb|$HADOOP_HOME/conf/mapred-site.xml| with a text editor and change the \emph{mapred.job.tracker} property similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>mapred.job.tracker</name>
   <value>ip-10-190-81-210:54311</value>
@@ -1047,7 +1047,7 @@ Open file \verb|$HADOOP_HOME/conf/mapred-site.xml| with a text editor and change
 
 Copy the configurations to all the slave nodes with command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo 'Copying Hadoop conifugration files to host: ' $host
   scp $HADOOP_HOME/conf/{core,mapred}-site.xml $host:$HADOOP_HOME/conf
@@ -1056,9 +1056,9 @@ done
 
 Start the cluster with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
-start-dfs.sh
-start-mapred.sh
+\begin{lstlisting}[language=bash]
+$ start-dfs.sh
+$ start-mapred.sh
 \end{lstlisting}
 
 When the cluster is running, we can start to submit jobs to the cluster from the master node.
@@ -1075,14 +1075,14 @@ Create the input directory (with name input) and Java library directory (with na
 Upload data into the input folder from the web console as shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.5\textwidth]{figs/5163os_08_22.png}
+  \includegraphics[width=.4\textwidth]{figs/5163os_08_22.png}
   \caption{Uploading data into S3}\label{fig:aws.s3.upload}
 \end{figure} 
 Upload required jar file (hadoop-examples-*.jar in this example) into the jars directory.
 
 If you have configured S3 using the command in the previous recipe, you can also use the following commands to finish the above steps:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop fs -mkdir /jars /input
 $ hadoop fs -put $HADOOP_HOME/hadoop-examples-*.jar /jars
 $ hadoop fs -put words.txt /input
@@ -1094,7 +1094,7 @@ Open URL: \url{https://console.aws.amazon.com/elasticmapreduce}.
 Click the '\emph{Create New Job Flow}' button as shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_08_23.png}
+  \includegraphics[width=.7\textwidth]{figs/5163os_08_23.png}
   \caption{Create New Elastic MapReduce Job Flow}\label{fig:aws.elasticmapred.createflow}
 \end{figure} 
 Next, enter the 'Job Flow Name', select the 'Hadoop Version' and select the job flow type as shown in the following screenshot:
@@ -1127,13 +1127,13 @@ We will go to the 'Bootstrap actions' window. We can simply use default in this 
 The 'Review' window shows the options we have configured, if there is no problem, we can click the 'Create Job Flow' button to create an EMR job flow. This step is shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{figs/5163os_08_27.png}
+  \includegraphics[width=.95\textwidth]{figs/5163os_08_27.png}
   \caption{Review Job Flow Configuration}\label{fig:aws.elasticmapred.flow.review}
 \end{figure} 
 The job flow will be started and we can check the output when it completes. We can get its status from the web console as shown in the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{figs/5163os_08_28.png}
+  \includegraphics[width=.95\textwidth]{figs/5163os_08_28.png}
   \caption{Status of an Elastic MapReduce Job Flow}\label{fig:aws.elasticmapred.flow.status}
 \end{figure} 
 \subsection*{See also}

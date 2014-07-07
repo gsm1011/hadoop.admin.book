@@ -63,7 +63,7 @@ we can use the following command:
 
 You should have output similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Java Version Information]
+\begin{lstlisting}
 java version "1.7.0_13"
 Java(TM) SE Runtime Environment (build 1.7.0_13-b20)
 Java HotSpot(TM) 64-Bit Server VM (build 23.7-b01, mixed mode)
@@ -80,8 +80,8 @@ To download a Hadoop release from one \href{http://www.apache.org/dyn/closer.cgi
 
 Alternatively, we can download a Hadoop release with the following command under Linux:
 \lstset{style=bashstyle}
-\begin{lstlisting}
-wget http://mirror.quintex.com/apache/hadoop/common/hadoop-1.1.2/hadoop-1.1.2.tar.gz -P ~
+\begin{lstlisting}[language=bash]
+$ wget http://mirror.quintex.com/apache/hadoop/common/hadoop-1.1.2/hadoop-1.1.2.tar.gz -P ~
 \end{lstlisting}
 
 Last, we assume that ssh password-less login has been properly configured.
@@ -97,7 +97,7 @@ Decompress the Hadoop package archive: \\
 
 The uncompressed archive file will contain the following files and folders:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Content from the uncompressed Hadoop package.]
+\begin{lstlisting}
 CHANGES.txt  c++                     hadoop-examples-1.1.2.jar     lib
 LICENSE.txt  conf                    hadoop-minicluster-1.1.2.jar  libexec
 NOTICE.txt   contrib                 hadoop-test-1.1.2.jar         sbin
@@ -128,7 +128,7 @@ Use your favorite text editor to open file \verb|$HADOOP_HOME/conf/hadoop-env.sh
 
 Use your favorite text editor to open file \verb|$HADOOP_HOME/conf/core-site.xml| and add the following content:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Content of the core-site.xml file]
+\begin{lstlisting}[language=XML]
 <configuration>
   <property>
     <name>fs.default.name</name>
@@ -148,7 +148,7 @@ Use your favorite text editor to open file \verb|$HADOOP_HOME/conf/core-site.xml
 \end{lstlisting}
 
 Use your favorite text editor to open file \verb|$HADOOP_HOME/conf/hdfs-site.xml| and add the following content to the file:
-\begin{lstlisting}[caption=Content of file hdfs-site.xml]
+\begin{lstlisting}[language=XML]
 <configuration>
   <property>
     <name>dfs.replication</name>
@@ -163,7 +163,7 @@ Use your favorite text editor to open file \verb|$HADOOP_HOME/conf/hdfs-site.xml
 \end{lstlisting}
 
 Use your favorite text editor to open file \verb|$HADOOP_HOME/conf/mapred-site.xml| and add the following content:
-\begin{lstlisting}[caption=Content of file mapred-site.xml]
+\begin{lstlisting}[language=XML]
 <configuration>
   <property>
     <name>mapred.system.dir</name>
@@ -186,7 +186,7 @@ Format the HDFS filesystem from NameNode with the following command: \\
 We will get output similar to the following:
 \lstset{style=bashstyle}
 %%\begin{Verbatim}[fontfamily=courier,fontsize=\scriptsize]
-\begin{lstlisting}[caption=NameNode formatting output]
+\begin{lstlisting}
 13/02/14 01:43:12 INFO namenode.NameNode: STARTUP_MSG:
 /************************************************************
 STARTUP_MSG: Starting NameNode
@@ -218,7 +218,7 @@ Start the HDFS daemons with command: \\
 
 We will get output similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Output for starting the HDFS cluster.]
+\begin{lstlisting}
 starting namenode, logging to /usr/local/hadoop/libexec/../logs/hadoop-hduser-namenode-localhost.out
 localhost: starting datanode, logging to /usr/local/hadoop/Hadoop/libexec/../logs/hadoop-hduser-datanode-localhost.out
 localhost: starting secondarynamenode, logging to /usr/local/hadoop/libexec/../logs/hadoop-hduser-secondarynamenode-localhost.out
@@ -230,7 +230,7 @@ Start the MapReduce daemons with command: \\
 
 The output will be similar to:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Output message when starting the MapReduce cluster]
+\begin{lstlisting}
 starting jobtracker, logging to /usr/local/hadoop/libexec/../logs/hadoop-hduser-jobtracker-localhost.out
 localhost: starting tasktracker, logging to /usr/local/hadoop/libexec/../logs/hadoop-hduser-tasktracker-localhost.out
 \end{lstlisting}
@@ -299,7 +299,7 @@ Hadoop provides a number of bash scripts for convenience of starting and stoppin
 \subsection*{There's more...}
 Currently, Hadoop is also available in rpm format. So we can use the following command to install Hadoop:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo rpm -ivh http://www.poolsaboveground.com/apache/hadoop/common/stable/hadoop-1.1.2-1.x86_64.rpm
 \end{lstlisting}
 
@@ -321,7 +321,7 @@ In this book, we propose to configure a Hadoop cluster with 1 master node and 5 
 
 Before getting started, we assume that Linux has been installed on all the cluster nodes and we should validate password-less login with the following commands on the master node:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ssh hduser@slave1
 $ ssh hduser@slave2
 ...
@@ -331,7 +331,7 @@ Unlike the pseudo-distributed mode, configuring a Hadoop cluster in fully-distri
 We should be cautious about the interconnection of the cluster nodes. Connection problems might be caused by configurations of firewalls, network and so on.
 Assuming file \verb|$HADOOP_HOME/conf/slaves| contains hostnames of the slave nodes, we can use the following command to check the password-less login to all slave nodes from the master node: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo "Testing ssh from master to node" $host
   ssh hduser@$host
@@ -345,13 +345,13 @@ Login to the master node from administrator machine with command: \\
 
 Copy the Hadoop archive to the \verb|/usr/local| directory:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo cp hadoop-1.1.2.tar.gz /usr/local
 \end{lstlisting}
 
 Decompress the Hadoop archive:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cd /usr/local
 $ sudo tar xvf hadoop-1.1.2.tar.gz
 \end{lstlisting}
@@ -361,7 +361,7 @@ Make proper soft link for Hadoop root directory. \\
 
 Use your favorite text editor to open file \verb|~/.bashrc| and add the following content:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 export JAVA_HOME=/usr/java/latest
 export HADOOP_HOME=/usr/local/Hadoop
 export PATH=$PATH:$JAVA_HOME/bin:HADOOP_HOME/bin
@@ -372,8 +372,7 @@ Open file \verb|$HADOOP_HOME/conf/hadoop-env.sh| with your favorite text editor 
 
 Open file \verb|$HADOOP_HOME/conf/core-site.xml| with your favorite text editor and add the following content:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Content to add to file core-site.xml]
-
+\begin{lstlisting}[language=XML]
 <configuration>
   <property>
     <name>fs.default.name</name>
@@ -389,8 +388,7 @@ Open file \verb|$HADOOP_HOME/conf/core-site.xml| with your favorite text editor 
 
 Open file \verb|$HADOOP_HOME/conf/hdfs-site.xml| with your favorite text editor and add the following content into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Content to add to file hdfs-site.xml]
-
+\begin{lstlisting}[language=XML]
 <configuration>
   <property>
     <name>dfs.replication</name>
@@ -411,7 +409,7 @@ Open file \verb|$HADOOP_HOME/conf/hdfs-site.xml| with your favorite text editor 
 
 Open file \verb|$HADOOP_HOME/conf/mapred-site.xml| with your favorite text editor and add the following content:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Content to add to file mapred-site.xml]
+\begin{lstlisting}[language=XML]
 <configuration>
   <property>
     <name>mapred.tasktracker.map.tasks.maximum</name>
@@ -442,7 +440,7 @@ Configure file \verb|$HADOOP_HOME/conf/masters| with command: \\
 This will configure the master node to run SecondaryNameNode. \\
 Open file \verb|$HADOOP_HOME/conf/slaves| with your favorite text editor and add all the slave node hostnames into the file similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Content of file slaves]
+\begin{lstlisting}
 slave1
 slave2
 slave3
@@ -451,7 +449,7 @@ slave3
 
 Copy the configured Hadoop directory to all the slave nodes with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`
   do
   echo "Configuring hadoop on slave node " $host
@@ -463,7 +461,7 @@ done
 
 The for-loop command will recursively copy the \verb|/usr/local/hadoop-1.1.2| directory to each node specified in file \verb|$HADOOP_HOME/conf/slaves|. And a symbolic link is made on each node for the Hadoop directory. We can get the following output information:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Output of running the above command]
+\begin{lstlisting}
 Configuring hadoop on slave node slave1
 Making symbolic link for Hadoop home directory on host host slave1
 Configuring hadoop on slave node slave2
@@ -477,7 +475,7 @@ Making symbolic link for Hadoop home directory on host host slave4
 
 Copy the bash configuration file to each slave node with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo "Copying local bash run configuration file to host " $host
   sudo cp ~/.bashrc $host:~/
@@ -486,7 +484,7 @@ done
 
 The for-loop command copies the bash run configuration file from the master node to all the slave nodes in the cluster. We can get the following output message:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Output of the above command]
+\begin{lstlisting}
 Copying local bash run configuration file to host slave1
 Copying local bash run configuration file to host slave2
 Copying local bash run configuration file to host slave3
@@ -509,7 +507,7 @@ Check the directory structure of the formatted NameNode with command: \\
 
 The output will be similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=The directory tree structure of the NameNode]
+\begin{lstlisting}
 /hadoop/dfs/
 |-- current
 |   |-- VERSION
@@ -535,7 +533,7 @@ Start HDFS cluster daemons with command: \\
 
 And we will get output similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Output of hte start-dfs.sh command]
+\begin{lstlisting}
 starting namenode, logging to /usr/local/hadoop/logs/hadoop-hduser-namenode-master.out
 slave1: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hduser-datanode-sslave1.out
 slave2: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hduser-datanode-slave2.out
@@ -551,7 +549,7 @@ Start the MapReduce cluster daemons with command: \\
 
 The output similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Output of the start-mapred.sh command]
+\begin{lstlisting}
 starting jobtracker, logging to /usr/local/hadoop/logs/hadoop-hduser-jobtracker-master.out
 slave1: starting tasktracker, logging to /usr/local/Hadoop/logs/hadoop-hduser-tasktracker-slave1.out
 slave2: starting tasktracker, logging to /usr/local/Hadoop/logs/hadoop-hduser-tasktracker-slave2.out
@@ -582,7 +580,7 @@ The highlighted daemons in the previous two steps must be present. Otherwise the
 
 List all the available TaskTrackers with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Listing all availble TaskTrackers.]
+\begin{lstlisting}
 $ hadoop job -list-active-trackers
 tracker_slave1:slave1/10.0.0.2:38615
 tracker_slave2:slave2/10.0.0.3:39618
@@ -593,7 +591,7 @@ tracker_slave5:slave5/10.0.0.6:43858
 
 Check the status of each node in the HDFS cluster with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=The report of each node in the HDFS cluster]
+\begin{lstlisting}
 $ hadoop dfsadmin -report
 Configured Capacity: 13500319031296 (12.28 TB)
 Present Capacity: 12015141961728 (10.93 TB)
@@ -635,7 +633,7 @@ Use the following two steps to stop a running Hadoop cluster:
 
 Stop the MapReduce daemons with command on the master node:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Stopping the MapReduce cluster]
+\begin{lstlisting}
 $ stop-mapred.sh
 stopping jobtracker
 slave3: stopping tasktracker
@@ -648,7 +646,7 @@ slave1: stopping tasktracker
 The output shows that the JobTracker on the master node and TaskTrackers on the slave nodes are being stopped.
 Stop the HDFS daemons with command on the master node:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Stopping the HDFS cluster.]
+\begin{lstlisting}
 $ stop-dfs.sh
 stopping namenode
 slave3: stopping datanode
@@ -679,7 +677,7 @@ The following table shows the properties used in this recipe:
 Alternatively, we can use the following steps to configure a fully-distributed Hadoop cluster: \\
 Download Hadoop rpm package on the administrator machine with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ wget http://www.poolsaboveground.com/apache/hadoop/common/stable/hadoop-1.1.2-1.x86_64.rpm -P ~/repo
 \end{lstlisting}
 
@@ -688,7 +686,7 @@ Login to the master node with command: \\
 
 Use the following command to install Hadoop on all nodes:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in master slave1 slave2 slave3 slave4 slave5; do
   echo "Installing Hadoop on node: " $host
   sudo rpm -ivh ftp://hadoop.admin/repo/hadoop-1.1.2-1.x86_64.rpm
@@ -714,9 +712,9 @@ We assume that elinks\index{elinks} has been installed with command: \\
 
 Start all the Hadoop daemons with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
-start-dfs.sh
-start-mapred.sh
+\begin{lstlisting}[language=bash]
+$ start-dfs.sh
+$ start-mapred.sh
 \end{lstlisting}
 
 \subsection*{How to do it...}
@@ -727,7 +725,7 @@ Login to the master node with command: \\
 
 Run a sample MapReduce job with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop jar $HADOOP_HOME/hadoop-examples*.jar pi 20 100000
 \end{lstlisting}
 
@@ -772,7 +770,7 @@ This webpage shows the status of each slave node including node capacity, percen
 
 Run an example teragen job to generate 10GB data on the HDFS with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop jar $HADOOP_HOME/hadoop-examples-1.1.2.jar teragen $((1024*1024*1024* 10/100)) teraout
 \end{lstlisting}
 
@@ -804,7 +802,7 @@ Use the following recipe to validate the configuration a Hadoop cluster from com
 
 List all available TaskTrackers with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Displaying all active trackers in the MapReduce cluster]
+\begin{lstlisting}
 $ hadoop job -list-active-trackers
 Example output is similar to the following:
 tracker_slave1:localhost/127.0.0.1:53431
@@ -818,7 +816,7 @@ The output confirms that all the configured TaskTrackers are active in the Hadoo
 
 Check the status of HDFS cluster with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Checking the status of the HDFS cluster.]
+\begin{lstlisting}
 $ hadoop fsck /
 FSCK started by hduser from /10.0.0.1 for path / at Sat Feb 16 03:03:44 EST 2013
 ...............................Status: HEALTHY
@@ -864,13 +862,13 @@ If the output of this command \emph{does not} contain the NameNode and Secondary
 
 To troubleshoot\index{troubleshoot} the HDFS startup problem, we can open a new terminal and monitor the NameNode log file on the master node with the following command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ tail -f $HADOOP_HOME/logs/hadoop-hduser-namenode-master.log
 \end{lstlisting}
 
 This command will show the content of the log file in a dynamic way when new log is appended to the file. If error happens, we can get error messages similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}[caption=Snippet of the NameNode log on the master node.]
+\begin{lstlisting}
 2013-02-16 11:44:29,860 ERROR org.apache.hadoop.hdfs.server.namenode.NameNode: java.net.UnknownHostException: Invalid hostname for server: master1
         at org.apache.hadoop.ipc.Server.bind(Server.java:236)
         at org.apache.hadoop.ipc.Server$Listener.<init>(Server.java:302)
@@ -945,7 +943,7 @@ Login to the master node from the Hadoop administrator machine as hduser with co
 
 Download ZooKeeper archive file with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ wget http://www.gtlib.gatech.edu/pub/apache/zookeeper/stable/zookeeper-3.4.5.tar.gz -P ~/repo
 \end{lstlisting}
 
@@ -957,20 +955,20 @@ Login to the master node with command: \\
 
 Copy the downloaded archive to /usr/local with command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo wget ftp://hadoop.admin/repo/zookeeper-3.4.5.tar.gz -P /usr/local
 \end{lstlisting}
 
 De-compress the file with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cd /usr/local/
 $ sudo tar xvf zookeeper-3.4.5.tar.gz
 \end{lstlisting}
 
 Create symbolic link with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo ln -s /usr/local/zookeeper-3.4.5 /usr/local/zookeeper
 \end{lstlisting}
 
@@ -986,7 +984,7 @@ Load the configuration file with: \\
 
 Create data and log directories for ZooKeeper with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo mkdir -pv /hadoop/zookeeper/{data,log}
 \end{lstlisting}
 
@@ -1020,7 +1018,7 @@ The highlighted section makes every node know the other nodes in the ZooKeeper e
 
 Configure ZooKeeper on all slave nodes with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo "Configuring ZooKeeper on " $host
   scp ~/.bashrc hduser@$host:~/
@@ -1062,7 +1060,7 @@ Click the file link hbase-0.94.5.tar.gz to download the file to the administrato
 
 Alternatively, we can download the file with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ wget http://mirror.quintex.com/apache/hbase/stable/hbase-0.94.5.tar.gz -P ~/repo
 \end{lstlisting}
 
@@ -1073,7 +1071,7 @@ Login to the master node from administrator machine with command: \\
 
 De-compress the HBase archive with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cd /usr/local
 $ sudo wget ftp://hadoop.admin/repo/hbase-0.94.5.tar.gz -P /usr/local
 $ sudo tar xvf hbase-0.94.5.tar.gz
@@ -1093,7 +1091,7 @@ Open file \verb|$HBASE_HOME/conf/hbase-env.sh| and set \verb|JAVA_HOME| as: \\
 
 Open file \verb|$HBASE_HOME/conf/hbase-site.xml| with your favorite text editor and add the following contents to the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
@@ -1135,20 +1133,20 @@ slave5
 
 Link the HDFS configure file to HBase configuration directory with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo ln -s $HADOOP_HOME/conf/hdfs-site.xml $HBASE_HOME/conf/hdfs-site.xml
 \end{lstlisting}
 
 Replace the dependent jar files for HBase with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ rm -i $HBASE_HOME/lib/hadoop-core*.jar $HBASE_HOME/lib/zookeeper-*.jar
 $ cp -i $HADOOP_HOME/hadoop-core*.jar $HADOOP_HOME/lib/commons-*.jar $ZK_HOME/zookeeper-*.jar $HBASE_HOME/lib/
 \end{lstlisting}
 
 Configure all the slave nodes with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HBASE_HOME/conf/regionservers`; do
   echo "Configuring HBase on " $host
   scp ~/.bashrc hduser@$host:~/
@@ -1210,7 +1208,7 @@ As a top level abstraction language, Hive provides a handy tool for manipulating
 Before we install Hive, we need to make sure Hadoop has been properly installed. Please refer to the previous sections about the configuration of a Hadoop cluster. \\
 Download Hive from a mirror site with command similar to the following on the administrator machine:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ wget http://apache.osuosl.org/hive/stable/hive-0.9.0.tar.gz -P ~/repo
 \end{lstlisting}
 
@@ -1222,26 +1220,26 @@ Login to the master node from the Hadoop administrator machine as hduser with co
 
 Copy the archive to /usr/local with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo wget ftp://hadoop.admin/repo/hive-0.9.0.tar.gz /usr/local
 \end{lstlisting}
 
 De-compress the Hive archive with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cd /usr/local
 $ tar xvf hive-0.9.0.tar.gz
 \end{lstlisting}
 
 Create symbolic link with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ln -s /usr/local/hive-0.9.0 /usr/local/hive
 \end{lstlisting}
 
 Use your favorite text editor to open file \verb|~/.bashrc| and add the following lines to this file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 export HIVE_HOME=/usr/local/hive
 export PATH=$HIVE_HOME/bin:$PATH
 \end{lstlisting}
@@ -1261,7 +1259,7 @@ Before we install Pig, we need to make sure Hadoop has been properly installed. 
 
 Download Pig the archive file from a mirror site with command on the administrator machine:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ wget http://www.motorlogy.com/apache/pig/stable/pig-0.10.1.tar.gz ~/repo
 \end{lstlisting}
 
@@ -1273,26 +1271,26 @@ Login to the master node from the Hadoop administrator machine as hduser with co
 
 Copy the archive to \verb|/usr/local| with the following command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo wget ftp://hadoop.admin/repo/pig-0.10.1.tar.gz /usr/local
 \end{lstlisting}
 
 De-compress the Pig archive file with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cd /usr/local
 $ sudo tar xvf pig-0.10.1.tar.gz
 \end{lstlisting}
 
 Create symbolic link to the Pig directory:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo ln -s /usr/local/pig-0.10.1 /usr/local/pig
 \end{lstlisting}
 
 Open file ~/.bashrc with your favorite text editor and add the following lines into the file:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 export PIG_HOME=/usr/local/pig
 export PATH=$PIG_HOME/bin:$PATH
 \end{lstlisting}
@@ -1320,7 +1318,7 @@ Before we install Mahout, we need to make sure Hadoop has been properly installe
 
 Download Mahout from the mirror site with the following command on the master node:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ wget http://www.eng.lsu.edu/mirrors/apache/mahout/0.7/mahout-distribution-0.7.tar.gz -P ~/repo
 \end{lstlisting}
 
@@ -1331,20 +1329,20 @@ Login to the master node from the Hadoop administrator machine as hduser with co
 
 Copy the archive to /usr/local with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo wget ftp://hadoop.admin/repo/mahout-distribution-0.7.tar.gz /usr/local
 \end{lstlisting}
 
 De-compress the Mahout archive with command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cd /usr/local
 $ sudo tar xvf mahout-distribution-0.7.tar.gz
 \end{lstlisting}
 
 Create symbolic link to the Mahout directory with command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo ln -s /usr/local/mahout-distribution-0.7 /usr/local/mahout 
 \end{lstlisting}
 
@@ -1360,7 +1358,7 @@ Install Maven with command: \\
 
 Compile and install Mahout core with the following commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cd $MAHOUT_HOME
 $ sudo mvn compile
 $ sudo mvn install
@@ -1370,7 +1368,7 @@ The install command will run all the tests by default, we can ignore the tests t
 
 Compile the Mahout examples with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ cd examples
 $ sudo mvn compile
 \end{lstlisting}
@@ -1379,27 +1377,28 @@ Use the following steps to verify Mahout configuration:
 
 Download sample data with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ wget http://archive.ics.uci.edu/ml/databases/synthetic_control/synthetic_control.data -P ~/
 \end{lstlisting}
 
 Start the Hadoop cluster with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ start-dfs.sh
 $ start-mapred.sh
 \end{lstlisting}
 
 Put the downloaded data into HDFS with commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop fs -mkdir testdata
 $ hadoop fs -put ~/synthetic_control.data testdata
 \end{lstlisting}
 
 Run kmeans clustering with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}$ mahout org.apache.mahout.clustering.syntheticcontrol.kmeans.Job
+\begin{lstlisting}[language=bash]
+$ mahout org.apache.mahout.clustering.syntheticcontrol.kmeans.Job
 \end{lstlisting}
 
 \subsection*{There's more...}

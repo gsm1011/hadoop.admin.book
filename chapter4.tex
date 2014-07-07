@@ -98,7 +98,7 @@ Check the locations of file blocks\index{file blocks} with the following command
 The output of this command will contain the following information:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{figs/5163os_04_07.png}
+  \includegraphics[width=.95\textwidth]{figs/5163os_04_07.png}
   \caption{Block locations on HDFS}\label{fig:hdfs.block.locations}
 \end{figure} 
 The first line tells us that file \verb|part-00000| has 17 blocks in total and each block has 2 replications (replication factor\index{replication factor} has been set to 2). The following lines list the location of each block on the DataNode. For example, block \verb|blk_6733127705602961004_1127| has been replicated on hosts \verb|10.145.231.46| and \verb|10.145.223.184|. The number 50010 is the port number of the DataNode\index{DataNode port number}.
@@ -283,10 +283,10 @@ Stop the cluster using the following command: \\
 \verb|$ stop-all.sh|
 
 Add or change the following into the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|: 
-\begin{verbatim}
+\begin{verbatim}[language=XML]
 <property>
     <name>fs.checkpoint.dir</name>
- <value>/hadoop/dfs/namesecondary</value>
+    <value>/hadoop/dfs/namesecondary</value>
 </property>
 \end{verbatim}
 
@@ -320,12 +320,13 @@ The tree structure of the SecondaryNameNode will be similar to that of the NameN
 
 \subsection*{There's more...}
 To increase redundancy\index{redundancy}, we can configure NameNode to write filesystem metadata\index{metadata} on multiple locations. For example, we can add an NFS\index{NFS} shared directory for backup by changing the following property in the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.name.dir</name>
   <value>/hadoop/dfs/name,/nfs/name</value>
 </property>
-\end{verbatim}
+\end{lstlisting}
 
 \verb|/nfs/name| is an NFS shared directory on a remote machine.
 \subsection*{See also}
@@ -446,18 +447,19 @@ Stop a MapReduce cluster with the following command:\\
 \verb|$ stop-dfs.sh|
 
 Open the file \verb|$HADOOP_HOME/conf/mapred-site.xml| with your favorite text editor and add the following content into the file:
-\begin{verbatim} 
+\lstset{style=bashstyle}
+\begin{lstlisting}[language=XML]
 <property>
   <name>mapred.tasktracker.expiry.interval</name>
   <value>600000</value>
 </property>
-\end{verbatim}
+\end{lstlisting}
 
 The value is in milliseconds.
 
 Copy the configuration into the slave nodes using the following command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo 'Copying mapred-site.xml to slave node ' $host
   sudo scp $HADOOP_HOME/conf/mapred-site.xml hduser@$host:$HADOOP_HOME/conf
@@ -474,7 +476,7 @@ Stop the MapReduce cluster with the following command: \\
 
 Set the number of task failures for a job to blacklist a TaskTracker by adding or changing the following property in the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>mapred.max.tracker.failures</name>
   <value>10</value>
@@ -483,7 +485,7 @@ Set the number of task failures for a job to blacklist a TaskTracker by adding o
 
 Set the maximum number of successful jobs that can blacklist a TaskTracker by adding or changing the following property in the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>mapred.max.tracker.blacklists</name>
   <value>5</value>
@@ -492,7 +494,7 @@ Set the maximum number of successful jobs that can blacklist a TaskTracker by ad
 
 Copy the configuration file to the slave nodes using the following commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`; do
   echo 'Copying hdfs-site.xml to slave node ' $host
   sudo scp $HADOOP_HOME/conf/hdfs-site.xml hduser@$host:$HADOOP_HOME/conf
@@ -508,12 +510,13 @@ List blacklisted TaskTrackers using the following command: \\
 Perform the following steps to decommission TaskTrackers: 
 
 Set the TaskTracker exclude file\index{TaskTracker exclude file} by adding the following properties into the file:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}[language=XML]
 <property>
   <name>mapred.hosts.exclude</name>
   <value>$HADOOP_HOME/conf/mapred-exclude.txt</value>
 </property>
-\end{verbatim}
+\end{lstlisting}
 
 The \verb|$HADOOP_HOME/conf/mapred-exclude.txt| file will contain the excluding TaskTracker hostnames one per line. For example, the file should contain the following two lines if we want to exclude \emph{slave1} and \emph{slave3} from the cluster: 
 \lstset{style=bashstyle}
@@ -567,7 +570,7 @@ The \verb|dfs-exclude.txt| file contains the DataNode hostnames, one per line, t
 
 Add the following property to the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>dfs.hosts.exclude</name>
   <value>$HADOOP_HOME/conf/dfs-exclude.txt</value>
@@ -621,7 +624,7 @@ Install and configure the Linux operating system on the new node with the steps 
 
 Install Hadoop on the new node by copying the Hadoop directory and configuration from the master node with the following commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo scp -r /usr/local/hadoop-1.1.2 hduser@slave2:/usr/local/
 $ sudo ssh hduser@slave2 -C "ln -s /usr/local/hadoop-1.1.2 /usr/local/hadoop"
 $ sudo scp ~/.bashrc hduser@slave2:~/
@@ -629,7 +632,7 @@ $ sudo scp ~/.bashrc hduser@slave2:~/
 
 Log in to \verb|slave2| and start the DataNode and TaskTracker using the following commands: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ssh hduser@slave2 -C "hadoop DataNode &"
 $ ssh hduser@slave2 -C "Hadoop TaskTracker &" 
 \end{lstlisting}
@@ -816,7 +819,7 @@ Perform the following steps to submit a MapReduce job:
 
 Create the job configuration file, \emph{job.xml}, with the following content:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
   <property>
@@ -914,7 +917,7 @@ Get the value of a counter: \\
 
 For example, we can get the counter \verb|HDFS_BYTES_WRITTEN| of the counter group FileSystemCounters\index{FileSystemCounters} for the job \verb|job_201302281451_0002| with the following command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop job -counter job_201302281451_0002 FileSystemCounters HDFS_BYTES_WRITTEN
 \end{lstlisting}
 
@@ -1019,13 +1022,13 @@ In many situations, we need a task to fail, which can be done with the following
 
 For example, to fail the task \verb|task_201302281451_0013_m_000000|, we can use the following command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop job -fail-task task_201302281451_0013_m_000000
 \end{lstlisting}
 
 List task attempts with the following command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop job -list-attempt-ids <job-id> <task-type> <task-state>
 \end{lstlisting}
 
@@ -1149,7 +1152,7 @@ The meaning of the job history URL, \url{master:50030/jobhistoryhome.jsp}, can b
 
 The web UI can be automatically updated every five seconds; this interval can be modified by changing the \verb|mapreduce.client.completion.pollinterval| property in the \verb|$HADOOP_HOME/conf/mapred-site.xml| file similar to the following:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
    <name>mapreduce.client.completion.pollinterval</name>
    <value>5000</value>
@@ -1206,7 +1209,7 @@ This command will create a directory \url{/user/hduser/data} in the HDFS filesys
 
 Copy the data file from the local directory to HDFS using the following command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop fs -cp file:///data/datafile /user/hduser/data
 \end{lstlisting}
 
@@ -1218,7 +1221,7 @@ Verify the data file on HDFS with the following command: \\
 
 Move the data file from the local directory to HDFS with command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop fs -mv file:///data/datafile /user/hduser/data
 \end{lstlisting}
 
@@ -1226,7 +1229,7 @@ The local copy will be deleted if you use this command.
 
 Use distributed copy to copy the large data file to HDFS:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop distcp file:///data/datafile /user/hduser/data
 \end{lstlisting}
 This command will initiate a MapReduce job with a number of mappers to run the copy task in parallel.
@@ -1243,7 +1246,7 @@ This command will move two files, \textbf{src1} and \textbf{src2}, from the loca
 
 Although distributed copy can be faster than the simple data importing commands, it can incur large load to the node that the data resides on, because of the possibly of high data transfer requests. distcp will be more useful when copying data from one HDFS location to another. For example:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop distcp hdfs:///user/hduser/file hdfs:///user/hduser/file-copy
 \end{lstlisting}
 \subsection*{How it works...}
@@ -1461,7 +1464,7 @@ put: org.apache.hadoop.hdfs.protocol.NSQuotaExceededException: The NameSpace quo
 
 Set space quota\index{space quota} of the current user's home directory to be \textbf{100000000} with the following command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop dfsadmin -setSpaceQuota 100000000 /user/hduser
 \end{lstlisting}
 
@@ -1473,7 +1476,7 @@ put: org.apache.hadoop.hdfs.protocol.DSQuotaExceededException: The DiskSpace quo
 
 Check the quota status with the following command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop fs -count -q /user/hduser
 \end{lstlisting}
 We will get output similar to the following before setting quota: \\
@@ -1549,7 +1552,7 @@ Configure CapacityScheduler with the following steps:
 
 Configure Hadoop to use CapacityScheduler by adding the following lines into the file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
     <name>mapred.jobtracker.taskScheduler</name>
     <value>org.apache.hadoop.mapred.CapacityTaskScheduler </value>
@@ -1558,7 +1561,7 @@ Configure Hadoop to use CapacityScheduler by adding the following lines into the
 
 Define a new queue, hdqueue, by adding the following lines into the file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
     <name>mapred.queue.names</name>
     <value>default,hdqueue</value>
@@ -1570,7 +1573,7 @@ By default, a Hadoop cluster has only one default queue.
 \end{info}
 Configure CapacityScheduler queues by adding the following lines into the file \verb|$HADOOP_HOME/conf/capacity-scheduler.xml|:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <property>
   <name>mapred.capacity-scheduler.queue.hdqueue.capacity</name>
   <value>20</value>
@@ -1617,7 +1620,7 @@ $ start-mapred.sh
 From the JobTracker web UI, we can get a queue scheduling information web page similar to the following screenshot: \\
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.65\textwidth]{figs/5163os_04_17.png}
+  \includegraphics[width=.55\textwidth]{figs/5163os_04_17.png}
   \caption{Hadoop MapReduce job Scheduling information}\label{fig:mapred.scheduling}
 \end{figure} 
 Alternatively, we can use the command hadoop queue -list to get the same information. 
@@ -1625,14 +1628,14 @@ Alternatively, we can use the command hadoop queue -list to get the same informa
 Get the schedule details of each queue by opening the URL, master:50030/scheduler, and we can get a web page similar to the following: 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{figs/5163os_04_18.png}
+  \includegraphics[width=.90\textwidth]{figs/5163os_04_18.png}
   \caption{Job Scheduler Queues}\label{fig:job.queues}
 \end{figure} 
 This screenshot shows the status of each queue in the cluster including the numbers of running jobs, pending jobs, and so on. 
 
 Test the queue configuration by submitting an example wordcount job to the queue hdqueue using the following command: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop jar $HADOOP_HOME/hadoop-examples-1.1.2.jar wordcount -Dmapred.job.queue.name=hdqueue randtext wordcount.out
 \end{lstlisting}
 
@@ -1688,7 +1691,7 @@ Log in to the master node from the Hadoop administrator machine using the follow
 Perform the following steps to configure Hadoop Fair Scheduler: 
 
 Enable fair scheduling by changing the following property in the file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
-\begin{verbatim}
+\begin{verbatim}[language=XML]
   <property>
     <name>mapred.jobtracker.taskScheduler</name>
     <value>org.apache.hadoop.mapred.FairScheduler</value>
@@ -1697,7 +1700,7 @@ Enable fair scheduling by changing the following property in the file \verb|$HAD
 
 Create the Fair Scheduler configuration file, \verb|$HADOOP_HOME/conf/fair-scheduler.xml|, with content similar to the following: 
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <?xml version="1.0"?> 
 <allocations>
  <pool name="hduser">
@@ -1716,7 +1719,7 @@ Create the Fair Scheduler configuration file, \verb|$HADOOP_HOME/conf/fair-sched
 
 Restart the MapReduce cluster with the following commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ stop-mapred.sh
 $ start-mapred.sh
 \end{lstlisting}
@@ -1726,7 +1729,7 @@ Verify the setting of Fair Scheduler by opening the URL \url{http://master:50030
 The web page will be similar to the following screenshot:
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{figs/5163os_04_16.png}
+  \includegraphics[width=.90\textwidth]{figs/5163os_04_16.png}
   \caption{Status of fair scheduler}\label{fig:fairscheduler}
 \end{figure} 
 \subsection*{How it works...}
@@ -2005,7 +2008,8 @@ Stop the cluster with the following command: \\
 
 Back up block locations of the data on HDFS with the fsck command:
 \lstset{style=bashstyle}
-\begin{lstlisting}$ hadoop fsck / -files -blocks -locations > dfs.block.locations.fsck.backup
+\begin{lstlisting}[language=bash]
+$ hadoop fsck / -files -blocks -locations > dfs.block.locations.fsck.backup
 \end{lstlisting}
 
 The resulting file, \verb|dfs.block.locations.fsck.backup|, will contain the locations of each data block on the HDFS filesystem.
@@ -2018,22 +2022,23 @@ Save the description of each DataNode in the HDFS cluster with the following com
 
 Copy the checkpoint files to a backup directory with the following commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo cp dfs.name.dir/edits /backup
 $ sudo cp dfs.name.dir/image/fsimage /backup
 \end{lstlisting}
 
 Verify that no DataNode daemon is running with the following command:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}[language=bash]
 for node in `cat $HADOOP_HOME/conf/slaves`
   do
   echo 'Checking node ' $node
   ssh $node -C "jps"
 done
-\end{verbatim}
+\end{lstlisting}
 If any DataNode process is still running, kill the process with the following command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ ssh $node -C "jps | grep 'DataNode' | cut -d'\t' -f 1 | xargs kill -9 "
 \end{lstlisting}
 
@@ -2041,7 +2046,7 @@ A still running DataNode can fail an update if it is not killed because the old 
 
 Decompress the Hadoop archive file with the following commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo mv hadoop-1.2.0.tar.gz /usr/local/
 $ sudo tar xvf hadoop-1.2.0.tar.gz
 \end{lstlisting}
@@ -2053,14 +2058,14 @@ You can make changes to the configuration files if necessary.
 
 Update the Hadoop symbolic link to the Hadoop version with the following command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ sudo rm -rf /usr/local/hadoop
 $ sudo ln -s /usr/local/hadoop-1.2.0 /usr/local/hadoop
 \end{lstlisting}
 
 Upgrade in the slave nodes with the following commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 for host in `cat $HADOOP_HOME/conf/slaves`
   do
   echo 'Configuring hadoop on slave node ' $host
@@ -2080,7 +2085,7 @@ Start the HDFS cluster using the following commands: \\
 
 Get the list of all files on HDFS and compare its difference with the backed up one using the following commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop dfs -lsr / > dfs.namespace.lsr.new
 $ diff dfs.namespace.lsr.new dfs.namespace.lsr.backup
 \end{lstlisting}
@@ -2089,7 +2094,7 @@ The two files should have the same content if there is no error in the upgrade.
 
 Get a new report of each DataNode in the cluster and compare the file with the backed up one using the following command:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop dfsadmin -report > dfs.datanodes.report.new
 $ diff dfs.datanodes.report.1.log dfs.datanodes.report.backup
 \end{lstlisting}
@@ -2098,7 +2103,7 @@ The two files should have the same content if there is no error.
 
 Get the locations of all data blocks and compare the output with the previous backup using the following commands:
 \lstset{style=bashstyle}
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
 $ hadoop fsck / -files -blocks -locations > dfs.block.locations.fsck.new
 $ diff dfs.locations.fsck.backup dfs.locations.fsck.new
 \end{lstlisting}
