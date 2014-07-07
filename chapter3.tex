@@ -26,7 +26,7 @@ In General, the release version number of a Hadoop distribution consists of thre
 \end{figure} 
 Sometimes, the revision number can have a fourth part, for example 0.20.203.0, but this is relatively rare.
 \subsection*{How to do it...}
-The following table shows features of major Hadoop releases:
+Table \ref{tbl:compare.mrv1.mrv2} shows features of major Hadoop releases:
 \begin{table}[h]
   \centering
   \begin{tabular}{l|l|l|l|l}
@@ -41,6 +41,7 @@ The following table shows features of major Hadoop releases:
     HDFS append & Yes & Yes & Yes & \\
     HDFS symbolic Links & Yes & Yes & Yes & \\ \bottomrule
   \end{tabular}
+  \caption{Comparison for Hadoop MRv1 and MRv2.}\label{tbl:compare.mrv1.mrv2}
 \end{table}
 The table tells us that Hadoop is evolving rapidly, with new features such as security, HDFS federation\index{HDFS federation} and NameNode HA\index{NameNode HA} being added over time. Another lesson we can learn from the table is that the most recent stable release version 1.1.x does not contain all the features. And although release version 2.0.x is the most feature rich Hadoop release, it is still in alpha state requiring further improvements.
 
@@ -262,10 +263,10 @@ Under Unix-like operating systems, system runtime configurations and environment
 
 Under Linux, the bash shell has two run configuration files for a user, \verb|.bashrc| and \verb|.bash_profile|. The difference between the two files is that \verb|.bash_profile| is executed for login shells, while \verb|.bashrc| for interactive non-login shells. More specifically, when we login to the system by entering username and password either locally or from a remote machine \verb|.bash_profile| will be executed and a bash shell process initialized. On the other hand, if we open a new bash terminal after logged into a machine or type the bash command from command line, file \verb|.bashrc| will be used for initialization before we see the command prompt on the terminal window. In this recipe, we used file \verb|.bashrc|, so that new configurations will be available after opening a new bash process. Alternatively, we can manually source a configuration file after it is created or changed with the source command.
 
-The following table shows configuration files for configuring a Hadoop cluster in pseudo-distributed mode:
+Table \ref shows configuration files for configuring a Hadoop cluster in pseudo-distributed mode:
 \begin{table}[h]
   \centering
-\begin{tabular}{ll}  
+  \begin{tabular}{ll}  
     \toprule
     \textbf{File} & \textbf{Description} \\ \midrule
     hadoop-env.sh & Configures environment variable used by Hadoop. \\
@@ -275,6 +276,7 @@ The following table shows configuration files for configuring a Hadoop cluster i
     masters & Configures host machines for SecondaryNameNode. \\
     slaves & Configures a list of slave node hosts. \\ \bottomrule
   \end{tabular}
+  \caption{Description of Hadoop configuration files for MRv1}\label{tbl:config.files.desc}
 \end{table}
 
 \begin{itemize}
@@ -286,15 +288,21 @@ The following table shows configuration files for configuring a Hadoop cluster i
   \item slaves file specifies slave nodes that run tasks controlled by task trackers. In our pseudo-distributed mode configuration, localhost is the only slave node in the cluster.
 \end{itemize}
 
-Hadoop provides a number of bash scripts for convenience of starting and stopping a cluster. The following table shows these scripts:
-\begin{description}
-    \item{start-dfs.sh} Script to start HDFS daemons including NameNode, SecondaryNameNode and DataNode. A PID file will be created for each daemon process under default folder \${hadoop.tmp.dir}. For example, if user hduser is used to run the script, file /hadoop/tmp/hadoop-hduser-namenode.pid will be created for the NameNode daemon process.
-    \item{stop-dfs.sh} Script to stop HDFS daemons. This command will try to find the PIDs of the HDFS daemons and kill the processes with the PIDs. So, if the PID file is missing, this script will not work.
-    \item{start-mapred.sh} Script to start MapReduce daemons, including the JobTracker and TaskTrackers. Similar to start-hdfs.sh script, PIDs files will be created for each daemon process.
-    \item{stop-mapred.sh} Script to stop Hadoop MapReduce daemons. Similar to stop-dfs.sh script, the script will try to find the PID files and then kill those processes.
-    \item{start-all.sh} Equals to start-dfs.sh plus start-mapred.sh.
-    \item{stop-all.sh} Equals to stop-dfs.sh plus stop-mapred.sh.
-\end{description}
+Hadoop provides a number of bash scripts for convenience of starting and stopping a cluster. Table \ref{tbl:start.stop.scripts} shows these scripts.
+\begin{table}[h]
+  \centering
+  \begin{tabular}{p{.2\textwidth}p{.75\textwidth}}
+    \toprule
+    \textbf{Script} & \textbf{Description} \\ \midrule
+    \textbf{start-dfs.sh} & Script to start HDFS daemons including NameNode, SecondaryNameNode and DataNode. A PID file will be created for each daemon process under default folder \${hadoop.tmp.dir}. For example, if user hduser is used to run the script, file /hadoop/tmp/hadoop-hduser-namenode.pid will be created for the NameNode daemon process. \\ 
+    \textbf{stop-dfs.sh} & Script to stop HDFS daemons. This command will try to find the PIDs of the HDFS daemons and kill the processes with the PIDs. So, if the PID file is missing, this script will not work. \\
+    \textbf{start-mapred.sh} & Script to start MapReduce daemons, including the JobTracker and TaskTrackers. Similar to start-hdfs.sh script, PIDs files will be created for each daemon process. \\
+    \textbf{stop-mapred.sh} & Script to stop Hadoop MapReduce daemons. Similar to stop-dfs.sh script, the script will try to find the PID files and then kill those processes. \\
+    \textbf{start-all.sh} & Equals to start-dfs.sh plus start-mapred.sh.\\
+    \textbf{stop-all.sh} & Equals to stop-dfs.sh plus stop-mapred.sh.\\ \bottomrule
+  \end{tabular}
+  \caption{Description for Hadoop start/stop scripts.}\label{tbl:start.stop.scripts}
+\end{table}
 \subsection*{There's more...}
 Currently, Hadoop is also available in rpm format. So we can use the following command to install Hadoop:
 \lstset{style=bashstyle}
