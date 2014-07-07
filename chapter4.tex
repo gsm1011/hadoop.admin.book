@@ -392,7 +392,7 @@ Usage: java MRAdmin
 ...
 \end{lstlisting}
 
-The meaning of the command options is listed in the following table:
+The meaning of the command options is listed in Table \ref{tbl:mradmin}.
 \begin{table}
   \centering
   \small
@@ -1136,7 +1136,7 @@ In addition to all these web services, the web UI provides a graphical display o
 This screenshot shows the progress of each map and reduce task. The reduce task is composed of three phases, the shuffle phase, the sort phase, and the reduce phase, with each phase composing of $\frac{1}{3}$ of the total reduce task.
 
 \subsection*{How it works...}
-The meaning of the job history URL, \url{master:50030/jobhistoryhome.jsp}, can be explained as in the following table:
+The meaning of the job history URL, \url{master:50030/jobhistoryhome.jsp}, can be explained as in Table \ref{tbl:jobhistory}.
 \begin{table}
   \centering
   \begin{tabular}{ll}
@@ -1158,7 +1158,7 @@ The web UI can be automatically updated every five seconds; this interval can be
 </property>
 \end{lstlisting}
 
-The following table shows the summary of URIs we can use to check the status of jobs, tasks, and attempts.
+Table \ref{tbl:statusuris} shows the summary of URIs we can use to check the status of jobs, tasks, and attempts.
 \begin{table}
   \scriptsize
   \centering
@@ -1175,7 +1175,7 @@ The following table shows the summary of URIs we can use to check the status of 
   \caption{URIs for status of jobs, tasks and attempts}\label{tbl:statusuris}
 \end{table}
 
-The following table lists the naming examples for jobID, taskID, and attemptID:
+Table \ref{tbl:ids} lists the naming examples for jobID, taskID, and attemptID:
 \begin{table}
   \centering
   \begin{tabular}{ll}
@@ -1647,8 +1647,7 @@ Job Scheduling information: 8 running map tasks using 8 map slots. 0 additional 
 \subsection*{How it works...}
 CapacityScheduler is available as a JAR file under the \verb|$HADOOP_HOME/lib| directory. For example, in our Hadoop distribution, the JAR file is \verb|$HADOOP_HOME/lib/hadoop-capacity-scheduler-1.1.2.jar|.
 
-The following table shows the description of queue configuration properties: 
-
+Table \ref{tbl:queueconfig} shows the description of queue configuration properties: 
 \begin{table}[ht]
   \scriptsize
   \centering
@@ -1738,7 +1737,7 @@ The Hadoop Fair Scheduler schedules jobs in such a way that all jobs can get an 
 
 Besides computing slots\index{computing slots}, the Fair Scheduler can limit the number of concurrently running jobs and tasks on a pool. So, if a user submits more jobs than the configured limit, some jobs have to in-queue until other jobs finish. In such a case, higher priority jobs will be scheduled by the Fair Scheduler to run earlier than lower priority jobs. If all jobs in the waiting queue have the same priority, the Fair Scheduler can be configured to schedule these jobs with either Fair Scheduler or FIFO Scheduler\index{FIFO scheduler}.
 
-The following table shows the properties supported by fair scheduler:
+Table \ref{tbl:fairscheduler} shows the properties supported by fair scheduler:
 \begin{table}[ht]
   \centering
   \scriptsize
@@ -1836,7 +1835,7 @@ By default, Hadoop sends log messages to Log4j, which is configured in the file 
 
 Hadoop supports a number of log levels for different purposes. The log level should be tuned based on the purpose of logging. For example, if we are debugging a daemon, we can set its logging level to be DEBUG rather than something else. Using a verbose log level can give us more information, while on the other hand will incur overhead to the cluster.
 
-The following table shows all the logging levels provided by Log4j:
+Table \ref{tbl:log4j} shows all the logging levels provided by Log4j:
 \begin{table}
   \begin{tabular}{ll}
     \toprule 
@@ -1880,7 +1879,7 @@ We change the preceding command to the following: \\
 Configure the logging directory to \verb|/var/log/hadoop| by changing the following line: \\
 \verb|export HADOOP_LOG_DIR=/var/log/hadoop|
 
-Additionally, the following table shows other environment variables we can configure for Hadoop logging:
+Additionally, Table \ref{tbl:loggingenv} shows other environment variables we can configure for Hadoop logging:
 \begin{table}\scriptsize\centering
   \begin{tabular}{ll}
     \toprule 
@@ -2139,7 +2138,7 @@ Usage: java DFSAdmin
            [-help [cmd]]
 \end{lstlisting}
 
-The following table shows the meanings of the command options:
+Table \ref{tbl:dfsadmin} shows the meanings of the command options:
 \begin{table}
   \centering
   \small
