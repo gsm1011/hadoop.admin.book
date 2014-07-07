@@ -359,7 +359,7 @@ This screenshot contains the status information of the JobTracker including the 
 \subsection*{How it works}
 A Ganglia monitoring system is composed of three parts: the monitoring daemons gmond, the meta-data handling daemon gmetad and the web UI.
 
-Ganglia gmond daemons run on each node that is being monitored in the cluster. They continuously collect metrics data and send to the gmetad daemon running on the master node. The gmetad daemon stores data into a database maintained by rrdtool. The web UI, including all the graphs, is generated with PHP by pulling the data from the database. The Ganglia data flow can be described with the following figure:
+Ganglia gmond daemons run on each node that is being monitored in the cluster. They continuously collect metrics data and send to the gmetad daemon running on the master node. The gmetad daemon stores data into a database maintained by rrdtool. The web UI, including all the graphs, is generated with PHP by pulling the data from the database. The Ganglia data flow can be described with Figure \ref{fig:ganglia.dataflow}.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=.6\textwidth]{figs/5163os_06_13.png}
