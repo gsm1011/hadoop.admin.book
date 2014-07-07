@@ -26,8 +26,7 @@ A Hadoop cluster contains two types of nodes: master node\index{master node} and
 \subsection*{How to do it}
 Although special requirements exist for a master node and a slave node, there is no gold standard for choosing optimal hardware for both types of nodes. It is reasonable to say that the hardware configuration is closely related to the properties of Big Data to be processed. In addition, the choice of hardware is an empirical and adaptive process with the changing requirements on a Hadoop cluster. For example, if the requirements for the throughput of a Hadoop cluster are high, we might need to choose high end CPUs and hard drives. If we have a large number of potential Hadoop users, we may need to upgrade the hardware configuration for both the master node and the slave nodes.
 
-Empirically, we recommend the following configurations for a small to medium sized Hadoop cluster:
-
+Empirically, Table \ref{tbl:cluster.hardware} shows the hardware configurations for a small to medium sized Hadoop cluster. 
 \begin{table}[h]
   \centering
   \begin{tabular}{lll}
