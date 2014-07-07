@@ -286,15 +286,21 @@ We can get the usage for the testfilesystem benchmark with the following command
 \begin{lstlisting}
 $ hadoop jar $HADOOP_HOME/hadoop-test-1.1.2.jar testfilesystem
 Usage: TestFileSystem -files N -megaBytes M [-noread] [-nowrite] [-noseek] [-fastcheck]
-The following table shows the meaning of each option of this benchmark command:
-Option	Description
--files	Number of files to generate for the benchmark.
--megaBytes	Size in megabytes of the generated files.
--noread	Disable the data reading test.
--nowrite	Disable the data writing test.
--noseek	Disable the seek test.
--fastcheck	Whether to use fast check or not. If the value is true, the test buffer will be filled with the same value, otherwise random numbers are generated for each location in the test buffer.
-\end{lstlisting}
+Table \ref{tbl:benchmark.option.desc} shows the meaning of each option of this benchmark command:
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{p{.2\textwidth}p{.75\textwidth}}
+    \toprule
+    \textbf{Option} & \textbf{Description} \\ \midrule 
+    -files & Number of files to generate for the benchmark. \\
+    -megaBytes & Size in megabytes of the generated files. \\
+    -noread & Disable the data reading test. \\ 
+    -nowrite & Disable the data writing test. \\
+    -noseek & Disable the seek test. \\
+    -fastcheck & Whether to use fast check or not. If the value is true, the test buffer will be filled with the same value, otherwise random numbers are generated for each location in the test buffer. \\ \bottomrule
+    \end{tabular}
+    \caption{Description of the benchmark command options.}\label{tbl:benchmark.option.desc}
+  \end{table}
 
 We can get the help for the mrbench benchmark with command:
 \lstset{style=bashstyle}
@@ -384,14 +390,20 @@ We can get the usage of the testmapredsort benchmark with command:
 \begin{lstlisting}
 $ hadoop jar $HADOOP_HOME/hadoop-test-*.jar testmapredsort
 sortvalidate [-m <maps>] [-r <reduces>] [-deep] -sortInput <sort-input-dir> -sortOutput <sort-output-dir>
-The following table shows the meaning of the options:
-Option	Description
--m	Number of mappers.
--r 	Number of reducers.
--deep	Do deep validation.
--sortInput	Directory for the input data used for sort. The specified directory must exist, otherwise the benchmark will fail.
--sortOutput	Output directory after the data specified by the -sortInput directory is sorted. The specified directory must exist, otherwise the benchmark will fail.
-\end{lstlisting}
+Table \ref{tbl:testmapred.sort} shows the meaning of the options:
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    \textbf{Option} & \textbf{Description} \\ \midrule
+    -m & Number of mappers. \\ 
+    -r  & Number of reducers.
+    -deep & Do deep validation.
+    -sortInput & Directory for the input data used for sort. The specified directory must exist, otherwise the benchmark will fail.
+    -sortOutput & Output directory after the data specified by the -sortInput directory is sorted. The specified directory must exist, otherwise the benchmark will fail.
+    \end{tabular}
+    \caption{Description of the \textbf{testmapredsort} command.}\label{tbl:testmapred.sort}
+  \end{table}
 \subsection*{There's more...}
 Besides the Hadoop tests package, Hadoop was shipped with an example package, which can also be used to do benchmark a Hadoop cluster. We can get all the examples benchmarks with command:
 \lstset{style=bashstyle}
@@ -435,7 +447,7 @@ The usage for sort is as follows:
 $ sort [-m <maps>] [-r <reduces>] [-inFormat <input format class>] [-outFormat <output format class>] [-outKey <output key class>] [-outValue <output value class>] [-totalOrder <pcnt> <num samples> <max splits>] <input> <output>
 \end{lstlisting}
 
-The meaning of each option is shown in the following table:
+The meaning of each option is shown in Table \ref{tbl:sort}.
 \begin{table}[ht]
   \centering
   \begin{tabular}{ll}
@@ -1156,7 +1168,7 @@ Restart the Hadoop cluster with command: \\
 \verb|$ start-all.sh|
 
 \subsection*{How it works...}
-The following table is a summary of properties for configuring Hadoop data compression:
+Table \ref{tbl:hdfscompression} is a summary of properties for configuring Hadoop data compression:
 \begin{table}[ht]
   \begin{tabular}{ll}
     \toprule
@@ -1170,7 +1182,7 @@ The following table is a summary of properties for configuring Hadoop data compr
   \caption{Data compression parameters}\label{tbl:hdfscompression}
 \end{table}
 
-Available compression codecs are described in the following table:
+Available compression codecs are described in Table \ref{tbl:hdfscodecs}.
 \begin{table}[ht]
   \centering
   \begin{tabular}{ll}
@@ -1291,7 +1303,7 @@ conf.set("mapred.map.tasks.speculative.execution", "false");
 conf.set("mapred.reduce.tasks.speculative.execution", "false");
 \end{lstlisting}
 
-The following table is a summary of the properties we used in this recipe with their default values:
+Table \ref{tbl:speculative} is a summary of the properties we used in this recipe with their default values:
 \begin{table}[ht]
   \centering
   \begin{tabular}{ll}
@@ -1449,7 +1461,7 @@ Restart the Hadoop cluster with command: \\
 \verb|$ start-mapred.sh|
 
 \subsection*{How it works}
-The following table is a list of properties with descriptions of this recipe:
+Table \ref{tbl:jobtracker} is a list of properties with descriptions of this recipe:
 \begin{table}[ht]
   \centering
   \begin{tabular}{lll}
@@ -1583,7 +1595,7 @@ Restart the MapReduce cluster with the following command: \\
 \verb|$ start-mapred.sh|
 
 \subsection*{How it works}
-The following table contains a list of properties with descriptions of this recipe:
+Table \ref{tbl:tasktracker} contains a list of properties with descriptions of this recipe:
 \begin{table}[ht]
   \centering
   \begin{tabular}{lll}
@@ -1733,8 +1745,7 @@ Restart the MapReduce cluster with the following command: \\
 \verb|$ start-mapred.sh|
 
 \subsection*{How it works}
-The following table show the description of the properties and their default values mentioned in the recipe: \\
-
+ Figure \ref{tbl:memoryconfig} show the description of the properties and their default values mentioned in the recipe:
 \begin{table}[ht]
   \centering
   \begin{tabular}{ll}
@@ -1848,7 +1859,7 @@ Start the Hadoop cluster with the following command: \\
 \verb|$ start-mapred.sh|
 
 \subsection*{How it works...}
-The following table lists the properties in the recipe that their descriptions.
+Table \ref{tbl:memoryconfig.default} lists the properties in the recipe that their descriptions.
 \begin{table}[ht]
   \centering
   \begin{tabular}{lll}
