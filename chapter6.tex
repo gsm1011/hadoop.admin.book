@@ -30,18 +30,22 @@ We assume that Oracle JDK has been installed and our Hadoop cluster has been con
 \subsection*{How to do it...}
  Use the following recipe to configure JMX for monitoring a Hadoop cluster:
 
-Create a JMX password file for remote monitoring with command: \\
-\verb|$ cp $JAVA_HOME/jre/lib/management/jmxremote.password.template $HADOOP_HOME/conf/jmxremote.password|
+Create a JMX password file for remote monitoring with command:
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ cp $JAVA_HOME/jre/lib/management/jmxremote.password.template $HADOOP_HOME/conf/jmxremote.password
+\end{lstlisting}
 
 Open the template password file \verb|$HADOOP_HOME/conf/jmxremote.password| with a text editor and the last a few lines of this file will be similar to the following: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 # Following are two commented-out entries.  The "measureRole" role has
 # password "QED".  The "controlRole" role has password "R&D".
 #
 # monitorRole  QED
 # controlRole  R&D
-Remove the comment symbol "#" for the two highlighted lines.
-\end{verbatim}
+Remove the comment symbol ``#" for the two highlighted lines.
+\end{lstlisting}
 
 These two lines specify the passwords for monitorRole and controlRole. JMX will use them for authentication purposes in a remote monitoring.
 
@@ -49,23 +53,28 @@ Change the permission of the password file to 600 with command: \\
 \verb|$ chmod 600 $HADOOP_HOME/conf/jmxremote.password|
 \begin{warning}
 Warning! \\
-If this file is too open, you will get error similar to the following when starting the Hadoop cluster daemons: \\
-\verb|master: Error: Password file read access must be restricted: /usr/local/hadoop/conf/jmxremote.password|
+If this file is too open, you will get error similar to the following when starting the Hadoop cluster daemons:
+\lstset{style=bashstyle}
+\begin{lstlisting}
+master: Error: Password file read access must be restricted: /usr/local/hadoop/conf/jmxremote.password
+\end{lstlisting}
 \end{warning}
 
 Open file \verb|$HADOOP_HOME/conf/hadoop-env.sh| with a text editor.
 
 In this file, we will be able to find JMX monitoring configurations for the Hadoop daemons including \emph{NameNode, SecondaryNameNode, DataNode, balancer, JobTracker} and \emph{TaskTracker}. The default configuration will be similar to the following:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 export HADOOP_NAMENODE_OPTS="-Dcom.sun.management.jmxremote $HADOOP_NAMENODE_OPTS"
 export HADOOP_SECONDARYNAMENODE_OPTS="-Dcom.sun.management.jmxremote $HADOOP_SECONDARYNAMENODE_OPTS"
 export HADOOP_DATANODE_OPTS="-Dcom.sun.management.jmxremote $HADOOP_DATANODE_OPTS"
 export HADOOP_BALANCER_OPTS="-Dcom.sun.management.jmxremote $HADOOP_BALANCER_OPTS"
 export HADOOP_JOBTRACKER_OPTS="-Dcom.sun.management.jmxremote $HADOOP_JOBTRACKER_OPTS"
-\end{verbatim}
+\end{lstlisting}
 
 Now, we need to configure remote monitoring port for Hadoop daemons by changing the original configuration to the following: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 # Extra Java runtime options. Empty by default.
 export HADOOP_OPTS="-Dcom.sun.management.jmxremote.authenticate=true -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.password.file=$HADOOP_CONF_DIR/jmxremote.password"
 
@@ -75,7 +84,7 @@ export HADOOP_DATANODE_OPTS="-Dcom.sun.management.jmxremote $HADOOP_DATANODE_OPT
 export HADOOP_BALANCER_OPTS="-Dcom.sun.management.jmxremote $HADOOP_BALANCER_OPTS -Dcom.sun.management.jmxremote.port=8007"
 export HADOOP_JOBTRACKER_OPTS="-Dcom.sun.management.jmxremote $HADOOP_JOBTRACKER_OPTS -Dcom.sun.management.jmxremote.port=8008"
 export HADOOP_TASKTRACKER_OPTS="-Dcom.sun.management.jmxremote.port=8009"
-\end{verbatim}
+\end{lstlisting}
 
 
 Use the following command to start the monitor user interface: \\
@@ -137,17 +146,21 @@ Ganglia is an open source, scalable and distributed monitoring system for cluste
 Login to the master node from administrator machine with command: \\
 \verb|$ ssh hdadmin@master| \\
 
-Use the following yum command to install Ganglia on the master machine: \\
-\verb|$ sudo yum install -y ganglia-gmond ganglia-gmetad ganglia-web|
+Use the following yum command to install Ganglia on the master machine: 
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ sudo yum install -y ganglia-gmond ganglia-gmetad ganglia-web
+\end{lstlisting}
 
 Install Ganglia monitoring daemon on all the slave nodes with command:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 for host in `cat $HADOOP_HOME/conf/slaves`
 do
   echo "Installing Ganglia on host " $host
   sudo ssh $host -C "yum install -y ganglia-gmond"
 done
-\end{verbatim}
+\end{lstlisting}
 
 In this recipe, we assume that the Ganglia server will run on the master node and the monitoring daemons run on both master and slave nodes.
 \subsection*{How to do it...}
@@ -156,17 +169,19 @@ In this recipe, we assume that the Ganglia server will run on the master node an
 Open the gmond configuration file \verb|/etc/ganglia/gmond.conf| with a text editor.
 
 Change the cluster attribute to:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 cluster {
   name = "hadoop"
   owner = "hduser"
   latlong = "unspecified"
   url = "unspecified"
 }
-\end{verbatim}
+\end{lstlisting}
 
 Change the \verb|udp_send_channel| attribute to: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 udp_send_channel {
   bind_hostname = yes
   # mcast_join = 239.2.11.71
@@ -174,16 +189,17 @@ udp_send_channel {
   port = 8649
   ttl = 1
 }
-\end{verbatim}
+\end{lstlisting}
 
 Change the \verb|udp_recv_channel| attribute to: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 udp_recv_channel {
   # mcast_join = 239.2.11.71
   port = 8649
   # bind = 239.2.11.71
 }
-\end{verbatim}
+\end{lstlisting}
 
 Hadoop supports network communication through both unicast (with normal IP addresses, which is the one we use here) and multicast, which uses multicast address such as \emph{239.2.11.71}. To use multicast, all the monitored hosts should be in the same IP segment. In this book, we assume to use unicast.
 
@@ -193,7 +209,8 @@ Add all the hostnames in the cluster to the gmetad configuration file /etc/gangl
 Here "\textbf{hdcluster}" is the name of cluster that Ganglia monitors and "\textbf{master:8649}" is the network address of gmetad.
 
 Open file \verb|$HADOOP_HOME/conf/hadoop-metrics.properties| with your favorite text editor and add the following contents into the file:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 jvm.class=org.apache.hadoop.metrics.ganglia.GangliaContext
 jvm.period=10
 jvm.servers=master:8649
@@ -209,12 +226,13 @@ mapred.servers=master:8649
 hbase.class=org.apache.hadoop.metrics.ganglia.GangliaContext
 hbase.period=10
 hbase.servers=master:8649
-\end{verbatim}
+\end{lstlisting}
 
 In the above configuration, we have specified three common parameters: class, period and servers. Parameter class specifies the message format that Ganglia will use (can be either GangliaContext or GangliaContext31); period specifies the time interval between two consecutive metric updates and servers specifies a list of server that monitoring messages should be sent to.
 
 Copy configuration files to all the slave nodes with command: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 for host in `cat $HADOOP_HOME/conf/slaves`
 do
   echo "Copying ganglia monitoring configuration file to host" $host;
@@ -222,11 +240,14 @@ do
   sudo scp /etc/ganglia/gmetad.conf $host:/etc/ganglia/gmetad.conf
   sudo scp $HADOOP_HOME/conf/hadoop-metrics.properties $host:$HADOOP_HOME/conf/hadoop-metrics.properties;
 done
-\end{verbatim}
+\end{lstlisting}
 
-Restart the Hadoop cluster with commands: \\
-\verb|$ stop-all.sh| \\
-\verb|$ start-all.sh|
+Restart the Hadoop cluster with commands:
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ stop-all.sh
+$ start-all.sh
+\end{lstlisting}
 
 Start gmond daemon with command on the master node: \\
 \verb|$ sudo service gmond start|
@@ -234,7 +255,8 @@ Start gmond daemon with command on the master node: \\
 Run command: \verb|$ sudo chkconfig gmond on| if you want the process to survive a system reboot.
 
 Check the status of gmond with command: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 $ curl master:8649
 <GANGLIA_XML VERSION="3.1.7" SOURCE="gmond">
 <CLUSTER NAME="hdcluster" LOCALTIME="1363403519" OWNER="hduser" LATLONG="unspecified" URL="hdcluster.com">
@@ -265,7 +287,7 @@ $ curl master:8649
 </HOST>
 </CLUSTER>
 </GANGLIA_XML>
-\end{verbatim}
+\end{lstlisting}
 
 The highlighted lines show that some HDFS and MapReduce metrics is being monitored by Ganglia.
 
@@ -273,21 +295,23 @@ Start gmetad daemon with command on the master node: \\
 \verb|$ sudo service gmetad start|
 
 Start gmond on all slave nodes with command: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 for host in `cat $HADOOP_HOME/conf/slaves`
 do
   echo "Starting gmond service on host: " $host;
   sudo ssh $host -C "service gmond start";
 done
-\end{verbatim}
+\end{lstlisting}
 
 Open file \verb|/etc/httpd/conf.d/ganglia.conf| with your favorite text editor and add the following content: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 <Location /ganglia>
    Order deny,allow
    Allow from all
 </Location>
-\end{verbatim}
+\end{lstlisting}
 
 The access control setting in this file allows everyone to visit the Ganglia web UI. For security reasons, we can restrict the IP addresses, hosts or domains with the "Allow from" and "Deny from" statements in the configuration.
 
@@ -368,21 +392,26 @@ Install Nagios Remote Plugin Executor (NRPE) package with command:\\
 
 Download \verb|check_jmx| Nagios plugin from \url{http://exchange.nagios.org/directory/Plugins/Java-Applications-and-Servers/check_jmx/details}.
 
-We want to use Java JMX as a Nagios plugin to monitor Hadoop metrics.
+We want to use Java JMX\index{JMX} as a Nagios plugin to monitor Hadoop metrics.
 
 Use the following commands to build the \verb|check_jmx| package:
-\verb|$ tar xvf check_jmx.tgz| \\
-\verb|$ cd check_jmx| \\
-\verb|$ ant|
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ tar xvf check_jmx.tgz
+$ cd check_jmx
+$ ant
+\end{lstlisting}
 
 After this, we want to get the following directory structure:\\
-\verb|$ check_jmx| \\
-
+\verb|$ check_jmx|
 %%% [TODO, insert jmx structure.]
 
-Copy the two highlighted files into directory /usr/local/nagios/libexec: \\
-\verb|$ cp check_jmx/nagios/plugin/check_jmx /usr/local/nagios/libexec| \\
-\verb|$ cp check_jmx/nagios/plugin/jmxquery.jar /usr/local/nagios/libexec|
+Copy the two highlighted files into directory /usr/local/nagios/libexec:
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ cp check_jmx/nagios/plugin/check_jmx /usr/local/nagios/libexec
+$ cp check_jmx/nagios/plugin/jmxquery.jar /usr/local/nagios/libexec
+\end{lstlisting}
 
 By doing this, we will be able to use the \verb|check_jmx| command in the Nagios monitoring configuration.
 
@@ -393,21 +422,23 @@ Open file /etc/nagios/nagios.cfg with a text editor. \\
 This file is the main configuration file of Nagios. It references a number of files with extension ".cfg", which contains specific monitoring configurations.
 
 Change the contacts information for alerting services by changing the email address in file: /usr/local/nagios/etc/objects/contacts.cfg: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 define contact{
   contact_name  nagiosadmin
   use   generic-contact
  alias   Nagios
  email   nagios@localhost
 }
-\end{verbatim}
+\end{lstlisting}
 
 Other alerting methods such as SMS messages and paging are also available. Please refer to the following web page for more information: \url{http://nagios.sourceforge.net/docs/3_0/objectdefinitions.html}.
 
 Change the Apache web server configuration file \verb|/etc/httpd/conf/httpd.conf| file by adding the following line: \\
 \verb|Include /etc/httpd/conf/nagios.conf| \\
 File \verb|/etc/httpd/conf/nagios.conf| is the configuration file for Nagios web interface, the content of this file should be similar to the following:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 # Specifies the location of the cgi scripts.
 ScriptAlias /nagios/cgi-bin /usr/local/nagios/sbin
 <Directory "/usr/local/nagios/sbin">
@@ -426,15 +457,16 @@ Alias /nagios /usr/local/nagios/share
   Order allow,deny
   Allow from all
 </Directory>
-\end{verbatim}
+\end{lstlisting}
 
 This configuration specifies the root as well as the CGI directories for Nagios web UI, to enable access by users, we need to create file \verb|/usr/local/nagios/sbin/.htaccess| and \verb|/usr/local/nagios/share/.htaccess|, with the following content:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 AuthName "Nagios Access"
 AuthType Basic
 AuthUserFile /etc/nagios/htpasswd.users
 require valid-user
-\end{verbatim}
+\end{lstlisting}
 
 Create an administrator user for the Nagios web UI with command: \\
 \verb|$ sudo htpasswd -c /etc/nagios/htpasswd.users nagiosadmin|
@@ -451,7 +483,8 @@ cfg_file=/etc/nagios/services.cfg
 These two lines tell the main configuration file nagios.cfg to include two user specific configuration files: hosts.cfg and services.cfg.
 
 Configuration file hosts.cfg specifies the hosts we want to monitor, and it should have content similar to the following: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 #####################################
 ## Declare host groups.
 #####################################
@@ -517,12 +550,13 @@ define host{
    address      10.12.73.254
    use          hdhost
 }
-\end{verbatim}
+\end{lstlisting}
 
 The file configures six hosts to monitor in the cluster, including one master node and the five slave nodes.
 
 Configuration file services.cfg specifies the services we want to monitor. The contents of this file should be similar to the following: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 ###############################################
 ## Service definitions.
 ## For example, we want to monitor the status of
@@ -551,13 +585,14 @@ define service{
    service_description   Total processes
    check_command         check_local_procs!250!400!RSZDT
 }
-\end{verbatim}
+\end{lstlisting}
 
 The service configured in this file will be applied to each host claiming to be in group hdgroup, which is configured in file hosts.cfg.
 
 
 Verify the configurations with command: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 $ sudo nagios --verify-config /etc/nagios/nagios.cfg
 Nagios Core 3.5.0
 Copyright (c) 2009-2011 Nagios Core Development Team and Community Contributors
@@ -573,7 +608,7 @@ Total Warnings: 0
 Total Errors:   0
 
 Things look okay - No serious problems were detected during the pre-flight check
-\end{verbatim}
+\end{lstlisting}
 
 Start the Nagios service with command: \\
 \verb|$ sudo service nagios start|
@@ -584,9 +619,12 @@ Check the status of the service with command: \\
 If Nagios is running, the output should be similar to:\\
 \verb|nagios (pid 21542) is running...|
 
-If SELinux is on, we need to change the context of the web directory with:\\
-\verb|$ chcon -R -t httpd_sys_content_t /usr/local/nagios/sbin/| \\
-\verb|$ chcon -R -t httpd_sys_content_t /usr/local/nagios/share/|
+If SELinux is on, we need to change the context of the web directory with:
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ chcon -R -t httpd_sys_content_t /usr/local/nagios/sbin/
+$ chcon -R -t httpd_sys_content_t /usr/local/nagios/share/
+\end{lstlisting}
 
 Restart the web server with command:\\
 \verb|$ sudo service httpd restart|
@@ -627,7 +665,8 @@ Disable iptables service with the following command: \\
 \verb|$ sudo chkconfig iptables off|
 
 Check the status of iptables with command: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 $ sudo iptables -L
 Chain INPUT (policy ACCEPT)
 target     prot opt source               destination
@@ -637,20 +676,24 @@ target     prot opt source               destination
 
 Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination
-\end{verbatim}
+\end{lstlisting}
 
 \subsection*{How to do it...}
 Use the following recipe to configure Ambari for Hadoop monitoring and management:
 
-Download the repository file from the Horntonworks website with commands: \\
-\verb|$ sudo wget http://public-repo-1.hortonworks.com/ambari/centos6/1.x/GA/ambari.repo -P /etc/yum.repos.d|
+Download the repository file from the Horntonworks website with commands:
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ sudo wget http://public-repo-1.hortonworks.com/ambari/centos6/1.x/GA/ambari.repo -P /etc/yum.repos.d
+\end{lstlisting}
 
 Install the epel repository with command: \\
 \verb|$ sudo yum install epel-release |
 
 
 Verify the repository list with command: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 $ yum repolist
 Loaded plugins: langpacks, presto, refresh-packagekit
 ...
@@ -659,7 +702,7 @@ HDP-UTILS-1.1.0.15    HDP-UTILS-1.1.0.15                52
 Updates-ambari-1.x    ambari-1.x - Updates              10
 ambari-1.x            Ambari 1.x                        5
 epel                  Extra Packages for Enterprise Linux 5 - x86_64
-\end{verbatim}
+\end{lstlisting}
 
 Install Ambari with command: \\
 \verb|$ sudo yum install ambari-server|
@@ -672,7 +715,8 @@ Setup the Ambari server with command: \\
 We will get a warning if SELinux is not disabled and the iptables service will be disabled if hasn"t been. During the configuration process, we will be asked to configure the username and password for the PostgreSQL database. If you choose not to do so, which is the default option, the default username and password will be ambari-server and bigdata. The setup process will then prompt for downloading the Oracle JDK, we should accept the license. The downloaded JDK will be installed to hosts when deploying packages on the cluster.
 
 The output of the setup process is show in the following:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 Using python  /usr/bin/python2.6
 Run postgresql initdb
 Initializing database:                                     [  OK  ]
@@ -699,7 +743,7 @@ Installing JDK to /usr/jdk64
 Successfully installed JDK to /usr/jdk64/jdk1.6.0_31
 Completing setup...
 Ambari Server 'setup' finished successfully
-\end{verbatim}
+\end{lstlisting}
 
 Now, we can start the Ambari server with command: \\
 \verb|$ sudo service ambari-server start|
@@ -786,8 +830,11 @@ Latest release of Chukwa uses HBase for key-value storage. So, before getting st
 
 Next, we can use the following steps to install Chukwa:
 
-Download the latest release from the official website \url{http://incubator.apache.org/chukwa}, for example, use command: \\
-\verb|$ sudo wget http://mirror.symnds.com/software/Apache/incubator/chukwa/chukwa-0.5.0/chukwa-incubating-src-0.5.0.tar.gz -P /usr/local|
+Download the latest release from the official website \url{http://incubator.apache.org/chukwa}, for example, use command:
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ sudo wget http://mirror.symnds.com/software/Apache/incubator/chukwa/chukwa-0.5.0/chukwa-incubating-src-0.5.0.tar.gz -P /usr/local
+\end{lstlisting}
 
 Decompress the archive with command: \\
 \verb|$ sudo tar xvf chukwa-incubating-src-0.5.0.tar.gz|
@@ -795,22 +842,27 @@ Decompress the archive with command: \\
 Create symbolic link from for the directory with: \\
 \verb|$ sudo ln -s chukwa-incubating-src-0.5.0 chukwa|
 
-Change ownership for the directories with: \\
-\verb|$ sudo chown hduser.hduser chukwa-incubating-src-0.5.0 -R| \\
-\verb|$ sudo chown hduser.hduser chukwa -R|
+Change ownership for the directories with: 
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ sudo chown hduser.hduser chukwa-incubating-src-0.5.0 -R
+$ sudo chown hduser.hduser chukwa -R
+\end{lstlisting}
 
 Change environment variables by adding the following content into the \verb|~/.bashrc| file: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 export CHUKWA_HOME=/usr/local/chukwa
 PATH=$CHUKWA_HOME/bin:$PATH
-\end{verbatim}
+\end{lstlisting}
 
 Build Chukwa from source with command: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 $ source ~/.bashrc
 $ cd $CHUKWA_HOME
 $ mvn clean package
-\end{verbatim}
+\end{lstlisting}
 
 When compile finishes, the directory structure of Chukwa will be similar to the following:\\
 \verb|$ chukwa|
@@ -828,20 +880,30 @@ Login to the master node from administrator machine with command: \\
 \subsection*{How to do it...}
 Use the following recipe to configure Chukwa for Hadoop monitoring:
 
-Change the log4j.appender.DRFA variable in file \verb|$HADOOP_HOME/conf/log4j.properties| to be the following: \\
+Change the \verb|log4j.appender.DRFA| variable in file \verb|$HADOOP_HOME/conf/log4j.properties| to be the following: \\
 \verb|log4j.appender.DRFA=org.apache.log4j.net.SocketAppender|
 
-Copy the Hadoop metrics file from the Chukwa directory to the Hadoop configuration directory with: \\
-cp \verb|$CHUKWA_HOME/etc/chukwa/hadoop-metrics.properties $HADOOP_HOME/conf|
+Copy the Hadoop metrics file from the Chukwa directory to the Hadoop configuration directory with:
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ cp $CHUKWA_HOME/etc/chukwa/hadoop-metrics.properties $HADOOP_HOME/conf
+\end{lstlisting}
 
-Copy the client jar file from the Chukwa installation directory to the Hadoop shared directory with:\\
-\verb|$ cp $CHUKWA_HOME/share/chukwa/chukwa-0.5.0-client.jar $HADOOP_HOME/lib|
+Copy the client jar file from the Chukwa installation directory to the Hadoop shared directory with:
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ cp $CHUKWA_HOME/share/chukwa/chukwa-0.5.0-client.jar $HADOOP_HOME/lib
+\end{lstlisting}
 
-Copy the json library from the Chukwa library to the Hadoop library with: \\
-\verb|$ cp $CHUKWA_HOME/share/chukwa/lib/json-simple-1.1.jar $HADOOP_HOME/lib|
+Copy the json library from the Chukwa library to the Hadoop library with:
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ cp $CHUKWA_HOME/share/chukwa/lib/json-simple-1.1.jar $HADOOP_HOME/lib
+\end{lstlisting}
 
 Sync the files and configurations to the slave nodes with command: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 for host in `cat $HADOOP_HOME/conf/slaves`
 do
   echo "Copying file to " $host
@@ -849,7 +911,7 @@ do
   scp $HADOOP_HOME/lib/json-simple-1.1.jar $host: $HADOOP_HOME/lib;
   scp $HADOOP_HOME/conf/hadoop-metrics.properties $host:$HADOOP_HOME/conf
 done
-\end{verbatim}
+\end{lstlisting}
 
 Restart the Hadoop cluster with command: \\
 \verb|$ stop-all.sh| \\
@@ -859,7 +921,8 @@ Start the HBase daemon with command: \\
 \verb|$ start-hbase.sh|
 
 Import the Chukwa schema file to HBase with:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 $ hbase shell < $CHUKWA_HOME/etc/chukwa/hbase.schema
 HBase Shell; enter 'help<RETURN>' for list of supported commands.
 Type "exit<RETURN>" to leave the HBase Shell
@@ -914,13 +977,12 @@ create "chukwa",
 {NAME => "chukwaAgent_metrics", VERSION => 65535},
 {NAME => "chukwaAgent_httpSender", VERSION => 65535}
 0 row(s) in 1.0860 seconds
-\end{verbatim}
+\end{lstlisting}
 
 The output shows that six HBase tables have been created.
 
 Use a text editor to open file \verb|$CHUKWA_HOME/etc/chukwa/chukwa-collector-conf.xml| and comment the chukwaCollector.pipeline property by adding the following strings before and after the property: \\
 \verb|<!--|\\
-
 and
 
 \verb|-->|
@@ -928,13 +990,14 @@ and
 By doing this, we have configured Chukwa to use HBase for log collection storage.
 
 Configure the environment variables in file \verb|$CHUKWA_HOME/etc/chukwa/chukwa-env.sh| to the following: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 export JAVA_HOME=/usr/java/latest
 export HADOOP_HOME=/usr/local/hadoop
 export HBASE_HOME=/usr/local/hbase
 export HADOOP_CONF_DIR=$HADOOP_HOME/conf
 export HBASE_CONF_DIR=$HBASE_HOME/conf
-\end{verbatim}
+\end{lstlisting}
 
 Configure Chukwa to collect data from slave nodes by adding the following hostnames to file \verb|$CHUKWA_HOME/etc/chukwa/agents|: 
 \begin{verbatim}
@@ -953,28 +1016,32 @@ http://slave1:8081
 Multiple collectors can increase the throughput of the data collection process.
 
 Start Chukwa agents with command: 
-\begin{verbatim}
+\lstset{style=bashstyle,language=bash}
+\begin{lstlisting}
 $ start-agents.sh
-We will get the following message:
 slave4: starting agent, logging to /tmp/chukwa/logs/chukwa-hduser-agent-slave4.out
 slave5: starting agent, logging to /tmp/chukwa/logs/chukwa-hduser-agent-slave5.out
 slave1: starting agent, logging to /tmp/chukwa/logs/chukwa-hduser-agent-slave1.out
 slave3: starting agent, logging to /tmp/chukwa/logs/chukwa-hduser-agent-slave3.out
 slave2: starting agent, logging to /tmp/chukwa/logs/chukwa-hduser-agent-slave2.out
-\end{verbatim}
+\end{lstlisting}
 
 Start Chukwa collector with command: 
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 $ start-collectors.sh
 master: starting collector, logging to /tmp/chukwa/logs/chukwa-hduser-collector-master.out
 slave1: starting collector, logging to /tmp/chukwa/logs/chukwa-hduser-collector-slave1.out
-\end{verbatim}
+\end{lstlisting}
 
 Add configuration directory of Hadoop and HBase to Pig CLASSPATH with: \\
 \verb|export PIG_CLASSPATH=$HADOOP_HOME/conf:$HBASE_HOME/conf|
 
-Use pig to analyze the data with command: \\
-\verb|$ pig -Dpig.additional.jars=$HBASE_HOME/hbase-0.94.5.jar:$PIG_HOME/pig-0.11.0.jar $CHUKWA_HOME/share/chukwa/script/pig/ClusterSummary.pig |
+Use pig to analyze the data with command:
+\lstset{style=bashstyle}
+\begin{lstlisting}
+$ pig -Dpig.additional.jars=$HBASE_HOME/hbase-0.94.5.jar:$PIG_HOME/pig-0.11.0.jar $CHUKWA_HOME/share/chukwa/script/pig/ClusterSummary.pig
+\end{lstlisting}
 
 Start the web UI for Hadoop Infrastructure Care Center (HICC) with command: \\
 \verb|$ chukwa hicc|
@@ -1009,7 +1076,8 @@ For more information about the design of Chukwa, please check the \href{http://i
 
 \subsection*{There's more...}
 Due to the instability of this software package, you might need to do some debugging when deploying it onto the cluster. But to get started with Chukwa, it is always advisable to run in local or pseudo-distributed mode, which will start one agent and one collector on the local machine. To do this, the following commands can be used:
-\begin{verbatim}
+\lstset{style=bashstyle}
+\begin{lstlisting}
 $ chukwa agent local
 OK chukwaAgent.checkpoint.dir [File] = /tmp/chukwa/log/
 OK chukwaAgent.checkpoint.interval [Time] = 5000
@@ -1023,7 +1091,7 @@ OK chukwaCollector.rotateInterval [Time] = 300000
 OK chukwaCollector.writerClass [ClassName] = org.apache.hadoop.chukwa.datacollection.writer.PipelineStageWriter
 OK writer.hdfs.filesystem [URI] = hdfs://master:54310
 started Chukwa http collector on port 8081
-\end{verbatim}
+\end{lstlisting}
 
 We can check the status of the daemons by tailing on the log files with the following commands:
 \verb|$ tail -f /tmp/chukwa/logs/agent.log| \\
