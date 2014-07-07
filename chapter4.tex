@@ -95,7 +95,7 @@ This command scans all files on HDFS and prints the size and status.
 Check the locations of file blocks\index{file blocks} with the following command: \\
 \verb|$ hadoop fsck / -files -locations|
 
-The output of this command will contain the following information:
+The output will be similar to Figure \ref{fig:hdfs.block.locations}.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=.95\textwidth]{figs/5163os_04_07.png}
@@ -927,7 +927,7 @@ Query events of a MapReduce job with the following command: \\
 For example, we can query the first 10 events of the job \verb|job_201302281451_0002| using the following command: \\
 \verb|$ hadoop job -events job_201302281451_0002 0 10|
 
-We will get output similar to the following:
+We will get output similar to Figure \ref{fig:task.events}.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_04_13.png}
@@ -1050,7 +1050,7 @@ We will show job management from the web UI.
 
 Check the status of a job by opening the JobTracker URL: \url{master:50030/jobtracker.jsp}.
 
-We will get a web page similar to the following screenshot:
+We will get a web page similar to Figure \ref{fig:mapred.status}.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_04_11.png}
@@ -1060,7 +1060,7 @@ From this web page, we can get the cluster summary information, the scheduling i
 
 Kill a job by opening the URL, \url{master:50030/jobdetails.jsp?jobid=job_201302281451_0007&action=kill}.
 
-After a while, the killed job will be listed in the Failed Jobs list as shown in the following screenshot:
+After a while, the killed job will be listed in the Failed Jobs list as shown in Figure \ref{fig:failed.job}.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_04_12.png}
@@ -1091,9 +1091,9 @@ We will be able to get a web page similar to Figure \ref{fig:history.jobs}
   \caption{History jobs}\label{fig:history.jobs}
 \end{figure} 
 
-On the web UI, we can filter jobs based on the username and job name in the format \textbf{username:jobname} as shown in the screenshot. username should be the username that runs a certain job, and job name should contain keywords of Hadoop jobs.
+On the web UI, we can filter jobs based on the username and job name in the format \textbf{username:jobname} as shown in Figure \ref{fig:history.jobs}. username should be the username that runs a certain job, and job name should contain keywords of Hadoop jobs.
 
-From the web UI, we will be able to get a list of jobs in the Available Jobs in History section. By clicking on the Job Id link of a job, we can get the details of the job as shown in the following screenshot:
+From the web UI, we will be able to get a list of jobs in the Available Jobs in History section. By clicking on the Job Id link of a job, we can get the details of the job as shown in Figure \ref{fig:specific.job.history}.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_04_02.png}
@@ -1101,7 +1101,7 @@ From the web UI, we will be able to get a list of jobs in the Available Jobs in 
 \end{figure} 
 This web page shows the details of the job, including task information such as total, successful, failed, and killed tasks. The information also includes the start time and end time of four phases of a Hadoop job including setup, map, reduce, and cleanup phases.
 
-The web page also contains information of counters of the job as shown in the lower part of the screenshot.
+The web page also contains information of counters of the job as shown in the lower part of Figure \ref{fig:specific.job.history}.
 
 In addition to the summary of job information, the web UI provides interface for us to analyze a job. By clicking on the link \emph{Analyze This Job}, we will go to a web page similar to Figure \ref{fig:task.statistics}.\index{taks statistics}
 \begin{figure}[ht]
@@ -1111,13 +1111,13 @@ In addition to the summary of job information, the web UI provides interface for
 \end{figure} 
 The web page contains information of simple time analytics for each task, for example the best performing tasks that take the shortest time, the worse performing tasks, and the average time taken by all the tasks.
 
-To further check the information of a task, we can click on the link for the task, and we will get a web page similar to the following screenshot:
+To further check the information of a task, we can click on the link for the task, and we will get a web page similar to Figure \ref{fig:task.info}.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=.7\textwidth]{figs/5163os_04_04.png}
   \caption{Information of a task}\label{fig:task.info}
 \end{figure} 
-We can get the counters of a task by clicking on the Counters field of the task as shown in the preceding screenshot, or we can get the same web page by opening URL \url{http://master:50030/taskstats.jsp?tipid=task_201302281211_0001_m_000000}.
+We can get the counters of a task by clicking on the Counters field of the task as shown in Figure \ref{fig:task.info}, or we can get the same web page by opening URL \url{http://master:50030/taskstats.jsp?tipid=task_201302281211_0001_m_000000}.
 
 In this URL, \verb|task_201302281211_0001_m_000000| is the task ID we want to get counters for.
 
@@ -1127,497 +1127,7 @@ We will be able to get task counters as shown in Figure \ref{fig:task.counters}
   \includegraphics[width=.8\textwidth]{figs/5163os_04_05.png}
   \caption{Task Counters}\label{fig:task.counters}
 \end{figure} 
-In addition to all these web services, the web UI provides a graphical display of the progress of Hadoop jobs and each phase as shown in the following screenshot: \\
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=.8\textwidth]{figs/5163os_04_06.png}
-  \caption{Progress of map and reduce tasks from the web UI}\label{fig:mapreduce.progress}
-\end{figure} 
-
-This screenshot shows the progress of each map and reduce task. The reduce task is composed of three phases, the shuffle phase, the sort phase, and the reduce phase, with each phase composing of $\frac{1}{3}$ of the total reduce task.
-
-\subsection*{How it works...}
-The meaning of the job history URL, \url{master:50030/jobhistoryhome.jsp}, can be explained as in the following table:
-\begin{table}
-  \centering
-  \begin{tabular}{ll}
-    \toprule 
-    \textbf{Field} & \textbf{Description} \\  \midrule
-    master & Hostname of machine that runs the JobTracker daemon. \\
-    50030 & The port number of the JobTracker embedded web server. \\
-    jobhistoryhome.jsp & The .jsp file name that provides the job history service. \\ \bottomrule
-  \end{tabular}
-  \caption{Jobhistory Web UI description}\label{tbl:jobhistory}
-\end{table}
-
-The web UI can be automatically updated every five seconds; this interval can be modified by changing the \verb|mapreduce.client.completion.pollinterval| property in the \verb|$HADOOP_HOME/conf/mapred-site.xml| file similar to the following:
-\lstset{style=bashstyle}
-\begin{lstlisting}[language=XML]
-<property>
-   <name>mapreduce.client.completion.pollinterval</name>
-   <value>5000</value>
-</property>
-\end{lstlisting}
-
-The following table shows the summary of URIs we can use to check the status of jobs, tasks, and attempts:
-\begin{table}
-  \scriptsize
-  \centering
-  \begin{tabular}{ll}
-    \toprule 
-    \textbf{URL} & \textbf{Description} \\ \midrule
-    master:50030/jobtracker.jsp & JobTracker.\\
-    master:50030/jobhistoryhome.jsp & Job history. \\
-    \url{master:50030/jobtasks.jsp?jobid=<jobID>&type=map&pagenum=1} & List of all map tasks. \\
-    \url{master:50030/jobtasks.jsp?jobid=<jobID>&type=reduce&pagenum=1} & List of all reduce tasks. \\
-    \url{master:50030/taskdetails.jsp?tipid=<taskID>} & Task attempt details. \\
-    \url{master:50030/taskstats.jsp?attemptid=<attempID>} & Attempt counters. \\ \bottomrule
-  \end{tabular}
-  \caption{URIs for status of jobs, tasks and attempts}\label{tbl:statusuris}
-\end{table}
-
-The following table lists the naming examples for jobID, taskID, and attemptID:
-\begin{table}
-  \centering
-  \begin{tabular}{ll}
-    \toprule 
-    \textbf{ID} & \textbf{Example} \\ \midrule
-    jobID & \verb|job_201302281451_0001| \\ 
-    taskID & \verb|task_201302281451_0001_m_000000| \\
-    attemptID & \verb|attempt_201302281451_0001_m_000000_0| \\ \bottomrule
-  \end{tabular}
-  \caption{Examples of jobID, taskId and attemptId}\label{tbl:ids}
-\end{table}
-
-\subsection*{See also}
-\begin{itemize}
-  \item The Validating Hadoop installation recipe of Chapter \ref{chap:3}, Configuring a Hadoop Cluster
-  \item The Managing MapReduce jobs recipe
-\end{itemize}
-\section{Importing data to HDFS}\index{hadoop fs}
-If our Big Data is on the local filesystem, we need to move it to HDFS. In this section, we will list steps to move data from the local filesystem to the HDFS filesystem.
-
-\subsection*{Getting ready}
-We assume that our Hadoop cluster has been properly configured and all the Hadoop daemons are running without any issues. And we assume that the data on the local system is in the directory /data.
-\subsection*{How to do it...}
-Perform the following steps to import data to HDFS: 
-
-Use the following command to create a data directory on HDFS: \\
-\verb|$ hadoop fs -mkdir data|
-
-This command will create a directory \url{/user/hduser/data} in the HDFS filesystem.
-
-Copy the data file from the local directory to HDFS using the following command:
-\lstset{style=bashstyle}
-\begin{lstlisting}[language=bash]
-$ hadoop fs -cp file:///data/datafile /user/hduser/data
-\end{lstlisting}
-
-Alternatively, we can use the command: \\
-\verb|hadoop fs -put /data/datafile /user/hduser/data|
-
-Verify the data file on HDFS with the following command: \\
-\verb|$ hadoop fs -ls /user/hduser/data|
-
-Move the data file from the local directory to HDFS with command:
-\lstset{style=bashstyle}
-\begin{lstlisting}[language=bash]
-$ hadoop fs -mv file:///data/datafile /user/hduser/data
-\end{lstlisting}
-
-The local copy will be deleted if you use this command.
-
-Use distributed copy to copy the large data file to HDFS:
-\lstset{style=bashstyle}
-\begin{lstlisting}[language=bash]
-$ hadoop distcp file:///data/datafile /user/hduser/data
-\end{lstlisting}
-This command will initiate a MapReduce job with a number of mappers to run the copy task in parallel.
-\subsection*{There's more...}
-To copy multiple files from the local directory to HDFS, we can use the following command: \\
-\verb|$ hadoop fs -copyFromLocal src1 src2 data|
-
-This command will copy two files src1 and src2 from the local directory to the data directory on HDFS.
-
-Similarly, we can move files from the local directory to HDFS. Its only difference from the previous command is that the local files will be deleted. \\
-\verb|$ hadoop fs -moveFromLocal src1 src2 data|
-
-This command will move two files, \textbf{src1} and \textbf{src2}, from the local directory to HDFS.
-
-Although distributed copy can be faster than the simple data importing commands, it can incur large load to the node that the data resides on, because of the possibly of high data transfer requests. distcp will be more useful when copying data from one HDFS location to another. For example:
-\lstset{style=bashstyle}
-\begin{lstlisting}[language=bash]
-$ hadoop distcp hdfs:///user/hduser/file hdfs:///user/hduser/file-copy
-\end{lstlisting}
-\subsection*{How it works...}
-We can get the usage of the fs command with the following:
-\lstset{style=bashstyle}
-\begin{lstlisting}
-$ hadoop fs
-Usage: java FsShell
-           [-ls <path>]
-           [-lsr <path>]
-           [-du <path>]
-           [-dus <path>]
-           [-count[-q] <path>]
-           [-mv <src> <dst>]
-           [-cp <src> <dst>]
-           [-rm [-skipTrash] <path>]
-           [-rmr [-skipTrash] <path>]
-           [-expunge]
-           [-put <localsrc> ... <dst>]
-           [-copyFromLocal <localsrc> ... <dst>]
-           [-moveFromLocal <localsrc> ... <dst>]
-           [-get [-ignoreCrc] [-crc] <src> <localdst>]
-           [-getmerge <src> <localdst> [addnl]]
-           [-cat <src>]
-           [-text <src>]
-           [-copyToLocal [-ignoreCrc] [-crc] <src> <localdst>]
-           [-moveToLocal [-crc] <src> <localdst>]
-           [-mkdir <path>]
-           [-setrep [-R] [-w] <rep> <path/file>]
-           [-touchz <path>]
-           [-test -[ezd] <path>]
-           [-stat [format] <path>]
-           [-tail [-f] <file>]
-           [-chmod [-R] <MODE[,MODE]... | OCTALMODE> PATH...]
-           [-chown [-R] [OWNER][:[GROUP]] PATH...]
-           [-chgrp [-R] GROUP PATH...]
-           [-help [cmd]]
-\end{lstlisting}
-The \verb|<src>| and \verb|<dst>| parameters for these data import commands use different default filesystem schema if no one has been explicitly specified in the command.
-
-The default \verb|<src>| filesystem schema for \verb|-cp| and \verb|-mv| is \verb|hdfs:///|, which is configured with the \emph{fs.default.name} property in the file \verb|$HADOOP_HOME/conf/core-site.xml|. While the default <src> filesystem schema for -put, -copyFromLocal, and -moveFromLocal is \verb|file:///|.
-
-The default \verb|<dst>| filesystem schema for all these commands is \verb|hdfs:///|.
-\subsection*{See also}
-  \begin{itemize}
-  \item The Managing the HDFS cluster recipe
-  \item The Manipulating files on HDFS recipe
-\end{itemize}
-
-\section{Manipulating files on HDFS}\index{hadoop fs}
-Besides commands to copy files from the local directory, HDFS provides commands to operate on files. In this section, we will show you how to operate files, such as downloading files from HDFS, checking the content of files, and removing files from HDFS.
-\subsection*{Getting ready}
-We assume that our Hadoop cluster has been properly configured and all the daemons are running without any issues.
-\subsection*{How to do it...}
-Perform the following steps to check the status of files and directory on HDFS:
-
-List files of the user's home directory on HDFS using the following command:
-\lstset{style=bashstyle}
-\begin{lstlisting}
-$ hadoop fs -ls .
-Found 7 items
-drwx------ - hduser supergroup   0 2013-02-21 22:17 /user/hduser/.staging
--rw-r--r-- 2 hduser supergroup 646 2013-02-21 22:28 /user/hduser/file1
--rw-r--r-- 2 hduser supergroup 848 2013-02-21 22:28 /user/hduser/file2
-...
-\end{lstlisting}
-
-To recursively list files in the home directory, we can use the command \verb|hadoop fs -lsr ...|
-
-Check the space usage of files and folders in the home directory with the following command:
-\lstset{style=bashstyle}
-\begin{lstlisting}
-$ hadoop fs -du .
-Found 7 items
-648521        hdfs://master:54310/user/hduser/.staging
-646           hdfs://master:54310/user/hduser/file1
-3671517       hdfs://master:54310/user/hduser/file2
-...
-\end{lstlisting}
-
-The first column shows the size of the file in bytes and the second column shows the location of files on HDFS.
-
-Sometimes, we can get a summarized usage of a directory with the command hadoop fs -dus .. It will show us the total space usage of the directory rather than the sizes of individual files and folders in the directory. For example, we can get a one-line output similar to the following: \\
-\verb|$ hdfs://master:54310/user/hduser    109810605367|
-
-Check the content of a file with the following command: \\
-\verb|$ hadoop fs -cat file1|
-
-This command is handy to check the content of small files. But when the file is large, it is not recommended. Instead, we can use the command hadoop fs -tail file1 to check the content of the last few lines.
-
-Alternatively, we can use the command hadoop fs -text file1 to show the content of file1 in text format.
-
-Use the following commands to test if file1 exists, is empty, or is a directory:
-\begin{verbatim}
-$ hadoop fs -test -e file1
-$ hadoop fs -test -z file1
-$ hadoop fs -test -d file1
-\end{verbatim}
-
-Check the status of file1 using the following command: \\
-\verb|$ hadoop fs -stat file1|
-
-Perform the following steps to manipulate files and directories on HDFS:
-
-Empty the trash using the following command: \\
-\verb|$ hadoop fs -expunge|
-
-Merge files in a directory dir and download it as one big file:\\
-\verb|$ hadoop fs -getmerge dir file1|
-
-This command is similar to the cat command in Linux. It is very useful when we want to get the MapReduce output as one file rather than several smaller partitioned files.
-
-For example, the command can merge files \verb|dir/part-00000|, \verb|dir/part-00001|, and so on to file1 to the local filesystem.
-
-Delete file1 under the current directory using the following command:\\
-\verb|$ hadoop fs -rm file1|
-
-Note that this command will not delete a directory. To delete a directory, we can use the command hadoop fs -rmr dir. It is very similar to the Linux command rm -r, which will recursively delete everything in the directory dir and the directory itself. So use it with caution.
-
-Download file1 from HDFS using the following command: \\
-\verb|$ hadoop fs -get file1|
-
-The file1 file under the directory \verb|/user/hduser| will be downloaded to the current directory on the local filesystem.
-
-Change the group membership of a regular file with the following command: \\
-\verb|$ hadoop fs -chgrp hadoop file1|
-
-In this command, we are assuming group hadoop exists. \\
-Also, we can use the command \verb|hadoop fs -chgrp -R <hadoop-dir>| to change the group membership of a directory dir recursively.
-
-Change the ownership of a regular file with the following command: \\
-\verb|$ hadoop fs -chown hduser file1|
-
-Similarly, we can use the command \verb|hadoop fs -chown hdadmin -R <dir>| to change the ownership of a directory dir recursively.
-
-Change the mode of a file with the following command: \\
-\verb|$ hadoop fs -chmod 600 file1|
-
-The mode of files and directories under HDFS follows a similar rule as the mode under Linux.
-
-Set the replication factor of file1 to be 3 using the following command:\\
-\verb|$ hadoop fs -setrep -w 3 file1|
-
-Create an empty file using the following command: \\
-\verb|$ hadoop fs -touchz 0file|
-\subsection*{How it works...}
-We can get the usage of the fs command with the following command:
-\lstset{style=bashstyle}
-\begin{lstlisting}
-$ hadoop fs
-Usage: java FsShell
-           [-ls <path>]
-           [-lsr <path>]
-           [-du <path>]
-           [-dus <path>]
-           [-count[-q] <path>]
-           [-mv <src> <dst>]
-           [-cp <src> <dst>]
-           [-rm [-skipTrash] <path>]
-           [-rmr [-skipTrash] <path>]
-           [-expunge]
-           [-put <localsrc> ... <dst>]
-           [-copyFromLocal <localsrc> ... <dst>]
-           [-moveFromLocal <localsrc> ... <dst>]
-           [-get [-ignoreCrc] [-crc] <src> <localdst>]
-           [-getmerge <src> <localdst> [addnl]]
-           [-cat <src>]
-           [-text <src>]
-           [-copyToLocal [-ignoreCrc] [-crc] <src> <localdst>]
-           [-moveToLocal [-crc] <src> <localdst>]
-           [-mkdir <path>]
-           [-setrep [-R] [-w] <rep> <path/file>]
-           [-touchz <path>]
-           [-test -[ezd] <path>]
-           [-stat [format] <path>]
-           [-tail [-f] <file>]
-           [-chmod [-R] <MODE[,MODE]... | OCTALMODE> PATH...]
-           [-chown [-R] [OWNER][:[GROUP]] PATH...]
-           [-chgrp [-R] GROUP PATH...]
-           [-help [cmd]]
-\end{lstlisting}
-
-To get help for each individual command, we can use the -help option. For example, we can get the help of the list command with the following:
-\lstset{style=bashstyle}
-\begin{lstlisting}
-$ hadoop fs -help ls
--ls <path>:     List the contents that match the specified file pattern. If
-                path is not specified, the contents of /user/<currentUser>
-                will be listed. Directory entries are of the form
-                        dirName (full path) <dir>
-                and file entries are of the form
-                        fileName(full path) <r n> size
-                where n is the number of replicas specified for the file
-                and size is the size of the file, in bytes.
-\end{lstlisting}
-\section{Configuring HDFS quota}\index{HDFS quota}
-In a multiuser environment, quota can enforce the fair share of computing resources. HDFS supports quota for users and directories. In this recipe, we will list steps to configure HDFS quota.
-
-\subsection*{Getting ready}
-We assume that the Hadoop cluster has been configured properly and all the daemons are running without any issues.
-
-\subsection*{How to do it...}
-Perform the following steps to manage HDFS quota:
-
-Set name quota on the home directory with the following command: \\
-\verb|$ hadoop dfsadmin -setQuota 20 /usr/hduser|
-
-This command will set name quota\index{name quota} on the home directory to 20, which means at most 20 files, including directories, can be created under the home directory. 
-
-If we reach the quota, we will get an error message: 
-\lstset{style=bashstyle}
-\begin{lstlisting}
-put: org.apache.hadoop.hdfs.protocol.NSQuotaExceededException: The NameSpace quota (directories and files) of directory \verb|/user/hduser| is exceeded: quota=20 file count=141
-\end{lstlisting}
-
-Set space quota\index{space quota} of the current user's home directory to be \textbf{100000000} with the following command:
-\lstset{style=bashstyle}
-\begin{lstlisting}[language=bash]
-$ hadoop dfsadmin -setSpaceQuota 100000000 /user/hduser
-\end{lstlisting}
-
-If the space usage under the directory \verb|/user/hduser| exceeds the specified quota, we will get an error message similar to the following: \\
-\lstset{style=bashstyle}
-\begin{lstlisting}
-put: org.apache.hadoop.hdfs.protocol.DSQuotaExceededException: The DiskSpace quota of /user/hduser is exceeded: quota=100000000 diskspace consumed=204.5g
-\end{lstlisting}
-
-Check the quota status with the following command:
-\lstset{style=bashstyle}
-\begin{lstlisting}[language=bash]
-$ hadoop fs -count -q /user/hduser
-\end{lstlisting}
-We will get output similar to the following before setting quota: \\
-\lstset{style=bashstyle}
-\begin{lstlisting}
-none inf  none inf 13  127  109810605367 hdfs://master:54310/user/hduser
-\end{lstlisting}
-
-And we can get the following quota has been set:
-\lstset{style=bashstyle}
-\begin{lstlisting}
-100  -40  100000000 -219525889438  13  127  1098106  05367 hdfs://master:54310/user/hduser
-\end{lstlisting}
-
-The meaning of output columns are 
-\begin{verbatim}
-DIR_COUNT FILE_COUNT 
-CONTENT_SIZE FILE_NAME
-QUOTA
-REMAINING_QUATA SPACE_QUOTA
-REMAINING_SPACE_QUOTA
-DIR_COUNT 
-FILE_COUNT 
-CONTENT_SIZE 
-FILE_NAME
-\end{verbatim}
-
-Clear the name quota with the following command: \\
-\verb|$ hadoop dfsadmin -clrQuota /user/hduser|
-
-Clear the space quota with the following command: \\
-\verb|$ hadoop dfsadmin -clrSpaceQuota /user/hduser|
-
-\subsection*{How it works...}
-We can get the usage of the \verb|hadoop fs| command with the following command:
-\lstset{style=bashstyle}
-\begin{lstlisting}
-$ hadoop dfsadmin
-Usage: java DFSAdmin
-           [-report]
-           [-safemode enter | leave | get | wait]
-           [-saveNamespace]
-           [-refreshNodes]
-           [-finalizeUpgrade]
-           [-upgradeProgress status | details | force]
-           [-metasave filename]
-           [-refreshServiceAcl]
-           [-refreshUserToGroupsMappings]
-           [-refreshSuperUserGroupsConfiguration]
-           [-setQuota <quota> <dirname>...<dirname>]
-           [-clrQuota <dirname>...<dirname>]
-           [-setSpaceQuota <quota> <dirname>...<dirname>]
-           [-clrSpaceQuota <dirname>...<dirname>]
-           [-setBalancerBandwidth <bandwidth in bytes per second>]
-           [-help [cmd]]
-\end{lstlisting}
-
-The generic usage of -count command is: \\
-\verb|$ hadoop fs -count -q <path>|
-
-In this command \verb|-q| specifies the directory to query. 
-
-\section{Configuring CapacityScheduler}\index{CapacityScheduler}
-Hadoop CapacityScheduler is a pluggable MapReduce job scheduler. The goal is to maximize the Hadoop cluster utilization by sharing the cluster among multiple users. CapacityScheduler uses queues to guarantee the minimum share of each user. It has features of being secure, elastic, operable, and supporting job priority. In this recipe, we will outline steps to configure CapacityScheduler for a Hadoop cluster.
-
-\subsection*{Getting ready}
-We assume that our Hadoop cluster has been properly configured and all the daemons are running without any issues.
-Log in to the master node from the cluster administrator machine using the following command:\\
-\verb|$ ssh hduser@master|
-
-\subsection*{How to do it...}
-Configure CapacityScheduler with the following steps: 
-
-Configure Hadoop to use CapacityScheduler by adding the following lines into the file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
-\lstset{style=bashstyle}
-\begin{lstlisting}[language=XML]
-<property>
-    <name>mapred.jobtracker.taskScheduler</name>
-    <value>org.apache.hadoop.mapred.CapacityTaskScheduler </value>
-</property>
-\end{lstlisting}
-
-Define a new queue, hdqueue, by adding the following lines into the file \verb|$HADOOP_HOME/conf/mapred-site.xml|:
-\lstset{style=bashstyle}
-\begin{lstlisting}[language=XML]
-<property>
-    <name>mapred.queue.names</name>
-    <value>default,hdqueue</value>
-  </property>
-\end{lstlisting}
-
-\begin{info}
-By default, a Hadoop cluster has only one default queue.
-\end{info}
-Configure CapacityScheduler queues by adding the following lines into the file \verb|$HADOOP_HOME/conf/capacity-scheduler.xml|:
-\lstset{style=bashstyle}
-\begin{lstlisting}[language=XML]
-<property>
-  <name>mapred.capacity-scheduler.queue.hdqueue.capacity</name>
-  <value>20</value>
-</property>
-
-<property>
-  <name>mapred.capacity-scheduler.queue.default.capacity</name>
-  <value>80</value>
-</property>
-
-<property>
-  <name>mapred.capacity-scheduler.queue.hdqueue.minimum-user-limit-percent</name>
-  <value>20</value>
-</property>
-
-<property>
-  <name>mapred.capacity-scheduler.maximum-system-jobs</name>
-  <value>10</value>
-</property>
-
-<property>
-  <name>mapred.capacity-scheduler.queue.hdqueue.maximum-initialized-active-tasks</name>
-  <value>500</value>
-</property>
-
-<property>
-  <name>mapred.capacity-scheduler.queue.hdqueue.maximum-initialized-active-tasks-per-user</name>
-  <value>100</value>
-</property>
-
-<property>
-  <name>mapred.capacity-scheduler.queue.hdqueue.supports-priority</name>
-  <value>true</value>
-</property>
-\end{lstlisting}
-
-Restart the MapReduce cluster with the following commands:
-\lstset{style=bashstyle}
-\begin{lstlisting}
-$ stop-mapred.sh
-$ start-mapred.sh
-\end{lstlisting}
-
-From the JobTracker web UI, we can get a queue scheduling information web page similar to the following screenshot: \\
+In addition to all these web services, the web UI provides a graphical display of the progress of Hadoop jobs and each phase as shown in Figure \ref{fig:mapreduce.progress}.racker web UI, we can get a queue scheduling information web page similar to Figure \ref{fig:mapred.scheduling}.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=.55\textwidth]{figs/5163os_04_17.png}
@@ -1625,13 +1135,13 @@ From the JobTracker web UI, we can get a queue scheduling information web page s
 \end{figure} 
 Alternatively, we can use the command hadoop queue -list to get the same information. 
 
-Get the schedule details of each queue by opening the URL, master:50030/scheduler, and we can get a web page similar to the following: 
+Get the schedule details of each queue by opening the URL, master:50030/scheduler, and we can get a web page similar to Figure \ref{fig:job.queues}.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=.90\textwidth]{figs/5163os_04_18.png}
   \caption{Job Scheduler Queues}\label{fig:job.queues}
 \end{figure} 
-This screenshot shows the status of each queue in the cluster including the numbers of running jobs, pending jobs, and so on. 
+ Figure \ref{fig:job.queues} shows the status of each queue in the cluster including the numbers of running jobs, pending jobs, and so on. 
 
 Test the queue configuration by submitting an example wordcount job to the queue hdqueue using the following command: 
 \lstset{style=bashstyle}
@@ -1726,7 +1236,7 @@ $ start-mapred.sh
 
 Verify the setting of Fair Scheduler by opening the URL \url{http://master:50030/scheduler}.
 
-The web page will be similar to the following screenshot:
+The web page will be similar to Figure \ref{fig:fairscheduler}
 \begin{figure}[ht]
   \centering
   \includegraphics[width=.90\textwidth]{figs/5163os_04_16.png}
