@@ -47,8 +47,7 @@ Use the following steps to build a Hadoop based Big Data platform:
   \item Design, implement and deploy result delivery subsystems. The delivery subsystems should transform the analytical results from a Hadoop compatible format to a proper format for end users. For example, we can design web applications to visualize the analytical results using charts, graphs or other types of dynamic web applications.
 \end{enumerate}
 \subsection*{How it works}
-The architecture of a Hadoop based Big Data system can be described with the following figure:
-
+The architecture of a Hadoop based Big Data system can be described in Figure \ref{fig:hadoop.architecture}.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_01_01.png}
@@ -61,7 +60,7 @@ HDFS is the default filesystem of Hadoop. It was designed as a distributed files
 
 MapReduce\index{MapReduce} provides a programming model that transforms complex computations into computations over a set of key-value pairs. It coordinates the processing of tasks on a cluster of nodes by scheduling jobs, monitoring activity and re-executing failed tasks.
 
-In a typical MapReduce job, multiple map tasks on slave nodes are executed in parallel, generating results buffered on local machines. Once some or all of the map tasks have finished, the shuffle process begins, which aggregates the map task outputs by sorting and combining key-value pairs based on keys. Then, the shuffled data partitions are copied to reducer machine(s), most commonly, over the network. Then, reduce tasks will run on the shuffled data and generate final (or intermediate, if multiple consecutive MapReduce jobs are pipelined) results. When a job finishes, final results will reside in multiple files, depending on the number of reducers used in the job. The anatomy of the job flow can be described in the following chart:
+In a typical MapReduce job, multiple map tasks on slave nodes are executed in parallel, generating results buffered on local machines. Once some or all of the map tasks have finished, the shuffle process begins, which aggregates the map task outputs by sorting and combining key-value pairs based on keys. Then, the shuffled data partitions are copied to reducer machine(s), most commonly, over the network. Then, reduce tasks will run on the shuffled data and generate final (or intermediate, if multiple consecutive MapReduce jobs are pipelined) results. When a job finishes, final results will reside in multiple files, depending on the number of reducers used in the job. The anatomy of the job flow can be described in Figure \ref{fig:mapred.job}.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_01_02.png}
