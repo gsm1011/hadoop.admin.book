@@ -19,7 +19,6 @@ Next, we will introduce Hadoop specific monitoring systems Ambari and Chukwa. Am
 
 \section{Monitoring Hadoop cluster with JMX}
 Java Management eXtensions (JMX) is the technology used by Java to build, monitor and manage distributed systems and network applications. It has been incorporated into Java since J2SE platform 5.0. For more information about JMX, please visit the official website at \url{http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html}. In this recipe, we will outline steps to configure Hadoop cluster monitoring with JMX.
-
 \begin{info}
 Notice: \\
 In this chapter, we assume to monitor Hadoop version 1.1.y or the corresponding 0.20.x Hadoop release. Configurations for monitoring Hadoop versions 2.0.x or 0.23.x should follow the recipe with some changes.
@@ -48,7 +47,6 @@ These two lines specify the passwords for monitorRole and controlRole. JMX will 
 
 Change the permission of the password file to 600 with command: \\
 \verb|$ chmod 600 $HADOOP_HOME/conf/jmxremote.password|
-
 \begin{warning}
 Warning! \\
 If this file is too open, you will get error similar to the following when starting the Hadoop cluster daemons: \\
@@ -84,54 +82,44 @@ Use the following command to start the monitor user interface: \\
 \verb|$ jconsole| \\
 
 We can see a window that is similar to the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_01.png}
   \caption{jconsole UI}\label{fig:jconsole}
 \end{figure} 
-
-%% Insert image 5163os_06_01.png
 From this window, we can check the status of both local and remote processes. Checking the status of local processes is relatively simple. First, select the desired process to check from the process list. Then, we only need to click the ``Connect'' button. Checking the status of remote processes is relatively complicated. We need to specify the location of the service by either specifying hostname and port or protocol and sap as shown in the screenshot. We also need to enter the username and password for authentication purposes.  In the following steps, we assume to check the status of local JobTracker process.
 
 Select the ``Local Process'' radio button and then click ``Connect'' button. We can get a monitoring window after waiting for a few moments:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_02.png}
   \caption{jconsole JobTracker resource usage monitoring UI}\label{fig:jconsole.jobtracker}
 \end{figure} 
-
-%% Insert image 5163os_06_02.png
 The window shows the daemon status for the JobTracker. From the window, we can check the memory usage, threads, classes, summary of JVM and details of MBeans.
 
-Check the memory of the daemon by clicking on the "Memory" tab of the jconsole window and we will get a window similar to the following: \\
-\begin{figure}[h]
+Check the memory of the daemon by clicking on the "Memory" tab of the jconsole window and we will get a window similar to the following:
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_03.png}
   \caption{The Heap Memory Usage Window}\label{fig:heap.usage.window}
 \end{figure} 
-
-%% Insert image 5163os_06_03.png
 The memory window shows the heap memory usage as a time serial chart. From this window, we can select from different charts and time ranges to display. The bottom part of the window is a summary of the current memory usage.
 
 By clicking on the "Threads" tab of the window, we can check the running threads of the JobTracker and we can get a window similar to the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_04.png}
   \caption{Number of Threads Window}\label{fig:num.threads}
 \end{figure} 
-
-%% Insert image 5163os_06_04.png
 The upper part of the window shows the number of peak live threads and the number of current live threads. On the lower part of the window, we can see a list of threads, the information of which can be viewed by clicking on the desired thread names.
 Similarly, we can check the current classes by clicking on the "Classes" tab of the window and check the summary of the JVM virtual machine by clicking on the "VM Summary" tab of the window.
 
 The "MBeans" tab is the most informative one if you want to check the status details of the daemon. For example, the following screenshot shows more metrics details for JobTracker:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_05.png}
   \caption{MBeans Hadoop Metrics}\label{fig:mbeans.hadoop.metrics}
 \end{figure} 
-
-%% Insert image 5163os_06_05.png
 From this window, we can get a number of JobTracker metrics such as number of running jobs, number of map and reduce slots and number of running map and reduce tasks etc.
 \subsection*{See also}
 \begin{itemize}
@@ -306,66 +294,53 @@ The access control setting in this file allows everyone to visit the Ganglia web
 Start the httpd daemon with command: \\
 \verb|$ sudo service httpd start|
 
-Check the status of Ganglia by opening URL \url{http://master:80/ganglia} and we can get webpage similar to the following screenshot: \\
-\begin{figure}[h]
+Check the status of Ganglia by opening URL \url{http://master:80/ganglia} and we can get webpage similar to the following screenshot:
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_06.png}
   \caption{Ganglia Cluster Summary}\label{fig:ganglia.cluster.summary}
 \end{figure} 
-
-%% Insert image 5163os_06_06.png
-
 The upper left portion of the UI is a summary of the cluster, including number of hosts, host status, average load etc.
 
 The upper right part of the screenshot shows an overview of the whole cluster, including cluster total load, cpu usage, memory and network traffic. The screenshot contains a clear jump for about 20 minutes when one teragen job is running, which consumes cluster resources.
 
 The lower part of the screenshot shows the status for each node in the cluster, including the master node and all the slave nodes. We can change the metric to display by selecting from the combo box as shown in the screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_09.png}
   \caption{Ganglia Available Monitoring Metrics}\label{fig:ganglia.metrics}
 \end{figure} 
-
-%% Insert image 5163os_06_09.png
 For example, by selecting metric "\verb|dfs_datenode.bytes_written|", we can get the following screenshot for each node:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_10.png}
   \caption{The bytes written metric for all the Datanodes}\label{fig:bytes.written.metric}
 \end{figure} 
-
-%% Insert image 5163os_06_10.png
 This screenshot confirms that a DataNode is the actual place where data blocks are stored and NameNode only keeps track of the metadata for the data blocks. So the written data size is much smaller for NameNode.
 
-Check the details of each cluster node by selecting from the combo box, which has initial value of "--Choose a Node". For example, if we want to check all the metric for the master node, we will be able to get web page similar to the following screenshot: \\
-\begin{figure}[h]
+Check the details of each cluster node by selecting from the combo box, which has initial value of "--Choose a Node". For example, if we want to check all the metric for the master node, we will be able to get web page similar to the following screenshot:
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_11.png}
   \caption{Metric Status of the \textbf{master} Node}\label{fig:master.status}
 \end{figure} 
-
-%% Insert image 5163os_06_11.png
 By scrolling down the window, we can check the Hadoop JobTracker metrics as shown in the following screenshot: \\
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_12.png}
   \caption{MapReduce jobtracker metrics}\label{fig:jobtracker.metrics}
 \end{figure} 
-
-%% Insert image 5163os_06_12.png
 This screenshot contains the status information of the JobTracker including the number of running jobs, the number of map and reduce slots and so on.
 
 \subsection*{How it works}
 A Ganglia monitoring system is composed of three parts: the monitoring daemons gmond, the meta-data handling daemon gmetad and the web UI.
 
 Ganglia gmond daemons run on each node that is being monitored in the cluster. They continuously collect metrics data and send to the gmetad daemon running on the master node. The gmetad daemon stores data into a database maintained by rrdtool. The web UI, including all the graphs, is generated with PHP by pulling the data from the database. The Ganglia data flow can be described with the following figure:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.6\textwidth]{figs/5163os_06_13.png}
   \caption{The Ganglia Data Flow Diagram}\label{fig:ganglia.dataflow}
 \end{figure} 
-
-%% Insert image 5163os_06_13.png
 \subsection*{See also}
 \begin{itemize}
   \item Monitoring Hadoop cluster with JMX
@@ -432,7 +407,6 @@ Other alerting methods such as SMS messages and paging are also available. Pleas
 Change the Apache web server configuration file \verb|/etc/httpd/conf/httpd.conf| file by adding the following line: \\
 \verb|Include /etc/httpd/conf/nagios.conf| \\
 File \verb|/etc/httpd/conf/nagios.conf| is the configuration file for Nagios web interface, the content of this file should be similar to the following:
-
 \begin{verbatim}
 # Specifies the location of the cgi scripts.
 ScriptAlias /nagios/cgi-bin /usr/local/nagios/sbin
@@ -734,92 +708,67 @@ Visit the web UI by opening URL: \url{http://master:8080}. \\
 Now, we need to login to the Ambari server with username and password both as admin.
 
 After login, we will be able to install and manage our Hadoop cluster from the Ambari web UI, which is similar to the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_14.png}
   \caption{Start Apache Ambari Installation}\label{fig:ambari.welcome}
 \end{figure} 
-
-%% Insert image 5163os_06_14.png
-
 Next, we need to configure the install options as shown in the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_15.png}
   \caption{Configure Installation Options}\label{fig:ambari.install.options}
 \end{figure} 
-
-%% Insert image 5163os_06_15.png
-
 After specifying the installation options as shown in the screenshot, we can click the "Register and Confirm" button to start the installation process.  This will lead to the host registration progress page as shown in the following screenshot. In this step, we need to confirm hosts to install Hadoop.
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_17.png}
   \caption{Host Registration for the Hadoop Cluster}\label{fig:host.registration}
 \end{figure} 
-
-%% Insert image 5163os_06_17.png
 By clicking the "Next" button, we will go the a webpage to choose the services to install as shown in the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_18.png}
   \caption{Choose Services to Install}\label{fig:choose.services}
 \end{figure} 
-
-%% Insert image 5163os_06_18.png
 By default, all the services are selected to installed, we can make changes based on the requirements and then click the "Next" button. We will go to a webpage of to assign hosts as masters, slaves and clients, as shown in the following screenshots:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_19.png}
   \caption{Assign hosts for master nodes}\label{fig:assign.masters}
 \end{figure} 
 
-%% Insert image 5163os_06_19.png
-
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_20.png}
   \caption{Assign hosts for slaves and clients}\label{fig:assign.slaves}
 \end{figure} 
-
-%% Insert image 5163os_06_20.png
 Next, we will go to a webpage for customizing services, for example configuring the location for the NameNode directory. In this step, some services such as Hive and Nagios may ask you to enter administrative usernames and passwords, which are required for service installation.
 
 After everything is configured, we will get a summary page about our configurations as shown in the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_22.png}
   \caption{Review Configuration before Installation}\label{fig:config.review}
 \end{figure} 
-
-%% Insert image 5163os_06_22.png
-
 By clicking on the "Deploy" button, the cluster deployment will start and a progress bar will appear for each service that is being installed as shown in the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_24.png}
   \caption{The Hadoop Installation Process}\label{fig:hadoop.install.process}
 \end{figure} 
-
-%% Insert image 5163os_06_24.png
-
 After the deployment completes, we will get a summary page as shown in the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_26.png}
   \caption{Summary of the Installation Process}\label{fig:install.summary}
 \end{figure} 
-
-%% Insert image 5163os_06_26.png
-
 By clicking on the "Complete" button, the cluster installation process will complete, and we will be able to see the status of the cluster as shown in the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_27.png}
   \caption{Cluster Status after Installation}\label{fig:cluster.status}
 \end{figure} 
-
-%% Insert image 5163os_06_27.png
 \subsection*{See also}
 \begin{itemize}
   \item Monitoring Hadoop cluster with JMX
@@ -909,8 +858,7 @@ Restart the Hadoop cluster with command: \\
 Start the HBase daemon with command: \\
 \verb|$ start-hbase.sh|
 
-Import the Chukwa schema file to HBase with: \\
-
+Import the Chukwa schema file to HBase with:
 \begin{verbatim}
 $ hbase shell < $CHUKWA_HOME/etc/chukwa/hbase.schema
 HBase Shell; enter 'help<RETURN>' for list of supported commands.
@@ -1052,13 +1000,11 @@ The MapReduce jobs will generate key-value pairs for visualization by the last c
 Sometimes, you might have problem running the HICC and visiting web UI, the most probable reason is that you have incompatible jar files for Hadoop, HBase and Chukwa. In such cases, my suggestion is to clone the source code from \href{https://github.com/apache/chukwa}{github} and compile the hicc.war web archive file from source. For more information, please check the \verb|README.txt| file in the source code root directory.
 
 In summary, the data flow of Chukwa can be described with the following figure:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_06_08.png}
   \caption{Chukwa Dataflow}\label{fig:chukwa.dataflow}
 \end{figure} 
-
-%%%% Insert image 5163os_06_08.png
 For more information about the design of Chukwa, please check the \href{http://incubator.apache.org/chukwa/docs/r0.5.0/design.html}{documentation}.
 
 \subsection*{There's more...}

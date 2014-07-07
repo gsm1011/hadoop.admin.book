@@ -55,8 +55,6 @@ The architecture of a Hadoop based Big Data system can be described with the fol
   \caption{Architecture of Hadoop based big data system}\label{fig:hadoop.architecture}
 \end{figure} 
 
-%%\verb|Insert image 5163os_01_01.png|
-
 Although Hadoop borrows its idea from Google's MapReduce, it is more than MapReduce. A typical Hadoop based Big Data platform includes the Hadoop Distributed File System (HDFS\index{HDFS}), the parallel computing framework (MapReduce\index{MapReduce}) , common utilities, a column oriented data storage table (HBase\index{HBase}), high level data management systems (Pig\index{Pig} and Hive\index{Hive}), a Big Data analytics library (Mahout\index{Mahout}), a distributed coordination system (ZooKeeper\index{ZooKeeper}), a workflow management module (Oozie\index{Oozie}), data transfer modules such as Sqoop\index{Sqoop}, data aggregation modules such as Flume\index{Flume} and data serialization modules such as Avro\index{Avro}.
 
 HDFS is the default filesystem of Hadoop. It was designed as a distributed filesystem that provides high-throughput access to application data. Data on HDFS is stored as data blocks. The data blocks are replicated on several computing nodes and their checksums are computed. In case of checksum error or system failure, erroneous or lost data blocks can be recovered from backup blocks located on other nodes.
@@ -64,14 +62,11 @@ HDFS is the default filesystem of Hadoop. It was designed as a distributed files
 MapReduce\index{MapReduce} provides a programming model that transforms complex computations into computations over a set of key-value pairs. It coordinates the processing of tasks on a cluster of nodes by scheduling jobs, monitoring activity and re-executing failed tasks.
 
 In a typical MapReduce job, multiple map tasks on slave nodes are executed in parallel, generating results buffered on local machines. Once some or all of the map tasks have finished, the shuffle process begins, which aggregates the map task outputs by sorting and combining key-value pairs based on keys. Then, the shuffled data partitions are copied to reducer machine(s), most commonly, over the network. Then, reduce tasks will run on the shuffled data and generate final (or intermediate, if multiple consecutive MapReduce jobs are pipelined) results. When a job finishes, final results will reside in multiple files, depending on the number of reducers used in the job. The anatomy of the job flow can be described in the following chart:
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_01_02.png}
   \caption{Anatomy of a MapReduce job}\label{fig:mapred.job}
 \end{figure} 
-
-%%% \verb|Insert image 5163os_01_02.png|
 \subsection*{There's more}
 HDFS has two types of nodes, NameNode\index{NameNode} and DataNode. A NameNode keeps track of the filesystem metadata such as the locations of data blocks. For efficiency reasons, the metadata is kept in the main memory of a master machine. A DataNode holds physical data blocks, and communicates with clients for data reading and writing. In addition, it periodically reports a list of its hosting blocks to the NameNode in the cluster for verification and validation purposes.
 

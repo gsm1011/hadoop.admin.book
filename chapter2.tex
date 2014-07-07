@@ -72,14 +72,11 @@ The network architecture\index{network architecture} for Hadoop clusters with hu
 Nodes on the same rack can be interconnected with 1Gbps (Gigabit per second) Ethernet switch. Cluster level switches then connect the rack switches with faster links such as 10Gbps optical fiber links and other networks like InfiniBand. The cluster-level switches may also interconnect with other cluster-level switches or even uplink to another higher level of switching infrastructure. With the increasing size of a cluster, the network, at the same time, will become larger and more complex. Connection redundancies for network high availability can also increase its complexity. In this book, we assume to discuss the basic network architecture design method. If you want to learn more advanced network design techniques, please refer to related books and online materials.
 
 In general, the network architecture of medium sized cluster can be described with the following figure:
-
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.6\textwidth]{figs/5163os_02_01.png}
   \caption{Network Architecture of Hadoop Cluster}\label{fig:network.architecture}
 \end{figure} 
-
-%%Insert image 5163os_02_01.png
 In this figure, we assume there is a Hadoop cluster administrator machine and the clients connect to the cluster through a gateway\index{gateway}, through which Hadoop jobs can be submitted.
 \subsection*{How it works}
 The increasing bandwidth of network devices makes it possible for Hadoop to load and replicate large data sets across interconnected nodes. Resilient and scalable network architecture can secure the high data throughput and performance requirements for a Hadoop cluster.
@@ -110,14 +107,11 @@ We will use the DHCP server to assign IP addresses and bootstrap the operating s
 The CentOS official site provides a worldwide mirrors list, including North America, European Countries, South America, Asia, Oceania, Middle East, Africa and other regions.
 
 After selecting the nearest mirror, we can use either HTTP or FTP to download the image. Let's choose FTP as the download method by clicking the link in the corresponding line of the selected mirror. Then choose \verb|6.3/, isos/, x86_64/| consecutively. In this directory as shown in the following screenshot, we choose to download two ISO image\index{ISO image} files. Image file \verb|CentOS-6.3-x86_64-minimal.iso| contains all the necessary installation packages. And image file \verb|CentOS-6.3-x86_64-netinstall.iso| contains PXE network booting\index{PXE network booting} files used for booting over the network.
-
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.6\textwidth]{figs/5163os_02_02.png}
   \caption{Directory Listing of CentOS mirror site}\label{fig:centos.mirror}
 \end{figure} 
-
-%%Insert image 5163os_02_02.png
 If you are not sure about the architecture of the cluster machines, please refer to the product hardware menu.
 
 Alternatively, we can use the following rsync to download the image: \\
@@ -132,7 +126,7 @@ Mount the image file with command: \\
 \verb|$ sudo mount $~/isoimages/ CentOS-6.3-x86_64-minimal.iso \| \\
 \verb|~/$mnt|
 
-Copy all the files to the $~/$repo directory for FTP hosting with command: \\
+Copy all the files to the \verb|~/repo| directory for FTP hosting with command: \\
 \verb|$ cp -r $~/mnt/* ~/$repo|
 
 Un-mount the ISO image with command: \\
@@ -648,14 +642,11 @@ Or, if we would like to only use the Oracle Java, we can set PATH to be: \\
 \verb|PATH=/usr/jdk/bin:\$PATH|
 
 To download Java from Oracle, go to the \href{http://www.oracle.com/technetwork/java/javase/downloads/index.html}{official site}. Select 'Java SE Development Kit 7 Downloads', which is Java 1.7.x (Hadoop can work with Java with version $\ge$ 1.6.0). Next, click the ``Accept License Agreement'' radio button and choose jdk-7u11-linux-x64.rpm for a 64bit Linux machine. The operations are shown in the following screenshot:
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=.6\textwidth]{figs/5163os_02_04.png}
   \caption{Downloading Oracle JDK}\label{fig:oracle.jdk}
 \end{figure} 
-
-%%Insert image 5163os_02_04.png
 \subsection*{How to do it}
 Use the following recipe to install Java and other tools:
 

@@ -14,7 +14,6 @@ In this chapter, we will cover:
 The security of a Hadoop cluster is critical for its availability. Hardening a Hadoop cluster includes configuring access control over resources such as jobs, queues and various administrative services. We will introduce NameNode High Availability (HA) for the problem of single node failure. In the end, we will introduce Hadoop federation, which federates multiple machines to expand the capacity of a cluster.
 
 \section{Configuring service level authentication}
-
 The purpose of service level authentication (SLA) is to ensure that Hadoop users have the proper permission to access certain services. One use case of this configuration is to control a list of allowed users who can use the cluster. This is enforced with Access Control List (ACL) in Hadoop. In this recipe, we will list steps to configure SLA.
 
 \subsection*{Getting ready}
@@ -208,15 +207,12 @@ If you are also using CentOS or other Red Had compatible operating systems, we n
 \url{http://www.oracle.com/technetwork/java/javase/downloads/index.html}
 
 At the bottom of the web page, you should see options similar to the following:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_05_01.png}
   \caption{Architecture of Hadoop based big data system}\label{fig:hadoop.architecture}
 \end{figure} 
-
-%% Insert image 5163os_05_01.png
-
-Click the right download link based on your Java version, which we can get with the ``java -version'' command.
+Click the right download link based on your Java version, which we can get with the \verb|``java -version''| command.
 \subsection*{How to do it...}
 Use the following steps to configure Kerberos for a Hadoop cluster:
 
@@ -1113,7 +1109,7 @@ A Federated HDFS cluster is composed of one or multiple namespace volumes, which
 
 The following table shows the properties for configuring NameNode federation:
 
-\begin{table}[h]
+\begin{table}[ht]
   \centering
   \scriptsize
   \begin{tabular}{p{.2\textwidth}p{.25\textwidth}p{.55\textwidth}}

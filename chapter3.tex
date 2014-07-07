@@ -20,14 +20,11 @@ In this section, we are going to review the release\index{release} history of Ha
 
 \subsection*{Getting ready}
 In General, the release version number of a Hadoop distribution consists of three parts: the version number\index{version number}, the major revision number\index{major revision number} and the minor revision number\index{minor revision number}. A Hadoop release version can be described with the following figure:
-
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.7\textwidth]{figs/5163os_03_01.png}
   \caption{Structure of a Hadoop release version}\label{fig:hadoop.release}
 \end{figure} 
-
-%%Insert image 5163os_03_01.png
 Sometimes, the revision number can have a fourth part, for example 0.20.203.0, but this is relatively rare.
 \subsection*{How to do it...}
 The following table shows features of major Hadoop releases:
@@ -700,48 +697,35 @@ Use the following recipe to validate Hadoop cluster configuration through web us
 
 Open URL \verb|master:50030/jobtracker.jsp| with a web browser.
 The webpage will be similar to the following screenshot:
-
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.6\textwidth]{figs/5163os_03_02.png}
   \caption{Hadoop Jobtracker Web UI}\label{fig:jobtracker.webui}
 \end{figure} 
-
-%%Insert image 5163os_03_02.png
-
 The webpage shows that the Hadoop cluster contains 5 active slave nodes.
 
 Check the status each slave node by clicking the link, which lead us to a webpage similar to the following screenshot:
-
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_03_03.png}
   \caption{List of active TaskTrackers}\label{fig:active.trackers}
 \end{figure} 
-
-%%Insert image 5163os_03_03.png
-
 From this screenshot, we can easily check the status of the active TaskTrackers on the slave nodes. For example, we can see the count of failed tasks, the number of MapReduce slots and the heart beat seconds etc.
 
-Check the status of slave DataNodes by opening URL master:50070. The webpage will be similar to the following screenshot: \\
-\begin{figure}[h]
+Check the status of slave DataNodes by opening URL master:50070. The webpage will be similar to the following screenshot: 
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.6\textwidth]{figs/5163os_03_04.png}
   \caption{Hadoop HDFS NameNode Web UI}\label{fig:namenode.webui}
 \end{figure} 
-
-%%Insert image 5163os_03_04.png
 The webpage shows that the cluster is configured with 5 active nodes.
 
-By clicking the ``Live Nodes'' link we can see the details of each node as shown in the following screenshot:
+By clicking the \verb|``Live Nodes''| link we can see the details of each node as shown in the following screenshot:
 \begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_03_05.png}
   \caption{List of HDFS live DataNodes}\label{fig:hdfs.datanodes}
 \end{figure} 
-
-%%Insert image 5163os_03_05.png
-
 This webpage shows the status of each slave node including node capacity, percentage of usage and how many blocks are hosted in the node etc.
 
 Run an example teragen job to generate 10GB data on the HDFS with command:\\
@@ -753,27 +737,20 @@ When the job is running, we can check the status of the job by opening URL \href
 
 In this URL, \verb|job_201302160219_0003| is the job ID and refresh=30 tells how often the webpage should be refreshed.
 
-The job status webpage will be similar to the following screenshot: \\
-\begin{figure}[h]
+The job status webpage will be similar to the following screenshot:
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.5\textwidth]{figs/5163os_03_06.png}
   \caption{Information about a MapReduce job from the Web UI}\label{fig:mapreduce.job}
 \end{figure} 
-
-%%Insert image 5163os_03_06.png
-
 This screenshot tells us that the Hadoop cluster has been configured successfully!
 
 After the teragen job finishes, we can check the node storage space usage by opening URL \url{http://master:50070/dfsnodelist.jsp?whatNodes=LIVE}. The webpage will be similar to the following screenshot: \\
-
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_03_07.png}
   \caption{Storage information of DataNodes from the Web UI}\label{fig:hdfs.storage}
 \end{figure} 
-
-%% Insert image 5163os_03_07.png
-
 The webpage shows that a certain percentage of storage space has been used on each slave node.
 
 Sometimes, a command line based web browser can be more handy than a GUI browser, for example, we can use command \verb|elinks master:50030| to check the status of MapReduce on the master node and use command \verb|elinks master:50070| to check the status and health of HDFS.
@@ -999,13 +976,11 @@ HBase is the database based on Hadoop. It is a distributed, scalable Big Data st
 To install HBase, we assume Hadoop has been configured without any issues.
 
 Download HBase from a mirror site. Similar to downloading Hadoop, HBase is hosted on mirrors all over the world. Visit link \url{http://www.apache.org/dyn/closer.cgi/hbase/} and select the nearest mirror (the suggested mirror on the top is the optimal choice).  After selecting the mirror, follow the link to select the HBase version, we suggest the stable version, for example, follow the link \url{http://mirror.quintex.com/apache/hbase/stable/} and can see the downloadable files as shown in the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.6\textwidth]{figs/5163os_03_08.png}
   \caption{Download a stable HBase release from a mirror site}\label{fig:hbase.download}
 \end{figure} 
-
-%%Insert image 5163os_03_08.png
 Click the file link hbase-0.94.5.tar.gz to download the file to the administrator machine. Then, copy the file to the FTP repository with command: \\
 \verb|$ cp hbase-0.94.5.tar.gz ~/repo|
 

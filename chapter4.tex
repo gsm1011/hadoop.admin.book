@@ -94,13 +94,11 @@ Check the locations of file blocks with the following command: \\
 \verb|$ hadoop fsck / -files -locations|
 
 The output of this command will contain the following information:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_04_07.png}
   \caption{Block locations on HDFS}\label{fig:hdfs.block.locations}
 \end{figure} 
-
-%% Insert image 5163os_04_07.png
 The first line tells us that file \verb|part-00000| has 17 blocks in total and each block has 2 replications (replication factor has been set to 2). The following lines list the location of each block on the DataNode. For example, block \verb|blk_6733127705602961004_1127| has been replicated on hosts \verb|10.145.231.46| and \verb|10.145.223.184|. The number 50010 is the port number of the DataNode.
 
 Check the locations of file blocks containing rack information with the following command: \\
@@ -235,30 +233,23 @@ Usage: java DFSAdmin
 Besides using command line, we can use the web UI to check the status of an HDFS cluster. For example, we can get the status information of HDFS by opening the link \href{http://master:50070/dfshealth.jsp}{DFS health page}.
 
 We will get a web page that shows the summary of the HDFS cluster such as the configured capacity and remaining space. For example, the web page will be similar to the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.7\textwidth]{figs/5163os_04_08.png}
   \caption{Summary of a HDFS cluster}\label{fig:hdfs.summary}
 \end{figure} 
-
-%% Insert image 5163os_04_08.png
 By clicking on the Live Nodes link, we can check the status of each DataNode. We will get a web page similar to the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.9\textwidth]{figs/5163os_04_09.png}
   \caption{HDFS DataNode status}\label{fig:datanode.status}
 \end{figure} 
-
-%% Insert image 5163os_04_09.png
 By clicking on the link of each node, we can browse the directory of the HDFS filesystem. The web page will be similar to the following screenshot:
-
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_04_10.png}
   \caption{Content of an HDFS directory}\label{fig:content.hdfs}
 \end{figure} 
-
-%% Insert image 5163os_04_10.png
 The web page shows that file /user/hduser/randtext has been split into five partitions. We can browse the content of each partition by clicking on the part-0000x link.
 
 \subsection*{See also}
@@ -900,9 +891,6 @@ We will get output similar to the following:
   \includegraphics[width=\textwidth]{figs/5163os_04_13.png}
   \caption{MapReduce task completion events}\label{fig:task.events}
 \end{figure} 
-
-%% Insert image 5163os_04_13.png
-
 Get the job history including job details, failed and killed jobs, and so on with the following command: 
 \begin{verbatim}
 $hadoop job -history
@@ -978,9 +966,6 @@ After the task is killed, the JobTracker will restart the task on a different no
   \includegraphics[width=\textwidth]{figs/5163os_04_14.png}
   \caption{Status of killed tasks}\label{fig:mapred.killed.tasks}
 \end{figure} 
-
-%% Insert image 5163os_04_14.png
-
 Hadoop JobTracker can automatically kill tasks in the following situations:
 \begin{itemize}
   \item A task does not report progress after timeout
@@ -1020,8 +1005,6 @@ We will get a web page similar to the following screenshot:
   \includegraphics[width=\textwidth]{figs/5163os_04_11.png}
   \caption{MapReduce Job and Scheduling information}\label{fig:mapred.status}
 \end{figure} 
-
-%% Insert image 5163os_04_11.png
 From this web page, we can get the cluster summary information, the scheduling information, the running jobs list, the completed jobs list, and the retired jobs list. By clicking on a specific job link, we can check the details of a job, or we can open the URL, \url{http://master:50030/jobdetails.jsp?jobid=job_201302281451_0004&refresh=30}. By specifying the refresh parameter, we can tell the web page to refresh every 30 seconds.
 
 Kill a job by opening the URL, \verb|master:50030/jobdetails.jsp?jobid=job_201302281451_0007&action=kill|.
@@ -1032,8 +1015,6 @@ After a while, the killed job will be listed in the Failed Jobs list as shown in
   \includegraphics[width=\textwidth]{figs/5163os_04_12.png}
   \caption{Information of a Failed job}\label{fig:failed.job}
 \end{figure} 
-
-%% Insert image 5163os_04_12.png
 Change the job priority to be HIGH by opening the URL, \verb|master:50030/jobdetails.jsp?jobid=job_201302281451_0007&action=changeprio&prio=HIGH|. \\
 \subsection*{See also}
 \begin{itemize}
@@ -1052,65 +1033,53 @@ Perform the following steps to check job history logs from web UI:\\
 
 Open the job history URL, \url{http://master:50030/jobhistoryhome.jsp}. \\
 We will be able to get a web page similar to the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_04_01.png}
   \caption{History jobs}\label{fig:history.jobs}
 \end{figure} 
-
-%% Insert image 5163os_04_01.png
 On the web UI, we can filter jobs based on the username and job name in the format username:jobname as shown in the screenshot. username should be the username that runs a certain job, and job name should contain keywords of Hadoop jobs.
 
 From the web UI, we will be able to get a list of jobs in the Available Jobs in History section. By clicking on the Job Id link of a job, we can get the details of the job as shown in the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_04_02.png}
   \caption{History of a specific job}\label{fig:specific.job.history}
 \end{figure} 
-
-%% Insert image 5163os_04_02.png
 This web page shows the details of the job, including task information such as total, successful, failed, and killed tasks. The information also includes the start time and end time of four phases of a Hadoop job including setup, map, reduce, and cleanup phases.
 
 The web page also contains information of counters of the job as shown in the lower part of the screenshot.
 
 In addition to the summary of job information, the web UI provides interface for us to analyze a job. By clicking on the link Analyze This Job, we will go to a web page similar to the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_04_03.png}
   \caption{Statistics of tasks for a job}\label{fig:task.statistics}
 \end{figure} 
-
-%% Insert image 5163os_04_03.png
 The web page contains information of simple time analytics for each task, for example the best performing tasks that take the shortest time, the worse performing tasks, and the average time taken by all the tasks.
 
 To further check the information of a task, we can click on the link for the task, and we will get a web page similar to the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.7\textwidth]{figs/5163os_04_04.png}
   \caption{Information of a task}\label{fig:task.info}
 \end{figure} 
-
-%% Insert image 5163os_04_04.png
 We can get the counters of a task by clicking on the Counters field of the task as shown in the preceding screenshot, or we can get the same web page by opening URL \url{http://master:50030/taskstats.jsp?tipid=task_201302281211_0001_m_000000}.
 
 In this URL, \verb|task_201302281211_0001_m_000000| is the task ID we want to get counters for.
 
 We will be able to get task counters as shown in the following screenshot: 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_04_05.png}
   \caption{Task Counters}\label{fig:task.counters}
 \end{figure} 
-
-%% Insert image 5163os_04_05.png
 In addition to all these web services, the web UI provides a graphical display of the progress of Hadoop jobs and each phase as shown in the following screenshot: \\
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_04_06.png}
   \caption{Progress of map and reduce tasks from the web UI}\label{fig:mapreduce.progress}
 \end{figure} 
-
-%% Insert image 5163os_04_06.png
 This screenshot shows the progress of each map and reduce task. The reduce task is composed of three phases, the shuffle phase, the sort phase, and the reduce phase, with each phase composing of 1/3 of the total reduce task.
 
 \subsection*{How it works...}
@@ -1551,25 +1520,19 @@ Restart the MapReduce cluster with the following commands: \\
 \verb|$ start-mapred.sh| 
 
 From the JobTracker web UI, we can get a queue scheduling information web page similar to the following screenshot: \\
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.65\textwidth]{figs/5163os_04_17.png}
   \caption{Hadoop MapReduce job Scheduling information}\label{fig:mapred.scheduling}
 \end{figure} 
-
-%% Insert image 5163os_04_17.png 
-
 Alternatively, we can use the command hadoop queue -list to get the same information. 
 
 Get the schedule details of each queue by opening the URL, master:50030/scheduler, and we can get a web page similar to the following: 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_04_18.png}
   \caption{Job Scheduler Queues}\label{fig:job.queues}
 \end{figure} 
-
-%% Insert image 5163os_04_18.png
-
 This screenshot shows the status of each queue in the cluster including the numbers of running jobs, pending jobs, and so on. 
 
 Test the queue configuration by submitting an example wordcount job to the queue hdqueue using the following command: \\ 
@@ -1585,7 +1548,7 @@ CapacityScheduler is available as a JAR file under the \verb|$HADOOP_HOME/lib| d
 
 The following table shows the description of queue configuration properties: 
 
-\begin{table}[h]
+\begin{table}[ht]
   \scriptsize
   \centering
   \begin{tabular}{p{.5\textwidth}p{.5\textwidth}}
@@ -1658,13 +1621,11 @@ Restart the MapReduce cluster with the following commands: \\
 Verify the setting of Fair Scheduler by opening the URL \url{http://master:50030/scheduler}.
 
 The web page will be similar to the following screenshot:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figs/5163os_04_16.png}
   \caption{Status of fair scheduler}\label{fig:fairscheduler}
 \end{figure} 
-
-%% Insert image 5163os_04_16.png
 \subsection*{How it works...}
 The Hadoop Fair Scheduler schedules jobs in such a way that all jobs can get an equal share of computing resources. Jobs are organized with scheduling pools. A pool can be configured for each Hadoop user. If the pool for a user is not configured, the default pool will be used. A pool specifies the amount of resources a user can share on the cluster, for example the number of map slots, reduce slots, the total number of running jobs, and so on.
 
@@ -1673,8 +1634,7 @@ The Hadoop Fair Scheduler schedules jobs in such a way that all jobs can get an 
 Besides computing slots, the Fair Scheduler can limit the number of concurrently running jobs and tasks on a pool. So, if a user submits more jobs than the configured limit, some jobs have to in-queue until other jobs finish. In such a case, higher priority jobs will be scheduled by the Fair Scheduler to run earlier than lower priority jobs. If all jobs in the waiting queue have the same priority, the Fair Scheduler can be configured to schedule these jobs with either Fair Scheduler or FIFO Scheduler.
 
 The following table shows the properties supported by fair scheduler:
-
-\begin{table}[h]
+\begin{table}[ht]
   \centering
   \scriptsize
   \begin{tabular}{llp{10cm}}
@@ -1767,8 +1727,7 @@ By default, Hadoop sends log messages to Log4j, which is configured in the file 
 
 Hadoop supports a number of log levels for different purposes. The log level should be tuned based on the purpose of logging. For example, if we are debugging a daemon, we can set its logging level to be DEBUG rather than something else. Using a verbose log level can give us more information, while on the other hand will incur overhead to the cluster.
 
-The following table shows all the logging levels provided by Log4j: \\
-
+The following table shows all the logging levels provided by Log4j:
 \begin{table}
   \begin{tabular}{ll}
     \toprule 
@@ -1812,7 +1771,6 @@ Configure the logging directory to \verb|/var/log/hadoop| by changing the follow
 \verb|export HADOOP_LOG_DIR=/var/log/hadoop|
 
 Additionally, the following table shows other environment variables we can configure for Hadoop logging:
-
 \begin{table}\scriptsize
   \begin{tabular}{ll}
     \toprule 
@@ -1846,13 +1804,11 @@ On the master node, the logs directory contains a history folder that contains l
 
 In Hadoop, the names of logging files are using the following format: \\
 \verb|$ hadoop-<username>-<daemonname>-<hostname>.log |
-
 \subsection*{See also}
 \begin{itemize}
   \item The Configuring Hadoop audit logging recipe
   \item Refer to \url{http://wiki.apache.org/hadoop/HowToConfigure}
 \end{itemize}
-
 \section{Configuring Hadoop audit logging}
 Audit logging might be required for data processing systems such as Hadoop. In Hadoop, audit logging has been implemented using the Log4j Java logging library at the INFO logging level. By default, Hadoop audit logging is disabled. This recipe will guide you through the steps to configure Hadoop audit logging.
 
@@ -1953,7 +1909,6 @@ for node in `cat $HADOOP_HOME/conf/slaves`
   ssh $node -C "jps"
 done
 \end{verbatim}
-
 If any DataNode process is still running, kill the process with the following command: \\
 \verb|$ ssh $node -C "jps | grep 'DataNode' | cut -d'\t' -f 1 | xargs kill -9 "|
 

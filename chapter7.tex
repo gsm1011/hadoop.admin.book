@@ -333,8 +333,7 @@ BigMapOutput -input <input-dir> -output <output-dir> [-create <filesize in MB>]
 \end{verbatim}
 The \verb|-input| and \verb|-output| options are mandatory for this benchmark and \verb|-create| option, which specifies the file size that is to read created is optional.
 
-We can get the usage of the mapredtest benchmark with command:\\
-
+We can get the usage of the mapredtest benchmark with command:
 \begin{verbatim}
 $ hadoop jar $HADOOP_HOME/hadoop-test-*.jar mapredtest
 Usage: TestMapRed <range> <counts>
@@ -392,8 +391,8 @@ The usage for randomwriter is as follows: \\
 The usage for sort is as follows: \\
 \verb|$ sort [-m <maps>] [-r <reduces>] [-inFormat <input format class>] [-outFormat <output format class>] [-outKey <output key class>] [-outValue <output value class>] [-totalOrder <pcnt> <num samples> <max splits>] <input> <output> | \\
 
-The meaning of each option is shown in the following table: \\
-\begin{table}[h]
+The meaning of each option is shown in the following table:
+\begin{table}[ht]
   \centering
   \begin{tabular}{ll}
     \toprule
@@ -789,8 +788,7 @@ logs/history/job_201304012330_0001_1364874504561_hduser_TeraGen
 The first xml file in the output is the job configuration file and the second one is the job log file.
 
 Use Vaidya to analyze the job trace files with command: \\
-\verb|$ sh $HADOOP_HOME/contrib/vaidya/bin/vaidya.sh -jobconf file:///usr/local/hadoop/logs/history/job_201304012330_0002_conf.xml -joblog file:///usr/local/hadoop/logs/history/job_201304012330_0002_1364874504561_hduser_TeraGen -report report.txt | \\
-
+\verb|$ sh $HADOOP_HOME/contrib/vaidya/bin/vaidya.sh -jobconf file:///usr/local/hadoop/logs/history/job_201304012330_0002_conf.xml -joblog file:///usr/local/hadoop/logs/history/job_201304012330_0002_1364874504561_hduser_TeraGen -report report.txt |
 \begin{info}
 Note that the file location should be an absolute path including the schema, which is either \verb|hdfs://| or \verb|file://|.
 \end{info}
@@ -887,13 +885,11 @@ Use the following recipe to balance HDFS data blocks with balancer:
 Check the data skew through the web UI, for example, by opening URL \url{http://master:50070/}
 
 The webpage will be similar to the following:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_07_01.png}
   \caption{The Skewed Datanode}\label{fig:skewed.datanode}
 \end{figure} 
-
-%% Insert image 5163os_07_01.png
 The screenshot shows that the data blocks are skewed. Hence, rebalancing is necessary.
 
 Use the following command to balance the data blocks on the DataNode machines: \\
@@ -1046,8 +1042,7 @@ Restart the Hadoop cluster with command: \\
 
 \subsection*{How it works...}
 The following table is a summary of properties for configuring Hadoop data compression:
-
-\begin{table}[h]
+\begin{table}[ht]
   \begin{tabular}{ll}
     \toprule
     \textbf{Property}  & \textbf{Default} \\ \midrule
@@ -1061,8 +1056,7 @@ The following table is a summary of properties for configuring Hadoop data compr
 \end{table}
 
 Available compression codecs are described in the following table:
-
-\begin{table}[h]
+\begin{table}[ht]
   \centering
   \begin{tabular}{ll}
     \toprule
@@ -1164,14 +1158,12 @@ Started the MapReduce cluster with the following command:\\
 \subsection*{How it works...}
 When speculative execution is enabled, some tasks will get killed. This can be verified by opening URL: \url{http://master:50030/}.
 
-The web page will be similar to the following screenshot:\\
-\begin{figure}[h]
+The web page will be similar to the following screenshot:
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.8\textwidth]{figs/5163os_06_10.png}
   \caption{Killed Attempts due to Speculative Execution}\label{fig:killed.jobs.speculative}
 \end{figure} 
-
-%%Insert image 5163os_07_03.png
 If speculative execution has been enabled for a Hadoop cluster, we can still disable it for specific jobs. For example, when we write MapReduce jobs using Java programming language, we can use the following code snippet to disable speculative execution for this job:
 \begin{verbatim}
 Configuration conf = new Configuration();
@@ -1180,8 +1172,7 @@ conf.set("mapred.reduce.tasks.speculative.execution", "false");
 \end{verbatim}
 
 The following table is a summary of the properties we used in this recipe with their default values:
-
-\begin{table}[h]
+\begin{table}[ht]
   \centering
   \begin{tabular}{ll}
     \toprule
@@ -1195,7 +1186,7 @@ The following table is a summary of the properties we used in this recipe with t
   \caption{Hadoop Speculative Execution properties}\label{tbl:speculative}
 \end{table}
 
-The three properties mapreduce.job.speculative.speculativecap, \emph{mapreduce.job.speculative.slowtaskthreshold} and \emph{mapreduce.job.speculative.slownodethreshold} control when the JobTracker should start a speculative task. Specifically, a speculative task for a regular task will be started if the following conditions are met: \\
+The three properties mapreduce.job.speculative.speculativecap, \emph{mapreduce.job.speculative.slowtaskthreshold} and \emph{mapreduce.job.speculative.slownodethreshold} control when the JobTracker should start a speculative task. Specifically, a speculative task for a regular task will be started if the following conditions are met:
 \begin{itemize}
   \item Speculative execution is enabled
   \item The completion rate, in percentage, of the regular task is less than \emph{mapreduce.job.speculative.slowtaskthreshold} times the mean completion rate of all other tasks.
@@ -1233,7 +1224,6 @@ Similarly, we can configure the number of reduce slots for a TaskTracker:
 </property>
 \end{verbatim}
 
-
 Configure the memory usage for each slot by adding the following property:
 \begin{verbatim}
 <property>
@@ -1242,7 +1232,6 @@ Configure the memory usage for each slot by adding the following property:
 </property>
 \end{verbatim}
 
-
 Sync the configuration to all the slave nodes with command:
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`; do
@@ -1250,7 +1239,6 @@ for host in `cat $HADOOP_HOME/conf/slaves`; do
   scp $HADOOP_HOME/conf/mapred-site.xml $host:$HADOOP_HOME/conf/
 done
 \end{verbatim}
-
 
 Start the MapReduce cluster with command: \\
 \verb|$ start-mapred.sh|
@@ -1279,7 +1267,6 @@ Configure the maximum number of tasks for a job by changing the following proper
 \end{verbatim}
 The default value of this property is -1, which ignores the limit.
 
-
 Configure JobTracker to recover upon restart by changing the following property:
 \begin{verbatim}
 <property>
@@ -1288,7 +1275,6 @@ Configure JobTracker to recover upon restart by changing the following property:
 </property>
 \end{verbatim}
 By default this property is disabled, the JobTracker will start from fresh.
-
 
 Configure the block size for the job history file by changing property:
 \begin{verbatim}
@@ -1299,7 +1285,6 @@ Configure the block size for the job history file by changing property:
 \end{verbatim}
 
 The job history data, which will be dumped to disk, will be used for job recovery.
-
 
 Configure the task scheduler for the JobTracker by changing property:
 \begin{verbatim}
@@ -1335,8 +1320,7 @@ Restart the Hadoop cluster with command: \\
 
 \subsection*{How it works}
 The following table is a list of properties with descriptions of this recipe:
-
-\begin{table}[h]
+\begin{table}[ht]
   \centering
   \begin{tabular}{lll}
     \toprule
@@ -1382,7 +1366,6 @@ Configure the MapReduce cluster heartbeat interval by changing the following pro
 
 This property specifies the heartbeat time interval, in milliseconds, after which it will be marked lost by the JobTracker.
 
-
 Configure the sleep time before sending the SIGKILL signal by changing the following property:
 \begin{verbatim}
 <property>
@@ -1393,7 +1376,6 @@ Configure the sleep time before sending the SIGKILL signal by changing the follo
 
 This property configures the sleep time in milliseconds that the TaskTracker waits before sending a SIGKILL signal to a process after it has been sent a SIGTERM signal. Its default value is 5000ms.
 
-
 Enable TaskTracker memory management by changing the following property:
 \begin{verbatim}
 <property>
@@ -1401,7 +1383,6 @@ Enable TaskTracker memory management by changing the following property:
   <value>true</value>
 </property>
 \end{verbatim}
-
 
 Configure the TaskTracker index cache size to be 20MB by changing the following property:
 \begin{verbatim}
@@ -1413,7 +1394,6 @@ Configure the TaskTracker index cache size to be 20MB by changing the following 
 
 This property configures the maximum memory that a TaskTracker uses for index cache when serving map output to reducers.
 
-
 Configure the monitoring interval for the TaskTracker's task memory manager by changing the following property:
 \begin{verbatim}
 <property>
@@ -1422,7 +1402,6 @@ Configure the monitoring interval for the TaskTracker's task memory manager by c
 </property>
 \end{verbatim}
 This property configures the interval, in milliseconds, that the TaskTracker monitors the tasks' memory usage. It is only meaningful when tasks' memory management has been enabled using property mapred.tasktracker.tasks.maxmemory.
-
 
 Configure TaskTracker to send an out-of-band heartbeat on task completion by changing the following property:
 \begin{verbatim}
@@ -1434,7 +1413,6 @@ Configure TaskTracker to send an out-of-band heartbeat on task completion by cha
 
 The default value for this property is false, which disables the out-of-band heartbeat. Enabling this property can achieve better latency.
 
-
 Configure the maximum number of retries for a map task by changing the following:
 \begin{verbatim}
 <property>
@@ -1445,7 +1423,6 @@ Configure the maximum number of retries for a map task by changing the following
 
 By this configuration, a failed task will be retried up to 3 times before being declared failed.
 
-
 Configure the maximum number of retries for a failed reduce task by changing the following:
 \begin{verbatim}
 <property>
@@ -1455,7 +1432,6 @@ Configure the maximum number of retries for a failed reduce task by changing the
 \end{verbatim}
 Similar to the max attempts configuration for a map task, this property configures to retry a failed reduce task up to 3 times before declaring failed.
 
-
 Sync the configuration from the master node to all the slave nodes with command:
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`; do
@@ -1464,13 +1440,12 @@ for host in `cat $HADOOP_HOME/conf/slaves`; do
 done
 \end{verbatim}
 
-
 Restart the MapReduce cluster with the following command: \\
 \verb|$ start-mapred.sh|
 
 \subsection*{How it works}
-The following table contains a list of properties with descriptions of this recipe: \\
-\begin{table}[h]
+The following table contains a list of properties with descriptions of this recipe:
+\begin{table}[ht]
   \centering
   \begin{tabular}{lll}
     \toprule
@@ -1490,7 +1465,6 @@ The following table contains a list of properties with descriptions of this reci
 \begin{itemize}
   \item Tuning JobTracker configuration
 \end{itemize}
-
 \section{Tuning shuffle, merge and sort parameters}
 In a MapReduce job, map task outputs are aggregated into JVM buffers. The size of the in-memory buffer determines how large the data can be merged and sorted at once. Too small buffer size can cause large number of swap operations, incurring big overhead. In this section, we will show best practices for configuring the shuffle, merge and sort parameters.
 \subsection*{Getting ready}
@@ -1516,7 +1490,6 @@ Configure the buffer size, in megabytes, for sorting by changing property:
 
 To minimize seeks, we typically assign 1MB for each merge stream.
 
-
 Configure the merge factor by changing the following property:
 \begin{verbatim}
 <property>
@@ -1526,7 +1499,6 @@ Configure the merge factor by changing the following property:
 \end{verbatim}
 
 This property configures the number of data streams to merge when sorting files. It determines the number of opening file handles. The default value of this property is 10.
-
 
 Change the percentage of buffer dedicated for record collection by changing the following property:
 \begin{verbatim}
@@ -1545,7 +1517,6 @@ Change the spill factor for buffers by changing the following property:
 </property>
 \end{verbatim}
 This property enforces a soft limit on the in-memory buffer used for sorting or record collection. A background thread will start to spill data to disk if the limit is reached. This value should be no smaller than 0.5.
-
 
 Configure the in memory merge threshold by changing the following property:
 \begin{verbatim}
@@ -1567,7 +1538,6 @@ Configure the percentage of memory to be allocated from the maximum heap size to
 \end{verbatim}
 
 This property configures the percentage, in terms of the maximum heap size, of memory used to store map outputs during the shuffle phase.
-
 
 Configure the threshold to start the in memory merge by changing property:
 \begin{verbatim}
@@ -1592,7 +1562,6 @@ This property configures a percentage threshold, in terms of the maximum heap si
 
 The default value for this property is 0.0, which means no map output memory consumption threshold is needed to start the reduce phase.
 
-
 Configure the maximum retries in case of fetch failures by changing the following property:
 \begin{verbatim}
 <property>
@@ -1603,7 +1572,6 @@ Configure the maximum retries in case of fetch failures by changing the followin
 
 This property configures the maximum number of reducer retries to fetch map outputs in case of fetch failure.
 
-
 Sync the configuration from the master node to all the slave nodes in the cluster with command:
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`; do
@@ -1612,14 +1580,13 @@ for host in `cat $HADOOP_HOME/conf/slaves`; do
 done
 \end{verbatim}
 
-
 Restart the MapReduce cluster with the following command: \\
 \verb|$ start-mapred.sh|
 
 \subsection*{How it works}
 The following table show the description of the properties and their default values mentioned in the recipe: \\
 
-\begin{table}[h]
+\begin{table}[ht]
   \centering
   \begin{tabular}{ll}
     \toprule
@@ -1686,7 +1653,6 @@ Configure the maximum virtual memory size for a map task used by a scheduler by 
 
 This property is similar to property  mapred.cluster.map.memory.mb, although it configures the maximum memory size.
 
-
 Configure the maximum virtual memory size for a reduce task used by a scheduler by changing the following property:
 \begin{verbatim}
 <property>
@@ -1694,7 +1660,6 @@ Configure the maximum virtual memory size for a reduce task used by a scheduler 
   <value>512</value>
 </property>
 \end{verbatim}
-
 
 Configure the maximum virtual memory size for a single map task for the job used by a scheduler by changing the following property:
 \begin{verbatim}
@@ -1704,8 +1669,7 @@ Configure the maximum virtual memory size for a single map task for the job used
 </property>
 \end{verbatim}
 
-The default value for this task is -1, which ignores this property.
-
+The default value for this task is \verb|-1|, which ignores this property.
 
 Configure the maximum virtual memory size for a single reduce task for the job used by a scheduler by changing the following property:
 \begin{verbatim}
@@ -1714,7 +1678,6 @@ Configure the maximum virtual memory size for a single reduce task for the job u
   <value>0.8</value>
 </property>
 \end{verbatim}
-
 
 Sync the configuration from the master node to all the slave nodes in the cluster with command:
 \begin{verbatim}
@@ -1725,14 +1688,12 @@ do
 done
 \end{verbatim}
 
-
 Start the Hadoop cluster with the following command: \\
 \verb|$ start-mapred.sh|
 
 \subsection*{How it works...}
 The following table lists the properties in the recipe that their descriptions.
-
-\begin{table}[h]
+\begin{table}[ht]
   \centering
   \begin{tabular}{lll}
     \toprule
@@ -1778,7 +1739,6 @@ Add or change, if it already exists, the following property:
 
 This configuration changes the number of parallel copies to 20 from the default value 10.
 
-
 Sync the configuration to all the nodes in the cluster with command:
 \begin{verbatim}
 for host in `cat $HADOOP_HOME/conf/slaves`; do
@@ -1786,7 +1746,6 @@ for host in `cat $HADOOP_HOME/conf/slaves`; do
   scp $HADOOP_HOME/conf/mapred-site.xml $host:$HADOOP_HOME/conf/
 done
 \end{verbatim}
-
 
 Restart the Hadoop cluster with the following command: \\
 \verb|$ start-mapred.sh|
@@ -1820,8 +1779,7 @@ Open file \verb|$HADOOP_HOME/conf/mapred-site.xml| and add or change, if it alre
 
 This property configures the JVM options for TaskTracker child processes, which by default will have the same options as the TaskTracker.
 
-Alternatively, we can separately configure the JVM options for the map processes and reduce processes by changing properties mapred.map.child.java.opts and mapred.reduce.child.java.opts.
-
+Alternatively, we can separately configure the JVM options for the map processes and reduce processes by changing properties \verb|mapred.map.child.java.opts| and \verb|mapred.reduce.child.java.opts|.
 
 Copy the configuration from the master node to all the slave nodes in the cluster with command:
 \begin{verbatim}
@@ -1830,7 +1788,6 @@ for host in `cat $HADOOP_HOME/conf/slaves`; do
   scp $HADOOP_HOME/conf/mapred-site.xml $host:$HADOOP_HOME/conf/
 done
 \end{verbatim}
-
 
 Start the MapReduce cluster with the following commands: \\
 \verb|$ start-all.sh|
@@ -1864,7 +1821,7 @@ Open file \verb|$HADOOP_HOME/conf/mapred-site.xml| and add or change, if it alre
 </property>
 \end{verbatim}
 
-This property configures one JVM to run two tasks. The default value of this property is 1, which disables JVM reuse. If this property is set to -1, the number of tasks a JVM can execute is unlimited.
+This property configures one JVM to run two tasks. The default value of this property is \verb|1|, which disables JVM reuse. If this property is set to \verb|-1|, the number of tasks a JVM can execute is unlimited.
 
 Sync the configuration file to all the slave nodes with command:
 \begin{verbatim}
@@ -1873,7 +1830,6 @@ for host in `cat $HADOOP_HOME/conf/slaves`; do
   scp $HADOOP_HOME/conf/mapred-site.xml $host:$HADOOP_HOME/conf/
 done
 \end{verbatim}
-
 
 Start the Hadoop cluster with the following command: \\
 \verb|$ start-mapred.sh|
@@ -1903,7 +1859,6 @@ Open file \verb|$HADOOP_HOME/conf/mapred-site.xml| and add or change, if it alre
   <value>0.05</value>
 </property>
 \end{verbatim}
-
 
 Sync the configuration file to all the slave nodes with command:
 \begin{verbatim}
