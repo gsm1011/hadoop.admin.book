@@ -71,7 +71,7 @@ The network architecture\index{network architecture} for Hadoop clusters with hu
 
 Nodes on the same rack can be interconnected with 1Gbps (Gigabit per second) Ethernet switch. Cluster level switches then connect the rack switches with faster links such as 10Gbps optical fiber links and other networks like InfiniBand. The cluster-level switches may also interconnect with other cluster-level switches or even uplink to another higher level of switching infrastructure. With the increasing size of a cluster, the network, at the same time, will become larger and more complex. Connection redundancies for network high availability can also increase its complexity. In this book, we assume to discuss the basic network architecture design method. If you want to learn more advanced network design techniques, please refer to related books and online materials.
 
-In general, the network architecture of medium sized cluster can be described with the following figure:
+In general, the network architecture of medium sized cluster can be described in Figure \ref{fig:network.architecture}.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=.6\textwidth]{figs/5163os_02_01.png}
@@ -110,7 +110,7 @@ We will use the DHCP server to assign IP addresses and bootstrap the operating s
 \subsection*{Download the latest ISO image from a mirror}
 The CentOS official site provides a worldwide mirrors list, including North America, European Countries, South America, Asia, Oceania, Middle East, Africa and other regions.
 
-After selecting the nearest mirror, we can use either HTTP or FTP to download the image. Let's choose FTP as the download method by clicking the link in the corresponding line of the selected mirror. Then choose \verb|6.3/, isos/, x86_64/| consecutively. In this directory as shown in the following screenshot, we choose to download two ISO image\index{ISO image} files. Image file \verb|CentOS-6.3-x86_64-minimal.iso| contains all the necessary installation packages. And image file \verb|CentOS-6.3-x86_64-netinstall.iso| contains PXE network booting\index{PXE network booting} files used for booting over the network.
+After selecting the nearest mirror, we can use either HTTP or FTP to download the image. Let's choose FTP as the download method by clicking the link in the corresponding line of the selected mirror. Then choose \verb|6.3/, isos/, x86_64/| consecutively. In this directory as shown in Figure \ref{fig:centos.mirror}, we choose to download two ISO image\index{ISO image} files. Image file \verb|CentOS-6.3-x86_64-minimal.iso| contains all the necessary installation packages. And image file \verb|CentOS-6.3-x86_64-netinstall.iso| contains PXE network booting\index{PXE network booting} files used for booting over the network.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=.6\textwidth]{figs/5163os_02_02.png}
@@ -663,7 +663,7 @@ Suppose we have both OpenJDK and Oracle Java\index{Oracle Java} installed in \ve
 Or, if we would like to only use the Oracle Java, we can set PATH to be: \\
 \verb|PATH=/usr/jdk/bin:\$PATH|
 
-To download Java from Oracle, go to the \href{http://www.oracle.com/technetwork/java/javase/downloads/index.html}{official site}. Select 'Java SE Development Kit 7 Downloads', which is Java 1.7.x (Hadoop can work with Java with version $\ge$ 1.6.0). Next, click the ``Accept License Agreement'' radio button and choose jdk-7u11-linux-x64.rpm for a 64bit Linux machine. The operations are shown in the following screenshot:
+To download Java from Oracle, go to the \href{http://www.oracle.com/technetwork/java/javase/downloads/index.html}{official site}. Select 'Java SE Development Kit 7 Downloads', which is Java 1.7.x (Hadoop can work with Java with version $\ge$ 1.6.0). Next, click the ``Accept License Agreement'' radio button and choose jdk-7u11-linux-x64.rpm for a 64bit Linux machine. The operations are shown in Figure \ref{fig:oracle.jdk}.
 \begin{figure}[h]
   \centering
   \includegraphics[width=.6\textwidth]{figs/5163os_02_04.png}
