@@ -119,7 +119,7 @@
 
 %% line spread for verbatim to 1.
 \makeatletter
-\def\verbatim@font{\linespread{1}\normalfont\ttfamily}
+\def\verbatim@font{\linespread{.75}\normalfont\ttfamily}
 \makeatother
 
 \overfullrule=1mm
@@ -144,12 +144,12 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % no indentation
-\setlength\parindent{0pt}
+%%\setlength\parindent{0pt}
 \setlength\parskip{1pt}
 
 % line spacing
-%%\linespread{1.5}
-
+%%\linespread{1}
+\singlespacing
 \begin{document}
 \frontmatter                            % only in book class (roman page #s)
 % title page.

@@ -283,12 +283,12 @@ Stop the cluster using the following command: \\
 \verb|$ stop-all.sh|
 
 Add or change the following into the file \verb|$HADOOP_HOME/conf/hdfs-site.xml|: 
-\begin{verbatim}[language=XML]
+\begin{lstlisting}[language=XML]
 <property>
     <name>fs.checkpoint.dir</name>
     <value>/hadoop/dfs/namesecondary</value>
 </property>
-\end{verbatim}
+\end{lstlisting}
 
 If this property is not set explicitly, the default checkpoint\index{checkpoint} directory will be \verb|${hadoop.tmp.dir}/dfs/namesecondary|.
 
