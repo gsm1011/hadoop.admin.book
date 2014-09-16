@@ -11,3 +11,5 @@ This book contains the following chapters:
 - Monitoring a hadoop cluster (Ganglia and Nagios) 
 - Tunning a hadoop cluster for best performance 
 - Building a hadoop cluster with Amazon EC2 and S3
+
+You can download the compiled PDF file from [here](https://drive.google.com/file/d/0BxgpWSybXuXNWDlFeUhudFVOTFU/edit?usp=sharing). Please note that, the PDF version might not be the most updated version, so compiling from `.tex` source is recommended.  
